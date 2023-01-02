@@ -1,27 +1,28 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 
-// Composants permanents
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-// Différentes pages
+// Pages
+import Connection from "./pages/Connection";
 import Home from "./pages/Home";
+import AddPost from "./pages/AddPost";
 import Error from "./pages/Error";
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        {/* <Route path="/PageOne" element={<PageOne />} />
-        <Route path="/Stuff/:id" element={<Stuff />} /> */}
-        <Route path="*" element={<Error />} />
-      </Routes>
-      <Footer />
-    </div>
-  );
-}
+const App = () => {
+    return (
+        <div className="App">
+            <Header />
+            <Routes>
+                <Route path="/" element={<Connection />} />
+                <Route path="/Home" element={<Home />} />
+                <Route path="/AddPost" element={<AddPost />} />
+                <Route path="*" element={<Error />} />
+            </Routes>
+            <Footer />
+        </div>
+    );
+};
 
 export default App;

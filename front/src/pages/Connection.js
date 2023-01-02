@@ -1,15 +1,16 @@
 //Créer un compte
 // Se connecter
 // Se déconnecter
-// Mail et mdp
-// Sécurité mail et mdp comme p6
+// Session s'arrête quand user se déconnecte
 
-// Session s'arrête quand user se déconnecter
+import React from "react";
+import Button from "../components/Button";
+import image from "../assets/icon-left-font-monochrome-black.svg";
+
 const Connection = () => {
     return (
         <section className="main-container">
             <img src={image} alt="Logo de Groupomania"></img>
-
             <div className="connection-container">
                 <form className="connection">
                     <label>
