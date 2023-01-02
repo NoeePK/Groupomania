@@ -21,9 +21,8 @@ const Connection = () => {
                         Mot de passe
                         <input type="password" name="passeword" required />
                     </label>
-                    <input type="submit" value="Submit">
-                        <Button text="Se connecter" />
-                    </input>
+                    
+                    <Button text="Se connecter" type="submit" value="Submit" />
                 </form>
             </div>
         </section>
