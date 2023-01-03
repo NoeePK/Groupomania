@@ -1,6 +1,9 @@
 // Modifier et supprimer ses posts
 // Système de like
 
+import Button from "../components/Button";
+import Header from "../components/Header";
+
 const Publish = () => {
     return (
         <>
