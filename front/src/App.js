@@ -1,23 +1,25 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
-import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 // Pages
-import Connection from "./pages/Connection";
 import Home from "./pages/Home";
-import AddPost from "./pages/AddPost";
+import Publish from "./pages/Publish";
 import Error from "./pages/Error";
+import SignInUp from "./pages/SignInUp";
+import Identification from "./pages/Identification";
+
+// AJouter une page à propos avec règles de bienséance et l'explication du brief sur la raison de l'existence du site ?
 
 const App = () => {
     return (
         <div className="App">
-            <Header />
             <Routes>
-                <Route path="/" element={<Connection />} />
+                <Route path="/" element={<Identification />} />
+                <Route path="/SignInUp" element={<SignInUp />}></Route>
+
                 <Route path="/Home" element={<Home />} />
-                <Route path="/AddPost" element={<AddPost />} />
+                <Route path="/AddPost" element={<Publish />} />
                 <Route path="*" element={<Error />} />
             </Routes>
             <Footer />
