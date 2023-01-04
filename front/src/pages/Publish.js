@@ -13,6 +13,10 @@ const Publish = () => {
 
                 <form className="publish-form">
                     <label>
+                        Titre
+                        <input type="text" name="title" required></input>
+                    </label>
+                    <label>
                         Prénom
                         <input type="text" name="firstName"></input>
                     </label>

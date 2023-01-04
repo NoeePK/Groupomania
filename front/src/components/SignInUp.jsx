@@ -20,7 +20,7 @@ const SignInUp = (props) => {
 
                 <Button text={props.title} type="submit" value="Submit" />
             </form>
-            <Link to="/Identification">Retourner sur la page précédente</Link>
+            <Link to="/Identification" onClick={props.button}>{props.text}</Link>
         </section>
     );
 };

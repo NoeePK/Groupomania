@@ -2,7 +2,7 @@
 // Récent au + ancien
 
 import React from "react";
-import Card from "../components/Card";
+import Publications from "../components/Publications";
 import Button from "../components/Button";
 import Header from "../components/Header";
 
@@ -12,8 +12,8 @@ const Home = () => {
             <Header />
             <section className="main-container">
                 <h1>Les dernières publications</h1>
-                <div className="cards-container">
-                    <Card />
+                <div className="publications-container">
+                    <Publications />
                     <Button text="Anciennes publications" />
                 </div>
             </section>

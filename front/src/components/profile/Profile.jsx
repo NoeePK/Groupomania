@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-
-import ProfileForm from "./ProfileForm";
 import Button from "./Button";
+import Browser from "../components/profile/Browser";
+import ProfileForm from "./ProfileForm";
 
 const Profile = () => {
     const [editorIsClosed, setToggle] = useState(false);
@@ -16,6 +16,9 @@ const Profile = () => {
                 className="profile-editor-closed"
                 hidden={editorIsClosed ? false : true}>
                 <ProfileDetails />
+                <article className="profiles-browser">
+                    <Browser />
+                </article>
             </div>
 
             <div
