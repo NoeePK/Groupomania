@@ -4,7 +4,6 @@ const publicationSchema = mongoose.Schema({
     userId: { type: String, required: true },
     firstName: { type: String },
     lastName: { type: String, required: true },
-    service: { type: String, required: true },
     message: { type: String, required: true },
     imageUrl: { type: String },
     date: { type: Date, default: () => { return new Date()}},
