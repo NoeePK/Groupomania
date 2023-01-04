@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const profileSchema = mongoose.Schema({
     userId: { type: String, required: true },
     imageUrl: { type: String },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    name: {
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+    },
     birthday: { type: Date },
     service: { type: String, required: true },
     description: { type: String },
