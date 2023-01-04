@@ -26,15 +26,11 @@ const Publish = () => {
                     </label>
                     <label>
                         Message
-                        <input type="text" name="message" required></input>
+                        <textarea name="message" rows="5" required></textarea>
                     </label>
                     <label>
                         Ajouter une image
                         <input type="text" name="imageURL"></input>
-                    </label>
-                    <label>
-                        Date de publication
-                        <input type="date" name="date" required></input>
                     </label>
                     <Button text="Publier" type="submit" value="Submit" />
                 </form>
