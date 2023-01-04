@@ -8,7 +8,7 @@ const publicationSchema = mongoose.Schema({
     service: { type: String, required: true },
     message: { type: String, required: true },
     imageUrl: { type: String },
-    date: { type: Date, required: true },
+    date: { type: Date, default: () => { return new Date()} },
     likes: { type: Number, default: 0 },
     dislikes: { type: Number, default: 0 },
     usersLiked: { type: [String] },

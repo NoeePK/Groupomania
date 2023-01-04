@@ -7,7 +7,7 @@ const dotenv = require("dotenv");
 const result = dotenv.config();
 
 // Inscription
-exports.signup = (req, res, next) => {
+exports.signUp = (req, res, next) => {
     // Crypter email
     const emailCryptoJS = cryptoJS
         .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
@@ -35,7 +35,7 @@ exports.signup = (req, res, next) => {
 };
 
 // Connexion
-exports.login = (req, res, next) => {
+exports.signIn = (req, res, next) => {
     // Chiffrer email
     const emailCryptoJS = cryptoJS
         .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
