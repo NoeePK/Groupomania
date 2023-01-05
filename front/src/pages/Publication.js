@@ -7,13 +7,11 @@ import LikingSystem from "../components/LinkingSystem";
 import Comments from "../components/Comments";
 import Error from "./Error";
 
-
-
 const Publication = () => {
     const params = useParams();
     const post = post.find((po) => po.id === params.id);
     const profile = profile.find((pr) => pr.id === params.id);
-    
+
     // SI : current user id === post id, ALORS afficher les boutons modifier et supprimer
 
     if (!post) return <Error />;
@@ -39,8 +37,8 @@ const Publication = () => {
                     </Link>
                 </section>
                 {/* <section hidden={poster ? false : true}>
-                    <Button text="Modifier" onClick="" />
-                    <Button text="Supprimer" onClick="" />
+                    <Button text="Modifier" onClick="handleModify()" />
+                    <Button text="Supprimer" onClick="handleDelete()" />
                 </section> */}
                 <section className="linkingSystem">
                     <LikingSystem
