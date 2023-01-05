@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import Header from "..components/Header";
-import Error from "../pages/Error";
+import Error from "./Error";
 
 const Publication = () => {
     const params = useParams();

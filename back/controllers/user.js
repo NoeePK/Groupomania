@@ -46,9 +46,7 @@ exports.signIn = (req, res, next) => {
         // SI : email n'existe pas
         .then((user) => {
             if (!user) {
-                return res
-                    .status(401)
-                    .json({ error: "Utilisateur inexistant" });
+                this.signUp;
             }
             // SINON : email existe
             else {

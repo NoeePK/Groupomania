@@ -1,27 +1,35 @@
+import React, { useState } from "react";
+import Button from "../Button";
+
 const ProfileForm = () => {
+    const [email, setEmail] = useState("");
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <>
             <h1>Modifier mon profil</h1>
-            <form className="profile-form">
+            <form className="profile-form" onSubmit={handleSubmit}>
                 <label>
                     Modifier mon avatar
-                    <input type="text" name="imageURL"></input>
+                    <input type="text" id="imageURL" name="imageURL" />
                 </label>
                 <label>
                     Prénom
-                    <input type="text" name="firstName"></input>
+                    <input type="text" id="firstName" name="firstName" />
                 </label>
                 <label>
                     Nom de famille
-                    <input type="text" name="lastName" required></input>
+                    <input type="text" id="lastName" name="lastName" required />
                 </label>
                 <label>
                     Date de naissance
-                    <input type="date"></input>
+                    <input type="date" id="birthday" name="birthday" />
                 </label>
                 <label>
                     Service
-                    <input type="text" name="service" required></input>
+                    <input type="text" id="service" name="service" required />
                 </label>
                 <label>
                     Présentation
@@ -29,7 +37,15 @@ const ProfileForm = () => {
                 </label>
                 <label>
                     Courriel
-                    <input type="email" name="email"></input>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="example@gmail.com"
+                    />
+                    <span className="errorMessage"></span>
                 </label>
 
                 <Button

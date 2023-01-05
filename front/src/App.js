@@ -3,8 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
 
 // Pages
-import Identification from "./pages/Identification";
-import SignInUp from "./pages/SignInUp";
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Publish from "./pages/Publish";
 import Publication from "./pages/Publication";
@@ -17,8 +16,7 @@ const App = () => {
     return (
         <div className="App">
             <Routes>
-                <Route path="/" element={<Identification />} />
-                <Route path="/SignInUp" element={<SignInUp />}></Route>
+                <Route path="/" element={<Login />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/Publication/:id" element={<Publication />} />
                 <Route path="/Publish" element={<Publish />} />

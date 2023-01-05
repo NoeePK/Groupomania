@@ -1,11 +1,11 @@
 // Se déconnecter
 // Session s'arrête quand user se déconnecte
 
-import React from "react";
-import SignInUp from "../components/identification/SignUp";
+import React, { useState } from "react";
+import LoginForm from "../components/LoginForm";
 import image from "../assets/icon-left-font-monochrome-black.svg";
 
-const Identification = () => {
+const Login = () => {
     const [registredUser, setToggle] = useState(false);
     const newUser = () => {
         setToggle(!registredUser);
@@ -20,23 +20,18 @@ const Identification = () => {
             <Button text="Se connecter" onClick={registredUser} />
 
             <div className="newUser" hidden={newUser ? false : true}>
-                <SignInUp
+                <LoginForm
                     title="S'inscrire"
-                    text="Déjà inscrit.e ?"
-                    button={registredUser}
+                    text="Dès votre inscription effectuée, vous aurez la possibilité de créer votre profil."
                 />
             </div>
             <div
                 className="registredUser"
                 hidden={registredUser ? false : true}>
-                <SignInUp
-                    title="Se connecter"
-                    text="Pas encore inscrit.e ?"
-                    button={newUser}
-                />
+                <LoginForm title="Se connecter" />
             </div>
         </section>
     );
 };
 
-export default Identification;
+export default Login;
