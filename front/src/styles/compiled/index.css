@@ -3,4 +3,27 @@
   font-family: "Lato", sans-serif;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+form label {
+  margin-bottom: 20px;
+}
+
+header {
+  background-color: #4E5166;
+  margin-bottom: 5rem;
+}
+
+footer {
+  margin-top: 20rem;
+  background-color: #4E5166;
+}
+
+nav a {
+  color: white;
+  display: flex;
+}
+
 /*# sourceMappingURL=index.css.map */

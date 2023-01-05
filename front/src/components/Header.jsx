@@ -1,6 +1,6 @@
 import React from "react";
 import Navigation from "./Navigation";
-import image from "../assets/icon-left-font-monochrome-black.svg";
+import image from "../assets/icon-left-font-monochrome-white.svg";
 
 const Header = () => {
     return (

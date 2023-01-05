@@ -7,13 +7,9 @@ const LoginForm = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
     return (
         <section className="login-container">
-            <h1>{props.title}</h1>
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form">
                 <label>
                     Courriel
                     <input
@@ -40,7 +36,7 @@ const LoginForm = (props) => {
                     <span className="errorMessage"></span>
                 </label>
 
-                <Button text={props.title} type="submit" value="Submit" />
+                <button type="submit" value="Submit">{props.title}</button>
             </form>
             <p>{props.text}</p>
         </section>

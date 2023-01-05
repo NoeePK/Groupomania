@@ -4,8 +4,8 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { fetchData } from "../Data";
-const data = await fetchData(profiles);
+import { fetchProfiles } from "../../Data";
+const data = fetchProfiles();
 
 const Browser = () => {
     const params = useParams();

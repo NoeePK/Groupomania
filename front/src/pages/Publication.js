@@ -38,10 +38,10 @@ const Publication = () => {
                         Découvrir le profil
                     </Link>
                 </section>
-                <section hidden={poster ? false : true}>
+                {/* <section hidden={poster ? false : true}>
                     <Button text="Modifier" onClick="" />
                     <Button text="Supprimer" onClick="" />
-                </section>
+                </section> */}
                 <section className="linkingSystem">
                     <LikingSystem
                         likes={post.likes}

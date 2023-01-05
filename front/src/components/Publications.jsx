@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { fetchData } from "../Data";
+import { fetchPublications } from "../Data";
 
-const data = await fetchData(publications);
+const data = fetchPublications();
 
 const Publications = () => {
     return (
@@ -13,8 +13,8 @@ const Publications = () => {
                     className="to-publication-link"
                     to={`/Publication/${publication.id}`}
                     key={publication.id}>
-                        <h2>{publication.title}</h2>
-                    </Link>
+                    <h2>{publication.title}</h2>
+                </Link>
             ))}
         </>
     );
