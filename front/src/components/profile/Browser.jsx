@@ -3,10 +3,11 @@
 
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import API from "../../API";
+
+import { fetchData } from "../Data";
+const data = await fetchData(profiles);
 
 const Browser = () => {
-    const data = API.stringify();
     const params = useParams();
     const profiles = data.find((collegues) => collegues.id != params.id);
     return (

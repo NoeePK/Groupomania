@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
+const axios = require("axios");
+const mongoose = require("./dataBase");
 
 const publicationRoutes = require("./routes/publication");
 const profileRoutes = require("./routes/profile");
@@ -15,9 +17,6 @@ const app = express();
 // Sécurité
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
-// BDD
-const mongoose = require("./dataBase");
 
 // CORS
 app.use(

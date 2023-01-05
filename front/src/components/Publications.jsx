@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import API from "../API";
-const data = API.stringify();
+
+import { fetchData } from "../Data";
+
+const data = await fetchData(publications);
 
 const Publications = () => {
     return (
