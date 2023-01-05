@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const data = BDD.stringify();
+import API from "../API";
+const data = API.stringify();
 
 const Publications = () => {
     return (

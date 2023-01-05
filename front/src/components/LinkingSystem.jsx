@@ -16,3 +16,5 @@ const LikingSystem = (props) => {
         </>
     );
 };
+
+export default LikingSystem;

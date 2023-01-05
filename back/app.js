@@ -9,13 +9,15 @@ const userRoutes = require("./routes/user");
 
 // Environnement
 require("dotenv").config();
-console.log(process.env);
 
 const app = express();
 
 // Sécurité
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+
+// BDD
+const mongoose = require("./dataBase");
 
 // CORS
 app.use(

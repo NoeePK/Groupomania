@@ -1,13 +1,17 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
-import Header from "..components/Header";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import LikingSystem from "../components/LinkingSystem";
+import Comments from "../components/Comments";
 import Error from "./Error";
 
 const Publication = () => {
     const params = useParams();
     const post = post.find((po) => po.id === params.id);
     const profile = profile.find((pr) => pr.id === params.id);
+    const poster = post;
     // SI : current user id === post id, ALORS afficher les boutons modifier et supprimer
 
     if (!post) return <Error />;

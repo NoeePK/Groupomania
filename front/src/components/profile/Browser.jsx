@@ -3,10 +3,10 @@
 
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import BDD from "..datas/BDD";
+import API from "../../API";
 
 const Browser = () => {
-    const data = BDD.stringify();
+    const data = API.stringify();
     const params = useParams();
     const profiles = data.find((collegues) => collegues.id != params.id);
     return (
