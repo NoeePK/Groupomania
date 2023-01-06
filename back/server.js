@@ -56,5 +56,5 @@ server.on("listening", () => {
 });
 
 server.listen(port, () =>
-    console.log(`Application Node est démarrée sur : http://localhost:${port}`)
+    console.log(`Application Node démarrée sur : http://localhost:${port}`)
 );

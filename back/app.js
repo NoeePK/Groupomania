@@ -1,21 +1,24 @@
 const express = require("express");
-require("dotenv").config();
-const mongoose = require("./dataBase");
-// Bodyparser ?
-const app = express();
+const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
-const cors = require("cors");
 
 const publicationRoutes = require("./routes/publication");
 const profileRoutes = require("./routes/profile");
 const userRoutes = require("./routes/user");
 
+require("dotenv").config();
+console.log(process.env);
+
+const app = express();
+
 // Sécurité
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
-// CORS
+const mongoose = require("./database");
+
+// Contourner CORS
 app.use(
     cors({
         origin: "*",
