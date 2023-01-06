@@ -35,10 +35,3 @@ app.use("/api/profiles", profileRoutes);
 app.use("/api/auth", userRoutes);
 
 module.exports = app;
-
-
-// /api/products/
-// /api/products/:id
-// /api/products/order
-// /api/auth/login
-
