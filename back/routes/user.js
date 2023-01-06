@@ -13,4 +13,5 @@ router.post("/register", strongPassword, slowDown, userCtrl.register);
 router.post("/login", maxLoginAttempts, userCtrl.login);
 // Connecter un admin
 
+
 module.exports = router;
