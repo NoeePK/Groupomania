@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+// const currentUser = userId;
 // Récupérer id de l'user et envoyer sur cette page
 
 const Navigation = () => {

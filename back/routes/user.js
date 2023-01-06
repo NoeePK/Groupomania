@@ -8,7 +8,7 @@ const maxLoginAttempts = require("../middleware/rateLimiter");
 const slowDown = require("../middleware/speedLimiter");
 
 // Créer un nouvel utilisateur
-router.post("/signup", strongPassword, slowDown, userCtrl.signup);
+router.post("/register", strongPassword, slowDown, userCtrl.register);
 // Connecter un utilisateur
 router.post("/login", maxLoginAttempts, userCtrl.login);
 // Connecter un admin

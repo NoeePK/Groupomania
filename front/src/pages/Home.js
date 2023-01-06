@@ -5,6 +5,7 @@ import React from "react";
 import Publications from "../components/Publications";
 import Button from "../components/Button";
 import Header from "../components/Header";
+// import Browser from "../components/profile/Browser"
 
 const Home = () => {
     return (
@@ -16,6 +17,9 @@ const Home = () => {
                     <Publications />
                     <Button text="Anciennes publications" />
                 </div>
+                <aside className="sidebar">
+                    {/* <Browser/> */}
+                </aside>
             </section>
         </>
     );
