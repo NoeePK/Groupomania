@@ -7,7 +7,7 @@ export const fetchProfiles = async () => {
         // Renvoyer le produit
         return data;
     } catch (err) {
-        console.log("Erreur");
+        console.log("Aucun profil n'a pu être récupéré");
         return null;
     }
 };

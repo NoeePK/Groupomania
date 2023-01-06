@@ -3,8 +3,8 @@ import React, { useState } from "react";
 // Ajouter les messages d'erreurs en direct dans le span
 
 const LoginForm = (props) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
 
     return (
         <section className="login-container">
@@ -14,8 +14,8 @@ const LoginForm = (props) => {
                     <input
                         type="email"
                         name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        // value={email}
+                        // onChange={(e) => setEmail(e.target.value)}
                         placeholder="example@gmail.com"
                         required
                     />
@@ -26,8 +26,8 @@ const LoginForm = (props) => {
                     <input
                         type="password"
                         name="passeword"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        // value={password}
+                        // onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <span className="errorMessage"></span>
