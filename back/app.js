@@ -1,17 +1,15 @@
 const express = require("express");
+require("dotenv").config();
+const mongoose = require("./dataBase");
+// Bodyparser ?
 const app = express();
 const path = require("path");
 const helmet = require("helmet");
 const cors = require("cors");
-const mongoose = require("./dataBase");
 
 const publicationRoutes = require("./routes/publication");
 const profileRoutes = require("./routes/profile");
 const userRoutes = require("./routes/user");
-
-// Environnement
-require("dotenv").config();
-
 
 // Sécurité
 app.use(helmet());
