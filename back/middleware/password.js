@@ -10,7 +10,7 @@ passwordSchema
     .has().digits(3)
     .has().not().spaces()
     // Blacklist :
-    .is().not().oneOf(["Passw0rd", "Password123", "azerty123"]);
+    .is().not().oneOf(["Passw0rd", "Password123"]);
 
 module.exports = (req, res, next) => {
     // SI : mdp est assez fort

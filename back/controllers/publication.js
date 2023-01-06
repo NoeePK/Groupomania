@@ -8,6 +8,13 @@ exports.getAllPublications = (req, res, next) => {
         .catch((error) => res.status(400).json({ error }));
 };
 
+// Récupérer une publication
+exports.getOnePublication = (req, res, next) => {
+    Publication.findOne({ _id: req.params.id })
+        .then((publication) => res.status(200).json(publication))
+        .catch((error) => res.status(404).json({ error }));
+};
+
 // Créer une publication
 exports.createPublication = (req, res, next) => {
     // Récupérer données du front
@@ -27,7 +34,7 @@ exports.createPublication = (req, res, next) => {
         .save()
         .then(() => {
             res.status(201).json({
-                message: "Publication ajoutée avec succès",
+                message: "Publication ajoutée",
             });
         })
         .catch((error) => res.status(400).json({ error }));
@@ -49,7 +56,7 @@ exports.modifyPublication = (req, res, next) => {
     )
         .then(() =>
             res.status(200).json({
-                message: "Publication modifiée avec succès",
+                message: "Modifications enregistrées",
             })
         )
         .catch((error) =>

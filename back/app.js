@@ -1,8 +1,8 @@
 const express = require("express");
-const cors = require("cors");
+const app = express();
 const path = require("path");
 const helmet = require("helmet");
-const axios = require("axios");
+const cors = require("cors");
 const mongoose = require("./dataBase");
 
 const publicationRoutes = require("./routes/publication");
@@ -12,7 +12,6 @@ const userRoutes = require("./routes/user");
 // Environnement
 require("dotenv").config();
 
-const app = express();
 
 // Sécurité
 app.use(helmet());

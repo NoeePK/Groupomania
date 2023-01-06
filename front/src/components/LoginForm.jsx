@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "./Button";
 
 // Ajouter les messages d'erreurs en direct dans le span
 
@@ -14,7 +13,6 @@ const LoginForm = (props) => {
                     Courriel
                     <input
                         type="email"
-                        id="email"
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
@@ -27,7 +25,6 @@ const LoginForm = (props) => {
                     Mot de passe
                     <input
                         type="password"
-                        id="password"
                         name="passeword"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}

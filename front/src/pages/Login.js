@@ -14,21 +14,21 @@ const Login = () => {
     return (
         <section className="main-container">
             <h1>Bienvenue sur Groupomania</h1>
+            <div className="toggleIsClosed" onClick={toggleIsOpen}>
+                <h2>Se connecter</h2>
+            </div>
+            <div hidden={toggleIsClosed ? true : false}>
+                <LoginForm title="Se connecter" />
+            </div>
 
             <div className="toggleIsOpen" onClick={toggleIsOpen}>
                 <h2>S'inscrire</h2>
             </div>
-            <div hidden={toggleIsClosed ? true : false}>
+            <div hidden={toggleIsClosed ? false : true}>
                 <LoginForm
                     title="S'inscrire"
                     text="Dès votre inscription effectuée, vous aurez la possibilité de créer votre profil."
                 />
-            </div>
-            <div className="toggleIsClosed" onClick={toggleIsOpen}>
-                <h2>Se connecter</h2>
-            </div>
-            <div hidden={toggleIsClosed ? false : true}>
-                <LoginForm title="Se connecter" />
             </div>
         </section>
     );

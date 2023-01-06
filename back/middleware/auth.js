@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
         const userId = decodedToken.userId;
         // SI : ID n'est pas valable
         if (req.body.userId && req.body.userId !== userId) {
-            throw "User ID non-valide";
+            throw "L'id de l'utilisateur n'est pas valide";
         }
         // SINON : ID est valable
         else {
@@ -22,5 +22,6 @@ module.exports = (req, res, next) => {
         // La requête n'est pas authentifiée
     } catch (error) {
         res.status(401).json({ error: "La requête n'est pas authentifiée" });
+        console.log("La requête n'est pas authentifiée");
     }
 };

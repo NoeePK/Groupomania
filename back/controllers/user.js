@@ -14,7 +14,7 @@ exports.signUp = (req, res, next) => {
         .toString();
     // Hasher mdp
     bcrypt
-        .hash(req.body.password, 12)
+        .hash(req.body.password, 10)
         // Récupérer mdp crypté
         .then((hash) => {
             // Création user
@@ -27,7 +27,7 @@ exports.signUp = (req, res, next) => {
                 .then(() =>
                     res
                         .status(201)
-                        .json({ message: "Utilisateur créé avec succès" })
+                        .json({ message: "Nouvel utilisateur enregistré" })
                 )
                 .catch((error) => res.status(400).json({ error }));
         })
@@ -46,7 +46,9 @@ exports.signIn = (req, res, next) => {
         // SI : email n'existe pas
         .then((user) => {
             if (!user) {
-                this.signUp;
+                return res
+                    .status(401)
+                    .json({ error: "Utilisateur inexistant" });
             }
             // SINON : email existe
             else {
@@ -57,8 +59,7 @@ exports.signIn = (req, res, next) => {
                         // SI : Mot de passe est incorrect
                         if (!validPassword) {
                             return res.status(401).json({
-                                message:
-                                    "Paire identifiant/mot de passe incorrecte",
+                                message: "Mot de passe incorrect",
                             });
                         }
                         // SINON : Mot de passe est correct
