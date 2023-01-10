@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
-// import axios from "axios";
+import axios from "axios";
 
 // Pages
 import Login from "./pages/Login";
@@ -16,6 +16,19 @@ import Error from "./pages/Error";
 
 const App = () => {
     // axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
+
+    const getPublications = () => {
+        axios
+            .get("/api")
+            .then((response) => {
+                const data = response.data;
+                console.log("Data reçues");
+            })
+            .catch(() => {
+                console.log("Les datas n'ont pas pu être récupérées");
+            });
+    };
+
     return (
         <div className="App">
             <Routes>

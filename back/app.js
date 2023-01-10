@@ -1,4 +1,5 @@
 const express = require("express");
+const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
@@ -16,6 +17,9 @@ const app = express();
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
+// Voir les requêtes
+app.use(morgan('tiny'))
+
 const mongoose = require("./database");
 
 // Contourner CORS
@@ -27,6 +31,13 @@ app.use(
 );
 
 app.use(express.json());
+
+app.get("/api", (req, res) => {
+    const data = {
+        user: "noee"
+    }
+    res.json(data);
+})
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));

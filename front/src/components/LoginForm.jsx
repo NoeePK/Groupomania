@@ -48,9 +48,9 @@ const LoginForm = (props) => {
                     <span className="errorMessage"></span>
                 </label>
 
-                <input type="submit" value="Submit">
+                <button type="submit" value="Submit">
                     {props.title}
-                </input>
+                </button>
             </form>
             <p>{props.text}</p>
         </section>

@@ -17,8 +17,7 @@ const normalizePort = (val) => {
     return false;
 };
 
-// Port 3000 s'il n'y a pas d'autre port
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "8080");
 app.set("port", port);
 
 // Gérer les erreurs
@@ -43,7 +42,6 @@ const errorHandler = (error) => {
     }
 };
 
-// Création du serveur
 const server = http.createServer(app);
 
 // Lancement du serveur
