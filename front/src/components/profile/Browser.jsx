@@ -9,7 +9,7 @@ import { Link, useParams } from "react-router-dom";
 
 const Browser = () => {
     // const params = useParams();
-    // const profiles = data.find((collegues) => collegues.id != params.id);
+    // const profiles = data.find((collegues) => collegues.id !== params.id);
     return (
         <>
             {/* {profiles.map((profile) => (

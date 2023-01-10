@@ -48,7 +48,7 @@ exports.login = (req, res, next) => {
             if (!user) {
                 return res
                     .status(401)
-                    .json({ error: "Utilisateur inexistant" });
+                    .json({ error: "Email ou mot de passe incorrect" });
             }
             // SINON : email existe
             else {
@@ -59,7 +59,7 @@ exports.login = (req, res, next) => {
                         // SI : Mot de passe est incorrect
                         if (!validPassword) {
                             return res.status(401).json({
-                                message: "Mot de passe incorrect",
+                                message: "Email ou mot de passe incorrect",
                             });
                         }
                         // SINON : Mot de passe est correct

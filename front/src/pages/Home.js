@@ -14,7 +14,7 @@ const Home = () => {
             <section className="main-container">
                 <h1>Les dernières publications</h1>
                 <div className="publications-container">
-                    <Publications />
+                    {/* <Publications /> */}
                     <Button text="Anciennes publications" />
                 </div>
                 <aside className="sidebar">
