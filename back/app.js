@@ -36,13 +36,13 @@ app.use(
 );
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}))
 
 app.get("/api", (req, res) => {
-    const data = {
-        user: "noee"
-    }
+    console.log(req.body);
+    const data = req.body
     
-    res.json(data);
+    res.json({message : "Datas reçues"});
 })
 
 // Routes
