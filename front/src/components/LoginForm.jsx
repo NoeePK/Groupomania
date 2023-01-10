@@ -6,31 +6,42 @@ import React, { useState } from "react";
 const LoginForm = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const route = props.route;
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios
-            .post("http://localhost:3000/api/user/register", {
-                email,
-                password,
+
+        const payload = {
+            email: email,
+            password: password,
+        };
+
+        axios({
+            url: `http://localhost:8080/api/auth/${route}`,
+            method: "POST",
+            data: payload,
+        })
+            .then(() => {
+                console.log("Datas envoyées au serveur");
             })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
+            .catch(() => {
+                console.log("Erreur serveur");
             });
     };
 
+    console.log(email);
+    console.log(password);
+
     return (
         <section className="login-container">
-            <form className="login-form" onSubmit={(e) => {handleSubmit(e)}}>
+            <form className="login-form" onSubmit={(e) => handleSubmit(e)}>
                 <label>
                     Courriel
                     <input
                         type="email"
                         name="email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(event) => setEmail(event.target.value)}
                         placeholder="example@gmail.com"
                         required
                     />
@@ -42,7 +53,7 @@ const LoginForm = (props) => {
                         type="password"
                         name="passeword"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(event) => setPassword(event.target.value)}
                         required
                     />
                     <span className="errorMessage"></span>

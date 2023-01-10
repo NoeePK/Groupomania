@@ -29,7 +29,7 @@ exports.register = (req, res, next) => {
                         .status(201)
                         .json({ message: "Nouvel utilisateur enregistré" })
                 )
-                .catch((error) => res.status(400).json({ error }));
+                .catch((error) => res.status(400).json({ error : "L'enregistrement a échoué" }));
         })
         .catch((error) => res.status(500).json({ error }));
 };

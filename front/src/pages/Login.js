@@ -8,7 +8,7 @@ const Login = () => {
     return (
         <section className="main-container">
             <h1>Bienvenue sur Groupomania</h1>
-            <LoginForm title="Se connecter" text="" />
+            <LoginForm title="Se connecter" route="login" text="" />
             <Link to="/Register">
                 Vous n'avez pas de compte ? Venez vous inscrire ici
             </Link>

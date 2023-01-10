@@ -6,6 +6,7 @@ const Register = () => {
         <>
             <LoginForm
                 title="S'inscrire"
+                route="register"
                 text="Dès votre inscription effectuée, vous aurez la possibilité de créer votre profil."
             />
             <Link to="/">Déjà inscrit.e ? Se connecter</Link>

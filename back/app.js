@@ -4,6 +4,11 @@ const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
 
+// Schémas
+const User = require("./models/user");
+const Publication = require("./models/publication");
+
+// Routes
 const publicationRoutes = require("./routes/publication");
 const profileRoutes = require("./routes/profile");
 const userRoutes = require("./routes/user");
@@ -36,6 +41,7 @@ app.get("/api", (req, res) => {
     const data = {
         user: "noee"
     }
+    
     res.json(data);
 })
 
