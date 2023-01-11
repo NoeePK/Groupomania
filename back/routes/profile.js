@@ -7,6 +7,9 @@ const multer = require("../middleware/multer-config");
 // Afficher tous les profils
 router.get("/profile", auth, profileCtrl.getAllProfiles);
 
+// Afficher un profil
+router.get("/profile/:id", auth, profileCtrl.getOneProfile);
+
 // Créer un profil
 router.post("/profile/createProfile", auth, multer, profileCtrl.createProfile);
 

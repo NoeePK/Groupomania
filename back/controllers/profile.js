@@ -8,6 +8,13 @@ exports.getAllProfiles = (req, res, next) => {
         .catch((error) => res.status(400).json({ error }));
 };
 
+// Récupérer un profil
+exports.getOneProfile = (req, res, next) => {
+    Profile.findOne({ _id: req.params.id })
+        .then((profile) => res.status(200).json(profile))
+        .catch((error) => res.status(404).json({ error }));
+};
+
 // Créer profil
 exports.createProfile = (req, res, next) => {
     const profileObject = JSON.parse(req.body.profile);
