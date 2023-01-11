@@ -3,7 +3,7 @@
 
 import React, { useState } from "react";
 import Button from "../components/Button";
-import Header from "../components/Header";
+import Header from "../components/semantics/Header";
 import postData from "../Data";
 
 const Publish = () => {
