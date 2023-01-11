@@ -12,7 +12,7 @@ router.get("/", auth, publicationCtrl.getAllPublications);
 router.get("/:id", auth, publicationCtrl.getOnePublication);
 
 // Créer une publication
-router.post("/Publish", auth, slowDown, multer, publicationCtrl.publish);
+router.post("/publish", auth, slowDown, multer, publicationCtrl.publish);
 
 // Modifier une publication
 router.put(

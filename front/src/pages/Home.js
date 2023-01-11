@@ -1,10 +1,10 @@
-// Lister les posts du + récent au + ancien
-
 import React, { useState } from "react";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
 import ProfileBrowser from "../components/browsers/ProfileBrowser";
 import PublishForm from "../components/forms/PublishForm";
 import Header from "../components/semantics/Header";
+
+// Lister les posts du + récent au + ancien
 
 const Home = () => {
     const [editorIsClosed, setToggle] = useState(false);
@@ -27,7 +27,7 @@ const Home = () => {
                         className={
                             editorIsClosed ? "editor-closed" : "editor-open"
                         }
-                        hidden={editorIsClosed ? true : false}>
+                        hidden={editorIsClosed ? false : true}>
                         <PublishForm />
                     </div>
                 </div>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Header from "../components/semantics/Header";
-import ProfileDetails from "../components/ProfileDetails";
+import ProfileDetails from "../components/Profile";
 import ProfileForm from "../components/forms/ProfileForm";
 import ProfileBrowser from "../components/browsers/ProfileBrowser";
 
