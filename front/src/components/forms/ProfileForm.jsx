@@ -1,5 +1,6 @@
 import postData from "../../Data";
 import React, { useState } from "react";
+import axios from "axios";
 
 const ProfileForm = () => {
     const [firstName, setFirstName] = useState("");
@@ -19,8 +20,20 @@ const ProfileForm = () => {
             bio: bio,
         };
 
-        postData(profile, payload);
-    };
+       axios({
+               url: `http://localhost:8080/api/profile`,
+               method: "POST",
+               data: payload,
+           })
+               .then(() => {
+                   console.log("Datas envoyées au serveur");
+                   // resetUserInputs();
+               })
+               .catch(() => {
+                   console.log("Erreur axios");
+               });
+       };
+    
 
     return (
         <>

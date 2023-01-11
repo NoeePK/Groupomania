@@ -5,18 +5,18 @@ const auth = require("../middleware/auth");
 const multer = require("../middleware/multer-config");
 
 // Afficher tous les profils
-router.get("/profile", auth, profileCtrl.getAllProfiles);
+router.get("/", auth, profileCtrl.getAllProfiles);
 
 // Afficher un profil
-router.get("/profile/:id", auth, profileCtrl.getOneProfile);
+router.get("/:id", auth, profileCtrl.getOneProfile);
 
 // Créer un profil
-router.post("/profile/createProfile", auth, multer, profileCtrl.createProfile);
+router.post("/createProfile", auth, multer, profileCtrl.createProfile);
 
 // Modifier son profil
-router.put("/profile/updateProfile", auth, multer, profileCtrl.updateProfile);
+router.put("/:id/updateProfile", auth, multer, profileCtrl.updateProfile);
 
 // Supprimer son profil
-router.delete("/profile/deleteProfile", auth, profileCtrl.deleteProfile);
+router.delete("/:id/deleteProfile", auth, profileCtrl.deleteProfile);
 
 module.exports = router;

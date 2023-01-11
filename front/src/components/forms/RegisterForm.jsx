@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import postData from "../../Data";
-
+import axios from "axios";
 // Ajouter les messages d'erreurs en direct dans le span
 
 const RegisterForm = () => {
@@ -15,8 +14,23 @@ const RegisterForm = () => {
             password: password,
         };
 
-       postData("register", payload);
+        console.log(email);
+        console.log(password);
+
+        axios({
+            url: `http://localhost:8080/api/register`,
+            method: "POST",
+            data: payload
+        })
+            .then(() => {
+                console.log("Datas envoyées au serveur");
+                // resetUserInputs();
+            })
+            .catch(() => {
+                console.log("Erreur axios");
+            });
     };
+
 
     return (
         <section className="register-container">
@@ -28,7 +42,7 @@ const RegisterForm = () => {
                         type="email"
                         name="email"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="example@gmail.com"
                         required
                     />
@@ -40,7 +54,7 @@ const RegisterForm = () => {
                         type="password"
                         name="passeword"
                         value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <span className="errorMessage"></span>

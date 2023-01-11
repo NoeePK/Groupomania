@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import postData from "../../Data";
+import axios from "axios";
 
 // Ajouter les messages d'erreurs en direct dans le span
 
@@ -15,7 +16,18 @@ const LoginForm = () => {
             password: password,
         };
 
-        postData("login", payload);
+        axios({
+            url: `http://localhost:8080/api/login`,
+            method: "POST",
+            data: payload,
+        })
+            .then(() => {
+                console.log("Datas envoyées au serveur");
+                // resetUserInputs();
+            })
+            .catch(() => {
+                console.log("Erreur axios");
+            });
     };
 
     return (

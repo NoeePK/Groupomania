@@ -11,8 +11,9 @@ const postData = (route, payload) => {
             // resetUserInputs();
         })
         .catch(() => {
-            console.log("Erreur serveur");
+            console.log("Erreur axios");
         });
+
 };
 
 export default postData;
