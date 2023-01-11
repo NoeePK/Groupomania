@@ -3,10 +3,9 @@ import React, { useState } from "react";
 
 // Ajouter les messages d'erreurs en direct dans le span
 
-const ConnectForm = (props) => {
+const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const route = props.route;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,7 +16,7 @@ const ConnectForm = (props) => {
         };
 
         axios({
-            url: `http://localhost:8080/api/auth/${route}`,
+            url: `http://localhost:8080/api/auth/login`,
             method: "POST",
             data: payload,
         })
@@ -36,7 +35,7 @@ const ConnectForm = (props) => {
     return (
         <section className="login-container">
             <form className="login-form" onSubmit={(e) => handleSubmit(e)}>
-                <h1>{props.title}</h1>
+                <h1>Se connecter</h1>
                 <label>
                     Courriel
                     <input
@@ -62,12 +61,11 @@ const ConnectForm = (props) => {
                 </label>
 
                 <button type="submit" value="Submit">
-                    {props.title}
+                    Se connecter
                 </button>
             </form>
-            <p>{props.text}</p>
         </section>
     );
 };
 
-export default ConnectForm;
+export default LoginForm;
