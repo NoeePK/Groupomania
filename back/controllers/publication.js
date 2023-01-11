@@ -16,7 +16,7 @@ exports.getOnePublication = (req, res, next) => {
 };
 
 // Créer une publication
-exports.createPublication = (req, res, next) => {
+exports.publish = (req, res, next) => {
     // Récupérer données du front
     const publicationObject = JSON.parse(req.body.publication);
     // Supprimer id en surplus
@@ -41,7 +41,7 @@ exports.createPublication = (req, res, next) => {
 };
 
 // Modifier publication
-exports.modifyPublication = (req, res, next) => {
+exports.updatePublication = (req, res, next) => {
     const publicationObject = req.file
         ? {
               ...JSON.parse(req.body.publication),

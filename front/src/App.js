@@ -7,7 +7,6 @@ import axios from "axios";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
-import Publish from "./pages/Publish";
 import Publication from "./pages/Publication";
 import Profile from "./pages/Profile";
 import Error from "./pages/Error";
@@ -36,7 +35,6 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/Publication/:id" element={<Publication />} />
-                <Route path="/Publish" element={<Publish />} />
                 <Route path="Profile/:id" element={<Profile />} />
                 <Route path="*" element={<Error />} />
             </Routes>

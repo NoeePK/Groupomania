@@ -37,17 +37,11 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("/api", (req, res) => {
-    const data = {
-        title: "ça fonctionne",
-    };
-
-    res.json(data);
-});
+app.get("http://localhost:8080/api");
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/auth", userRoutes);
+app.use("/api", userRoutes);
 app.use("/api/publications", publicationRoutes);
 app.use("/api/profiles", profileRoutes);
 // app.use("api/publication/:id/comments", commentRoutes);

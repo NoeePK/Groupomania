@@ -20,7 +20,7 @@ const RegisterForm = () => {
         axios({
             url: `http://localhost:8080/api/register`,
             method: "POST",
-            data: payload
+            data: payload,
         })
             .then(() => {
                 console.log("Datas envoyées au serveur");

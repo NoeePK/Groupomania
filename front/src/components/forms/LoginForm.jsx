@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import postData from "../../Data";
 import axios from "axios";
 
 // Ajouter les messages d'erreurs en direct dans le span
@@ -40,7 +39,7 @@ const LoginForm = () => {
                         type="email"
                         name="email"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         placeholder="example@gmail.com"
                         required
                     />
@@ -52,7 +51,7 @@ const LoginForm = () => {
                         type="password"
                         name="passeword"
                         value={password}
-                        onChange={(event) => setPassword(event.target.value)}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <span className="errorMessage"></span>

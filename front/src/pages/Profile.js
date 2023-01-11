@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Header from "../components/semantics/Header";
-import Button from "../components/Button";
 import ProfileDetails from "../components/ProfileDetails";
 import ProfileForm from "../components/forms/ProfileForm";
-import Profiles from "../components/browsers/ProfileBrowser";
+import ProfileBrowser from "../components/browsers/ProfileBrowser";
 
 const Profile = () => {
     const [editorIsClosed, setToggle] = useState(false);
@@ -13,22 +12,29 @@ const Profile = () => {
     return (
         <>
             <Header />
-            <section className="profiles-container">
-                <Button title="Modifier mon profil" onClick={editorIsOpen} />
+            <section className="main-container">
+                <h1>Profil</h1>
+                <div className="profiles-container">
+                    <button onClick={editorIsOpen}>Modifier mon profil"</button>
 
-                <div
-                    className="profile-editor-closed"
-                    hidden={editorIsClosed ? false : true}>
-                    <ProfileDetails />
-                    <article className="profiles-browser">
-                        <Profiles />
-                    </article>
-                </div>
+                    <div
+                        className={
+                            editorIsClosed ? "editor-closed" : "editor-open"
+                        }
+                        hidden={editorIsClosed ? false : true}>
+                        <ProfileDetails />
+                        <article className="profiles-browser">
+                            <ProfileBrowser />
+                        </article>
+                    </div>
 
-                <div
-                    className="profile-editor-open"
-                    hidden={editorIsClosed ? true : false}>
-                    <ProfileForm />
+                    <div
+                        className={
+                            editorIsClosed ? "editor-open" : "editor-closed"
+                        }
+                        hidden={editorIsClosed ? true : false}>
+                        <ProfileForm />
+                    </div>
                 </div>
             </section>
         </>

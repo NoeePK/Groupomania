@@ -12,24 +12,22 @@ router.get("/", auth, publicationCtrl.getAllPublications);
 router.get("/:id", auth, publicationCtrl.getOnePublication);
 
 // Créer une publication
-router.post(
-    "/createPublication",
-    auth,
-    slowDown,
-    multer,
-    publicationCtrl.createPublication
-);
+router.post("/Publish", auth, slowDown, multer, publicationCtrl.publish);
 
 // Modifier une publication
 router.put(
-    "/:id/modifyPublication",
+    "/:id/updatePublication",
     auth,
     multer,
-    publicationCtrl.modifyPublication
+    publicationCtrl.updatePublication
 );
 
 // Supprimer une publication
-router.delete("/:id/deletePublication", auth, publicationCtrl.deletePublication);
+router.delete(
+    "/:id/deletePublication",
+    auth,
+    publicationCtrl.deletePublication
+);
 
 // Système de likes/dislikes
 router.post("/:id/like", auth, publicationCtrl.voteForPublication);
