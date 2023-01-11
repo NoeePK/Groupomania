@@ -2,10 +2,10 @@
 // Récent au + ancien
 
 import React from "react";
-import Publications from "../components/Publications";
+import Publications from "../components/browsers/PublicationsBrowser";
+import Profiles from "../components/browsers/ProfileBrowser";
 import Button from "../components/Button";
-import Header from "../components/Header";
-// import Browser from "../components/profile/Browser"
+import Header from "../components/semantics/Header";
 
 const Home = () => {
     return (
@@ -14,11 +14,11 @@ const Home = () => {
             <section className="main-container">
                 <h1>Les dernières publications</h1>
                 <div className="publications-container">
-                    {/* <Publications /> */}
+                    <Publications />
                     <Button text="Anciennes publications" />
                 </div>
                 <aside className="sidebar">
-                    {/* <Browser/> */}
+                    <Profiles/>
                 </aside>
             </section>
         </>

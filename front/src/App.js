@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer";
+import Footer from "./components/semantics/Footer";
 import axios from "axios";
 
 // Pages
