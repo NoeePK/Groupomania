@@ -3,11 +3,11 @@ import React, { useState } from "react";
 
 // Ajouter les messages d'erreurs en direct dans le span
 
-const LoginForm = (props) => {
+const ConnectForm = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const route = props.route;
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -23,6 +23,7 @@ const LoginForm = (props) => {
         })
             .then(() => {
                 console.log("Datas envoyées au serveur");
+                // resetUserInputs();
             })
             .catch(() => {
                 console.log("Erreur serveur");
@@ -35,6 +36,7 @@ const LoginForm = (props) => {
     return (
         <section className="login-container">
             <form className="login-form" onSubmit={(e) => handleSubmit(e)}>
+                <h1>{props.title}</h1>
                 <label>
                     Courriel
                     <input
@@ -68,4 +70,4 @@ const LoginForm = (props) => {
     );
 };
 
-export default LoginForm;
+export default ConnectForm;

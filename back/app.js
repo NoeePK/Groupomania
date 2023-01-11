@@ -4,11 +4,7 @@ const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
 
-// Schémas
-const User = require("./models/user");
-const Publication = require("./models/publication");
-
-// Routes
+// Importer routes
 const publicationRoutes = require("./routes/publication");
 const profileRoutes = require("./routes/profile");
 const userRoutes = require("./routes/user");
@@ -23,9 +19,10 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // Voir les requêtes
-app.use(morgan('tiny'))
+app.use(morgan("tiny"));
 
 const mongoose = require("./database");
+const { default: axios } = require("axios");
 
 // Contourner CORS
 app.use(
@@ -35,15 +32,9 @@ app.use(
     })
 );
 
+// Pour voir le contenu des requêtes
 app.use(express.json());
-app.use(express.urlencoded({extended: false}))
-
-app.get("/api", (req, res) => {
-    console.log(req.body);
-    const data = req.body
-    
-    res.json({message : "Datas reçues"});
-})
+app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
@@ -51,5 +42,10 @@ app.use("/api/auth", userRoutes);
 app.use("/api/publications", publicationRoutes);
 app.use("/api/profiles", profileRoutes);
 
+// app.get("/api", (req, res) => {
+//     console.log(req.body);
+//     const data = req.body;
+//     res.json(data);
+// });
 
 module.exports = app;

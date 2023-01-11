@@ -15,7 +15,7 @@ import Error from "./pages/Error";
 // ?? Ajouter une page à propos avec règles de bienséance et l'explication du brief sur la raison de l'existence du site ?
 
 const App = () => {
-    // axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${localStorage.token}`;
 
     const getPublications = () => {
         axios
@@ -28,6 +28,7 @@ const App = () => {
                 console.log("Les datas n'ont pas pu être récupérées");
             });
     };
+
 
     return (
         <div className="App">

@@ -2,13 +2,13 @@
 // Session s'arrête quand user se déconnecte
 import React from "react";
 import { Link } from "react-router-dom";
-import LoginForm from "../components/LoginForm";
+import Form from "../components/forms/ConnectForm";
 
 const Login = () => {
     return (
         <section className="main-container">
             <h1>Bienvenue sur Groupomania</h1>
-            <LoginForm title="Se connecter" route="login" text="" />
+            <Form title="Se connecter" route="login" text="" />
             <Link to="/Register">
                 Vous n'avez pas de compte ? Venez vous inscrire ici
             </Link>

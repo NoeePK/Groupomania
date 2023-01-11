@@ -17,7 +17,7 @@ exports.register = (req, res, next) => {
         .hash(req.body.password, 10)
         // Récupérer mdp crypté
         .then((hash) => {
-            // Création user
+            // Passer data cryptées
             const user = new User({
                 email: emailCryptoJS,
                 password: hash,
@@ -30,7 +30,7 @@ exports.register = (req, res, next) => {
                         .json({ message: "Nouvel utilisateur enregistré" })
                 )
                 .catch((error) =>
-                    res.status(400).json({ error: "L'enregistrement a échoué" })
+                    res.status(500).json({ error: "Erreur serveur" })
                 );
         })
         .catch((error) => res.status(500).json({ message: "Erreur serveur" }));
@@ -68,13 +68,14 @@ exports.login = (req, res, next) => {
                         else {
                             // ALORS : autoriser accès et attribuer token
                             res.status(200).json({
+                                message: "Utilisateur connecté",
                                 userId: user._id,
                                 token: jwt.sign(
                                     { userId: user._id },
                                     `${process.env.JWT_TOKEN}`,
                                     { expiresIn: "24h" }
                                 ),
-                            });
+                            })
                         }
                     });
             }
