@@ -75,19 +75,7 @@ exports.login = (req, res, next) => {
                                     `${process.env.JWT_TOKEN}`,
                                     { expiresIn: "24h" }
                                 ),
-
-                            })
-                            console.log(
-                                res.status(200).json({
-                                    message: "Utilisateur connecté",
-                                    userId: user._id,
-                                    token: jwt.sign(
-                                        { userId: user._id },
-                                        `${process.env.JWT_TOKEN}`,
-                                        { expiresIn: "24h" }
-                                    ),
-                                })
-                            );
+                            });
                         }
                     });
             }

@@ -20,7 +20,7 @@ const Navigation = () => {
 
     return (
         <nav>
-            <Link to="/Home">Accueil</Link>
+            <Link to="/">Accueil</Link>
             {/* <Link to={`/Profile/${profile}`}>Profil</Link> */}
             <div>Se déconnecter</div>
         </nav>

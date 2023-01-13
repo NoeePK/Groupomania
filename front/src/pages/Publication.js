@@ -10,6 +10,7 @@ const Publication = () => {
     const params = useParams();
     const post = post.find((po) => po.id === params.id);
     const profile = profile.find((pr) => pr.id === params.id);
+    // user._id === profile
 
     // SI : current user id === post id, ALORS afficher les boutons modifier et supprimer
 
@@ -31,7 +32,7 @@ const Publication = () => {
                     </p>
                     <Link
                         className="to-profile-link"
-                        to={`/Profile/${profile.id}`}>
+                        to={`/profile/${profile.id}`}>
                         Découvrir le profil
                     </Link>
                 </section>

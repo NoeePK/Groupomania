@@ -6,7 +6,7 @@ const Register = () => {
     return (
         <>
             <RegisterForm />
-            <Link to="/">Déjà inscrit.e ? Se connecter</Link>
+            <Link to="/login">Déjà inscrit.e ? Se connecter</Link>
         </>
     );
 };

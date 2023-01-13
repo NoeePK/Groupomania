@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // Ajouter les messages d'erreurs en direct dans le span
@@ -6,6 +7,8 @@ import axios from "axios";
 const LoginForm = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -20,7 +23,10 @@ const LoginForm = () => {
             method: "POST",
             data: payload,
         })
-            .then(() => {
+            .then((res) => {
+                localStorage.token = res.data.token;
+                axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
+                navigate("/");
                 console.log("Datas envoyées au serveur");
                 // resetUserInputs();
             })
