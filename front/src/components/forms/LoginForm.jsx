@@ -1,66 +1,100 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
-// Ajouter les messages d'erreurs en direct dans le span
+import axios from "../../api/axios";
+import AuthContext from "../../context/AuthProvider";
+const LOGIN_URL = "/auth";
 
 const LoginForm = () => {
+    const { setAuth } = useContext(AuthContext);
+
+    const emailRef = useRef();
+    const errRef = useRef();
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errMsg, setErrMsg] = useState("");
+
+    // Focaliser sur input "email"
+    useEffect(() => {
+        emailRef.current.focus();
+    }, []);
+
+    // Mettre à jour message d'erreur pendant la saisie
+    useEffect(() => {
+        setErrMsg("");
+    }, [email, password]);
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const payload = {
-            email: email,
-            password: password,
-        };
-
-        axios({
-            url: `http://localhost:8080/api/login`,
-            method: "POST",
-            data: payload,
-        })
-            .then((res) => {
-                localStorage.token = res.data.token;
-                axios.defaults.headers.common.Authorization = `Bearer ${res.data.token}`;
-                navigate("/");
-                console.log("Datas envoyées au serveur");
-                // resetUserInputs();
-            })
-            .catch(() => {
-                console.log("Erreur axios");
-            });
+        try {
+            const response = await axios.post(
+                LOGIN_URL,
+                JSON.stringify({ email, password }),
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
+            console.log(JSON.stringify(response?.data));
+            const accessToken = response?.data?.accessToken;
+            // Pour admin etc
+            // const roles = response?.data?.roles;
+            setAuth({ email, password, accessToken });
+            setEmail("");
+            setPassword("");
+        } catch (error) {
+            if (!error?.response) {
+                setErrMsg("Pas de réponse serveur");
+            } else if (error.response?.status === 400) {
+                setErrMsg("Veuillez remplir tous les champs ");
+            } else if (error.response?.status === 401) {
+                setErrMsg("Accès non-autorisé");
+            } else {
+                setErrMsg("La connexion a échouée");
+            }
+            // Pour les lecteurs d'écran :
+            errRef.current.focus();
+        }
     };
 
     return (
         <section className="login-container">
-            <form className="login-form" onSubmit={(e) => handleSubmit(e)}>
-                <h1>Se connecter</h1>
-                <label>
+            <h1>Se connecter</h1>
+            <p
+                ref={errRef}
+                className="error-message"
+                hidden={errMsg ? false : true}
+                aria-live="assertive">
+                {errMsg}
+            </p>
+            <form className="login-form" onSubmit={handleSubmit}>
+                <label htmlFor="email">
                     Courriel
                     <input
                         type="email"
+                        id="email"
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        ref={emailRef}
                         placeholder="example@gmail.com"
                         required
                     />
-                    <span className="errorMessage"></span>
                 </label>
-                <label>
+                <label htmlFor="password">
                     Mot de passe
                     <input
                         type="password"
-                        name="passeword"
+                        id="password"
+                        name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <span className="errorMessage"></span>
                 </label>
 
                 <button type="submit" value="Submit">

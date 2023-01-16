@@ -9,9 +9,10 @@ const Login = () => {
         <section className="main-container">
             <h1>Bienvenue sur Groupomania</h1>
             <LoginForm />
-            <Link to="/register">
-                Vous n'avez pas de compte ? Venez vous inscrire ici
-            </Link>
+            <p>
+                Vous n'avez pas de compte ?<br />
+                <Link to="/register">Venez vous inscrire ici</Link>
+            </p>
         </section>
     );
 };
