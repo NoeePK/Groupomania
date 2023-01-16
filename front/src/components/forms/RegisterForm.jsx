@@ -1,12 +1,23 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "../../context/AuthProvider";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import axios from "../../api/axios";
+import useAuth from "../../hooks/useAuth";
 const REGISTER_URL = "/register";
+
 const EMAIL_REGEX =
     /[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/i;
 const PWD_REGEX =
     "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$";
 
 const RegisterForm = () => {
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    // Emplacement AVANT d'être redirigé vers Login
+    // OU arriver sur la page d'accueil
+    const from = location.state?.from?.pathname || "/";
+
     const emailRef = useRef();
     const errRef = useRef();
 
