@@ -1,13 +1,56 @@
-import React, { useState } from "react";
-import axios from "axios";
-// Ajouter les messages d'erreurs en direct dans le span
+import React, { useState, useEffect, useRef } from "react";
+import axios from "../../context/AuthProvider";
+
+const EMAIL_REGEX =
+    /[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/i;
+const PWD_REGEX =
+    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$";
 
 const RegisterForm = () => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const emailRef = useRef();
+    const errRef = useRef();
 
-    const handleSubmit = (e) => {
+    const [email, setEmail] = useState("");
+    const [validEmail, setValidEmail] = useState(false);
+    const [emailFocus, setEmailFocus] = useState(false);
+
+    const [password, setPassword] = useState("");
+    const [validPassword, setValidPassword] = useState(false);
+    const [passwordFocus, setPasswordFocus] = useState(false);
+
+    const [errMsg, setErrMsg] = useState("");
+
+    // Focaliser sur input "email"
+    useEffect(() => {
+        emailRef.current.focus();
+    }, []);
+
+    // Valider email
+    useEffect(() => {
+        const result = EMAIL_REGEX.test(email);
+        console.log(result);
+        console.log(email);
+        setValidEmail(result);
+    }, [email]);
+
+    // Valider mot de passe
+    useEffect(() => {
+        const result = PWD_REGEX.test(password);
+        console.log(result);
+        console.log(password);
+        setValidEmail(result);
+    }, [password]);
+
+    // Mettre à jour message d'erreur pendant la saisie
+    useEffect(() => {
+        setErrMsg("");
+    }, [email, password]);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        
+
 
         const payload = {
             email: email,
@@ -31,36 +74,71 @@ const RegisterForm = () => {
             });
     };
 
-
     return (
         <section className="register-container">
-            <form className="register-form" onSubmit={(e) => handleSubmit(e)}>
-                <h1>Inscription</h1>
-                <label>
+            <h1>Inscription</h1>
+            <p
+                ref={errRef}
+                className="error-message"
+                hidden={errMsg ? false : true}
+                aria-live="assertive">
+                {errMsg}
+            </p>
+            <form className="register-form" onSubmit={handleSubmit}>
+                <label htmlFor="email">
                     Courriel
                     <input
                         type="email"
+                        id="email"
                         name="email"
+                        ref={emailRef}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        aria-invalid={validEmail ? "false" : "true"}
+                        aria-describedby="instructions"
+                        onFocus={() => setEmailFocus(true)}
+                        onBlur={() => setEmailFocus(false)}
                         placeholder="example@gmail.com"
                         required
                     />
-                    <span className="errorMessage"></span>
+                    <p
+                        id="instructions"
+                        className={
+                            emailFocus && email && !validEmail
+                                ? "instructions"
+                                : "offscreen"
+                        }>
+                        Ce champs doit contenir une adresse email contenant un @
+                        et suivant le format de l'entreprise
+                    </p>
                 </label>
-                <label>
+                <label htmlFor="password">
                     Mot de passe
                     <input
                         type="password"
+                        id="password"
                         name="passeword"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        aria-invalid={validPassword ? "false" : "true"}
+                        aria-describedby="passwordinstructions"
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
                         required
                     />
-                    <span className="errorMessage"></span>
+                    <p
+                        id="passwordinstructions"
+                        className={
+                            passwordFocus && password && !validPassword
+                                ? "instructions"
+                                : "offscreen"
+                        }>
+                        Votre mot de passe doit contenir au minimum : 8
+                        caractères, 1 majuscule, 1 minuscule et 3 nombres
+                    </p>
                 </label>
 
-                <button type="submit" value="Submit">
+                <button disabled={!validEmail || !validPassword ? true : false}>
                     S'inscrire
                 </button>
             </form>

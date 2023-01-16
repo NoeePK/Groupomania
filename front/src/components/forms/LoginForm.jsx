@@ -25,8 +25,6 @@ const LoginForm = () => {
         setErrMsg("");
     }, [email, password]);
 
-    const navigate = useNavigate();
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -78,9 +76,9 @@ const LoginForm = () => {
                         type="email"
                         id="email"
                         name="email"
+                        ref={emailRef}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        ref={emailRef}
                         placeholder="example@gmail.com"
                         required
                     />
@@ -97,7 +95,7 @@ const LoginForm = () => {
                     />
                 </label>
 
-                <button type="submit" value="Submit">
+                <button disabled={!email || !password ? true : false}>
                     Se connecter
                 </button>
             </form>

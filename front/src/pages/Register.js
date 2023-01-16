@@ -6,7 +6,11 @@ const Register = () => {
     return (
         <>
             <RegisterForm />
-            <Link to="/login">Déjà inscrit.e ? Se connecter</Link>
+            <p>
+                Déjà inscrit.e ?<br />
+                <Link to="/login"> Se connecter</Link>
+            </p>
+            
         </>
     );
 };
