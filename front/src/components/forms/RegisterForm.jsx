@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "../../context/AuthProvider";
-
+const REGISTER_URL = "/register";
 const EMAIL_REGEX =
     /[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/i;
 const PWD_REGEX =
@@ -48,30 +48,32 @@ const RegisterForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        
-
-
-        const payload = {
-            email: email,
-            password: password,
-        };
-
-        console.log(email);
-        console.log(password);
-
-        axios({
-            url: `http://localhost:8080/api/register`,
-            method: "POST",
-            data: payload,
-        })
-            .then(() => {
-                console.log("Datas envoyées au serveur");
-                // resetUserInputs();
-            })
-            .catch(() => {
-                console.log("Erreur axios");
-            });
+        try {
+            const response = await axios.post(
+                REGISTER_URL,
+                JSON.stringify({ email, password }),
+                {
+                    headers: { "Content-Type": "application/json" },
+                    withCredentials: true,
+                }
+            );
+            console.log(JSON.stringify(response.data));
+            const accessToken = response?.data?.accessToken;
+            // Pour admin etc
+            // const roles = response?.data?.roles;
+            setAuth({ email, password, accessToken });
+            // Vider les inputs
+            setEmail("");
+            setPassword("");
+        } catch (error) {
+            if (!error?.response) {
+                setErrMsg("Le serveur ne répond pas");
+            } else {
+                setErrMsg("L'inscription a échouée");
+            }
+            // Pour les lecteurs d'écran :
+            errRef.current.focus();
+        }
     };
 
     return (

@@ -42,11 +42,12 @@ const LoginForm = () => {
             // Pour admin etc
             // const roles = response?.data?.roles;
             setAuth({ email, password, accessToken });
+            // Vider les inputs
             setEmail("");
             setPassword("");
         } catch (error) {
             if (!error?.response) {
-                setErrMsg("Pas de réponse serveur");
+                setErrMsg("Le serveur ne répond pas");
             } else if (error.response?.status === 400) {
                 setErrMsg("Veuillez remplir tous les champs ");
             } else if (error.response?.status === 401) {
