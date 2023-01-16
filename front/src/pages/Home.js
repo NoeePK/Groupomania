@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
-import ProfileBrowser from "../components/browsers/ProfileBrowser";
+import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
 import PublishForm from "../components/forms/PublishForm";
-import Header from "../components/semantics/Header";
 
 // Lister les posts du + récent au + ancien
 
@@ -14,12 +13,13 @@ const Home = () => {
 
     return (
         <>
-            <Header />
             <section className="main-container">
                 <h1>Les dernières publications</h1>
-                <div className="publications-container">
+                <div className="publications-browser">
                     <PublicationsBrowser />
-                    <button>Anciennes publications</button>
+                </div>
+                <div className="profiles-browser">
+                    <ProfilesBrowser />
                 </div>
                 <div className="publish-container">
                     <button onClick={editorIsOpen}>Publier</button>
@@ -31,9 +31,6 @@ const Home = () => {
                         <PublishForm />
                     </div>
                 </div>
-                <aside className="sidebar">
-                    <ProfileBrowser />
-                </aside>
             </section>
         </>
     );

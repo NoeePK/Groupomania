@@ -1,3 +1,6 @@
+// Modifier et supprimer ses posts
+// Système de like
+
 import React, { useState } from "react";
 import axios from "axios";
 

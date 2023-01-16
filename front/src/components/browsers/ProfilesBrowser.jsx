@@ -1,5 +1,3 @@
-// Peut-être un carrousel avec un bouton "découvrir d'autres collègues"
-
 import React from "react";
 import { Link } from "react-router-dom";
 import getDatas from "../../api/datas";
@@ -9,7 +7,7 @@ const Browser = () => {
     const profiles = getDatas(PROFILES_URL);
 
     return (
-        <>
+        <div className="profiles-browser">
             {profiles.map((profile) => (
                 <Link
                     className="to-collegue-link"
@@ -23,7 +21,7 @@ const Browser = () => {
                     <h2>{profile.name}</h2>
                 </Link>
             ))}
-        </>
+        </div>
     );
 };
 
