@@ -1,6 +1,6 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import { AuthProvider } from "./context/AuthProvider";
 
@@ -14,7 +14,9 @@ const root = createRoot(root_container);
 root.render(
     <BrowserRouter>
         <AuthProvider>
-            <App />
+            <Routes>
+                <Route path="/*" element={<App />} />
+            </Routes>
         </AuthProvider>
     </BrowserRouter>
 );

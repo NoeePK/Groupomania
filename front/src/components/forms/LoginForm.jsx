@@ -1,12 +1,17 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "../../api/axios";
-import AuthContext from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 const LOGIN_URL = "/auth";
 
 const LoginForm = () => {
-    const { setAuth } = useContext(AuthContext);
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    // Emplacement AVANT d'être redirigé vers Login
+    // OU arriver sur la page d'accueil
+    const from = location.state?.from?.pathname || "/";
 
     const emailRef = useRef();
     const errRef = useRef();
@@ -45,6 +50,7 @@ const LoginForm = () => {
             // Vider les inputs
             setEmail("");
             setPassword("");
+            navigate(from, { replace: true });
         } catch (error) {
             if (!error?.response) {
                 setErrMsg("Le serveur ne répond pas");
