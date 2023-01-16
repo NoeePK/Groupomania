@@ -33,11 +33,19 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
 
                 {/* Routes privées */}
-                <Route element={<RequireAuth />}>
+                {/* Autorisé pour un utilisateur lambda */}
+                <Route element={<RequireAuth allowedRoles={[2001]} />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
                 </Route>
+
+                {/* Autorisé pour un admin */}
+                {/* Ajouter les pages de suppression etc */}
+                {/* <Route
+                    element={
+                        <RequireAuth allowedRoles={[5150]} />
+                    }></Route> */}
 
                 {/* Autres */}
                 <Route path="*" element={<Error />} />

@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 const REGISTER_URL = "/register";
 
 const EMAIL_REGEX =
-    /[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/i;
+    /^[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/;
 const PWD_REGEX =
-    "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$";
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,24}$/;
 
 const RegisterForm = () => {
     const { setAuth } = useAuth();
 
     const navigate = useNavigate();
-    const location = useLocation();
-    // Emplacement AVANT d'être redirigé vers Login
-    // OU arriver sur la page d'accueil
-    const from = location.state?.from?.pathname || "/";
+    // Arriver sur la page d'accueil
+    const to = "/";
 
     const emailRef = useRef();
     const errRef = useRef();
@@ -49,7 +47,7 @@ const RegisterForm = () => {
         const result = PWD_REGEX.test(password);
         console.log(result);
         console.log(password);
-        setValidEmail(result);
+        setValidPassword(result);
     }, [password]);
 
     // Mettre à jour message d'erreur pendant la saisie
@@ -76,6 +74,7 @@ const RegisterForm = () => {
             // Vider les inputs
             setEmail("");
             setPassword("");
+            navigate(to, { replace: true });
         } catch (error) {
             if (!error?.response) {
                 setErrMsg("Le serveur ne répond pas");
@@ -108,14 +107,14 @@ const RegisterForm = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         aria-invalid={validEmail ? "false" : "true"}
-                        aria-describedby="instructions"
+                        aria-describedby="emailInstructions"
                         onFocus={() => setEmailFocus(true)}
                         onBlur={() => setEmailFocus(false)}
                         placeholder="example@gmail.com"
                         required
                     />
                     <p
-                        id="instructions"
+                        id="emailInstructions"
                         className={
                             emailFocus && email && !validEmail
                                 ? "instructions"
@@ -134,24 +133,24 @@ const RegisterForm = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         aria-invalid={validPassword ? "false" : "true"}
-                        aria-describedby="passwordinstructions"
+                        aria-describedby="passwordInstructions"
                         onFocus={() => setPasswordFocus(true)}
                         onBlur={() => setPasswordFocus(false)}
                         required
                     />
                     <p
-                        id="passwordinstructions"
+                        id="passwordInstructions"
                         className={
                             passwordFocus && password && !validPassword
                                 ? "instructions"
                                 : "offscreen"
                         }>
                         Votre mot de passe doit contenir au minimum : 8
-                        caractères, 1 majuscule, 1 minuscule et 3 nombres
+                        caractères, 1 majuscule, 1 minuscule et 3 chiffres
                     </p>
                 </label>
 
-                <button disabled={!validEmail || !validPassword ? true : false}>
+                <button disabled={!email || !password ? true : false}>
                     S'inscrire
                 </button>
             </form>
