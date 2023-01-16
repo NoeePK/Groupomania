@@ -1,29 +1,28 @@
-// Récupérer les profils des autres collègues
 // Peut-être un carrousel avec un bouton "découvrir d'autres collègues"
 
 import React from "react";
-import { Link, useParams } from "react-router-dom";
-
-// import { fetchProfiles } from "../../Data";
-// const data = fetchProfiles();
+import { Link } from "react-router-dom";
+import getDatas from "../../api/datas";
+const PROFILES_URL = "/profiles";
 
 const Browser = () => {
-    // const params = useParams();
-    // const profiles = data.find((collegues) => collegues.id !== params.id);
+    const profiles = getDatas(PROFILES_URL);
+
     return (
         <>
-            {/* {profiles.map((profile) => (
+            {profiles.map((profile) => (
                 <Link
                     className="to-collegue-link"
-                    to={`/Profile/${profile.id}`}
-                    key={profile.id}>
+                    key={profile.id}
+                    to={`/Profile/${profile.id}`}>
                     <img
-                        src={profile.imageURL}
+                        src={profile.imageUrl}
                         className="profile-avatar"
-                        alt=""></img>
+                        alt=""
+                    />
                     <h2>{profile.name}</h2>
                 </Link>
-            ))} */}
+            ))}
         </>
     );
 };
