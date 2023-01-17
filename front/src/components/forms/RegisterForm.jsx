@@ -37,16 +37,12 @@ const RegisterForm = () => {
     // Valider email
     useEffect(() => {
         const result = EMAIL_REGEX.test(email);
-        console.log(result);
-        console.log(email);
         setValidEmail(result);
     }, [email]);
 
     // Valider mot de passe
     useEffect(() => {
         const result = PWD_REGEX.test(password);
-        console.log(result);
-        console.log(password);
         setValidPassword(result);
     }, [password]);
 
@@ -63,7 +59,7 @@ const RegisterForm = () => {
                 JSON.stringify({ email, password }),
                 {
                     headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
+                    
                 }
             );
             console.log(JSON.stringify(response.data));

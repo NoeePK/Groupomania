@@ -13,10 +13,9 @@ connectDB();
 const publicationRoutes = require("./routes/publication");
 const profileRoutes = require("./routes/profile");
 const userRoutes = require("./routes/user");
-const commentRoutes = require("./routes/comments");
+// const commentRoutes = require("./routes/comments");
 
 require("dotenv").config();
-console.log(process.env);
 
 const app = express();
 
@@ -35,11 +34,12 @@ app.use(
     })
 );
 
+
 // Pour voir le contenu des requêtes
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.get("http://localhost:8080/api");
+app.get("http://localhost:8080/api");
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
