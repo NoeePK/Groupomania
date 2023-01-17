@@ -3,6 +3,11 @@ const morgan = require("morgan");
 const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
+const mongoose = require("mongoose");
+const connectDB = require("./config/connectDB");
+
+// Connecter BDD
+connectDB();
 
 // Importer routes
 const publicationRoutes = require("./routes/publication");
@@ -22,9 +27,6 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 // Voir les requêtes
 app.use(morgan("tiny"));
 
-const mongoose = require("./database");
-const { default: axios } = require("axios");
-
 // Contourner CORS
 app.use(
     cors({
@@ -37,7 +39,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("http://localhost:8080/api");
+// app.get("http://localhost:8080/api");
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
@@ -45,11 +47,5 @@ app.use("/api", userRoutes);
 app.use("/api/publications", publicationRoutes);
 app.use("/api/profiles", profileRoutes);
 // app.use("api/publication/:id/comments", commentRoutes);
-
-// app.get("/api", (req, res) => {
-//     console.log(req.body);
-//     const data = req.body;
-//     res.json(data);
-// });
 
 module.exports = app;
