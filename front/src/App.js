@@ -3,9 +3,6 @@ import RequireAuth from "./components/config/RequireAuth";
 import { Routes, Route } from "react-router-dom";
 import Layout from ".//components/config/Layout";
 
-import Header from "./components/semantics/Header"
-import Footer from "./components/semantics/Footer";
-
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
@@ -24,14 +21,14 @@ const App = () => {
 
                 {/* Routes privées */}
                 {/* Autorisé pour un utilisateur lambda */}
-                <Header/>
+
                 <Route element={<RequireAuth allowedRoles={[2001]} />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
                     <Route path="/About" element={<About />} />
                 </Route>
-                <Footer/>
+
                 {/* Autorisé pour un admin */}
                 {/* Ajouter les pages de suppression etc */}
                 {/* <Route
@@ -41,7 +38,6 @@ const App = () => {
 
                 {/* Autres */}
                 <Route path="*" element={<Error />} />
-                
             </Route>
         </Routes>
     );
