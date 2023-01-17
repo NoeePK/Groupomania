@@ -8,7 +8,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Publication from "./pages/Publication";
 import Profile from "./pages/Profile";
-import About from "./pages/About";
+// import About from "./pages/About";
 import Error from "./pages/Error";
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
-                    <Route path="/About" element={<About />} />
+                    {/* <Route path="/About" element={<About />} /> */}
                 </Route>
 
                 {/* Autorisé pour un admin */}
