@@ -19,7 +19,7 @@ module.exports = (req, res, next) => {
             (err, decoded) => {
                 if (err) {
                     return res
-                        .sendstatus(403)
+                        .status(403)
                         .json({ err: "Token non-valide" });
                 } else {
                     next();
@@ -34,8 +34,10 @@ module.exports = (req, res, next) => {
         // SI : ID n'est pas valable
         if (req.body.userId && req.body.userId !== userId) {
             throw "L'id de l'utilisateur n'est pas valide";
-        }
-        // SINON : ID est valable
+        } else if (req.body.userRole && req.body.userRole !== userRole) {
+            throw "Accès non-autorisé";
+        } 
+        // SINON : ID et role sont valables
         else {
             req.auth = {
                 userId: userId,
