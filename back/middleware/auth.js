@@ -5,14 +5,31 @@ const result = dotenv.config();
 // Sécuriser les routes
 module.exports = (req, res, next) => {
     try {
+        // Vérifier si header contient un token
+        const authHeader = req.headers.authorization;
+        if (!authHeader?.startsWith("Bearer"))
+            return res.status(401).json({ err: "Aucun token" });
         // Récupérer token dans header
-        const token = req.headers.authorization.split(" ")[1];
+        const token = authHeader.split(" ")[1];
 
-        // Décoder token
-        const decodedToken = jwt.verify(token, `${process.env.JWT_TOKEN}`);
+        // Vérifier token
+        const decodedToken = jwt.verify(
+            token,
+            process.env.JWT_TOKEN,
+            (err, decoded) => {
+                if (err) {
+                    return res
+                        .sendstatus(403)
+                        .json({ err: "Token non-valide" });
+                } else {
+                    next();
+                }
+            }
+        );
 
-        // Récupérer id dans token décodé
+        // Récupérer id et rôle
         const userId = decodedToken.userId;
+        const userRole = decodedToken.userRole;
 
         // SI : ID n'est pas valable
         if (req.body.userId && req.body.userId !== userId) {
@@ -22,6 +39,7 @@ module.exports = (req, res, next) => {
         else {
             req.auth = {
                 userId: userId,
+                userRole: userRole,
             };
 
             next();

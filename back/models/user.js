@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
-const roles = require("../config/roles_list")
+const roles = require("../config/roles_list");
 
 const userSchema = mongoose.Schema({
     email: {
@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    role: { type: String, default: roles.User}
+    role: { type: String, default: roles.User },
 });
 
 // Empêcher email identique

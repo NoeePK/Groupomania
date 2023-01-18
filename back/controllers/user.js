@@ -20,6 +20,7 @@ exports.register = (req, res, next) => {
             const user = new User({
                 email: emailCryptoJS,
                 password: hash,
+                role: { User: 2001 },
             });
             // Enregistrer user dans BDD
             user.save()
@@ -65,13 +66,16 @@ exports.login = (req, res, next) => {
                         }
                         // SINON : Mot de passe est correct
                         else {
+                            const roles = Object.values(user.role);
                             // ALORS : autoriser accès et attribuer token
                             res.status(200).json({
                                 message: "Utilisateur connecté",
                                 userId: user._id,
                                 token: jwt.sign(
                                     { userId: user._id },
+                                    { userRole: roles },
                                     `${process.env.JWT_TOKEN}`,
+                                    
                                     { expiresIn: "12h" }
                                 ),
                             });
