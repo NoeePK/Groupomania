@@ -39,7 +39,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get("http://localhost:8080/api");
+// app.get("http://localhost:8080/api");
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));

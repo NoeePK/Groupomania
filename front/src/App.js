@@ -22,19 +22,19 @@ const App = () => {
                 {/* Routes privées */}
                 {/* Autorisé pour un utilisateur lambda */}
 
-                {/* <Route element={<RequireAuth allowedRoles={[2001]} />}> */}
+                <Route element={<RequireAuth allowedRoles={[2001]} />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
                     {/* <Route path="/About" element={<About />} /> */}
-                {/* </Route> */}
+                </Route>
 
                 {/* Autorisé pour un admin */}
                 {/* Ajouter les pages de suppression etc */}
-                {/* <Route
+                <Route
                     element={
                         <RequireAuth allowedRoles={[5150]} />
-                    }></Route> */}
+                    }></Route>
 
                 {/* Autres */}
                 <Route path="*" element={<Error />} />
