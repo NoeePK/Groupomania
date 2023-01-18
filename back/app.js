@@ -39,5 +39,6 @@ app.use("/api", require("./routes/user"));
 app.use("/api/publications", require("./routes/publication"));
 app.use("/api/profiles", require("./routes/profile"));
 // app.use("api/publication/:id/comments", require("./routes/comments"));
+app.use("/logout", require("./routes/logout"))
 
 module.exports = app;
