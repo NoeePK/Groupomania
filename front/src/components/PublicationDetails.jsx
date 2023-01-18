@@ -2,7 +2,6 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import getDatas from "../api/datas";
 import NotFound from "../pages/Errors/NotFound";
-import PublishForm from "../components/forms/PublishForm";
 import LikingSystem from "./LinkingSystem";
 import Comments from "./Comments";
 const PUBLICATION_URL = "/publications";
@@ -27,9 +26,9 @@ const PublicationDetails = () => {
     return (
         <section className="publication-container" key={publication.id}>
             <h1>{publication.title}</h1>
-            <button>
-                <Link to={<PublishForm />}>Modifier cette publication"</Link>
-            </button>
+            {/* <button>
+                <Link to={<Publish />}>Modifier cette publication"</Link>
+            </button> */}
             <div className="publication">
                 <img src={publication.imageURL} alt=""></img>
                 <p>{publication.message}</p>

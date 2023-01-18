@@ -10,6 +10,7 @@ const Navigation = () => {
         <nav>
             <Link to="/">Accueil</Link>
             <Link to={`/Profile/${profile.id}`}>Profil</Link>
+            <Link to={"/Publish"}>Publier</Link>
             <div>Se déconnecter</div>
         </nav>
     );

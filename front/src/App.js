@@ -8,7 +8,8 @@ import Home from "./pages/Home";
 import Publication from "./pages/Publication";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
-import Error from "./pages/Errors/NotFound";
+import NotFound from "./pages/Errors/NotFound";
+import Unauthorized from "./pages/Errors/Unauthorized";
 
 const App = () => {
     return (
@@ -17,23 +18,20 @@ const App = () => {
                 {/* Routes publiques */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="*" element={<NotFound />} />
+                <Route path="/unauthorized" element={<Unauthorized />} />
+                <Route path="/About" element={<About />} />
 
                 {/* Routes privées */}
                 {/* Accès User */}
-
                 <Route element={<RequireAuth allowedRoles={[2001]} />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
-                    <Route path="/About" element={<About />} />
                 </Route>
 
                 {/* Accès Admin */}
-                {/* Ajouter les pages de suppression etc */}
                 <Route element={<RequireAuth allowedRoles={[5150]} />}></Route>
-
-                {/* Autres */}
-                <Route path="*" element={<Error />} />
             </Route>
         </Routes>
     );

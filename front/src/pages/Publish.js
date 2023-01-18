@@ -1,6 +1,3 @@
-// Modifier et supprimer ses posts
-// Système de like
-
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -65,3 +62,7 @@ const Publish = () => {
 };
 
 export default Publish;
+
+// Modifier et supprimer ses posts pour le proprio
+// Supprimer un post pour l'admin
+// Modération des commentaires?
