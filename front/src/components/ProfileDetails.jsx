@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import getDatas from "../api/datas";
-import Error from "../pages/Error";
 import ProfileForm from "../components/forms/ProfileForm";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
+import NotFound from "../pages/Errors/NotFound";
 const PROFILE_URL = "/profiles";
 
 const ProfileDetails = () => {
@@ -12,8 +12,8 @@ const ProfileDetails = () => {
     const profile = profiles.find((p) => p.id === params.id);
 
     // SI : current user id === post id, ALORS afficher les boutons modifier et supprimer
-    
-    if(!profile) return <Error />;
+
+    if (!profile) return <NotFound />;
 
     return (
         <section className="profile-container" key={profile.id}>

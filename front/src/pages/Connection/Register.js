@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import RegisterForm from "../components/forms/RegisterForm";
+import RegisterForm from "../../components/forms/RegisterForm";
 
 const Register = () => {
     return (
@@ -10,7 +10,6 @@ const Register = () => {
                 Déjà inscrit.e ?<br />
                 <Link to="/login"> Se connecter</Link>
             </p>
-            
         </>
     );
 };

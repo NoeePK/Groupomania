@@ -2,14 +2,13 @@ import React from "react";
 import RequireAuth from "./components/config/RequireAuth";
 import { Routes, Route } from "react-router-dom";
 import Layout from ".//components/config/Layout";
-
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import Login from "./pages/Connection/Login";
+import Register from "./pages/Connection/Register";
 import Home from "./pages/Home";
 import Publication from "./pages/Publication";
 import Profile from "./pages/Profile";
-// import About from "./pages/About";
-import Error from "./pages/Error";
+import About from "./pages/About";
+import Error from "./pages/Errors/NotFound";
 
 const App = () => {
     return (
@@ -26,7 +25,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
-                    {/* <Route path="/About" element={<About />} /> */}
+                    <Route path="/About" element={<About />} />
                 </Route>
 
                 {/* Accès Admin */}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import getDatas from "../api/datas";
-import Error from "../pages/Error";
+import NotFound from "../pages/Errors/NotFound";
 import PublishForm from "../components/forms/PublishForm";
 import LikingSystem from "./LinkingSystem";
 import Comments from "./Comments";
@@ -16,11 +16,13 @@ const PublicationDetails = () => {
     // user._id === profile
 
     // SI : current user id === profile id, ALORS afficher les boutons modifier et supprimer
-{/* <section hidden={publicationer ? false : true}>
+    {
+        /* <section hidden={publicationer ? false : true}>
                     <Button text="Modifier" onClick="handleModify()" />
                     <Button text="Supprimer" onClick="handleDelete()" />
-                </section> */}
-    if (!publication) return <Error />;
+                </section> */
+    }
+    if (!publication) return <NotFound />;
 
     return (
         <section className="publication-container" key={publication.id}>
@@ -41,7 +43,7 @@ const PublicationDetails = () => {
                     Découvrir le profil
                 </Link>
             </div>
-            
+
             <div className="linkingSystem">
                 <LikingSystem
                     likes={publication.likes}

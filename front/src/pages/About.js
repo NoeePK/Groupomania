@@ -1,6 +1,6 @@
 import React from "react";
-import AboutContent from "../datas/about.json";
-import Header from "../api/about.json";
+// import AboutContent from "../datas/about.json";
+import Header from "../components/semantics/Header";
 
 const About = () => {
     return (
