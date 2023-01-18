@@ -20,7 +20,7 @@ const App = () => {
                 <Route path="/register" element={<Register />} />
 
                 {/* Routes privées */}
-                {/* Autorisé pour un utilisateur lambda */}
+                {/* Accès User */}
 
                 <Route element={<RequireAuth allowedRoles={[2001]} />}>
                     <Route path="/" element={<Home />} />
@@ -29,12 +29,9 @@ const App = () => {
                     {/* <Route path="/About" element={<About />} /> */}
                 </Route>
 
-                {/* Autorisé pour un admin */}
+                {/* Accès Admin */}
                 {/* Ajouter les pages de suppression etc */}
-                <Route
-                    element={
-                        <RequireAuth allowedRoles={[5150]} />
-                    }></Route>
+                <Route element={<RequireAuth allowedRoles={[5150]} />}></Route>
 
                 {/* Autres */}
                 <Route path="*" element={<Error />} />
