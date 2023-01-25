@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import logoMail from "../../assets/logo-mail.svg";
+import logoPwd from "../../assets/logo-pwd.svg";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 const LOGIN_URL = "/auth";
@@ -78,7 +80,8 @@ const LoginForm = () => {
             </p>
             <form className="log-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">
-                    Courriel
+                    <p>Courriel</p>
+                    <img src={logoMail} alt="Entrez votre adresse mail" />
                     <input
                         type="email"
                         id="email"
@@ -86,18 +89,21 @@ const LoginForm = () => {
                         ref={emailRef}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="example@gmail.com"
+                        placeholder="Entrez votre adresse mail"
                         required
                     />
                 </label>
+
                 <label htmlFor="password">
-                    Mot de passe
+                    <p>Mot de passe</p>
+                    <img src={logoPwd} alt="Entrez votre mot de passe" />
                     <input
                         type="password"
                         id="password"
                         name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Entrez votre mot de passe"
                         required
                     />
                 </label>
