@@ -35,14 +35,14 @@ nav a {
   background-color: white;
   margin: 5rem auto 2rem auto;
   padding: 1rem 2rem;
-  width: 35%;
+  width: 30%;
   font-size: 1.8rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
 }
 .connection-container img {
-  width: 70%;
+  width: 80%;
   margin: auto;
   filter: invert(0.39);
 }
@@ -59,21 +59,28 @@ nav a {
 }
 
 .log-container {
-  width: 80%;
+  width: 100%;
   margin: auto;
 }
 .log-container h1 {
   text-align: center;
   cursor: default;
-  margin-bottom: 4rem;
 }
 
+.log-form {
+  width: 90%;
+  margin: auto;
+}
 .log-form label {
   display: flex;
   flex-direction: row;
-  margin-bottom: 3rem;
+  margin-top: 3rem;
 }
-.log-form label p {
+.log-form label:hover img {
+  transform: rotate(360deg);
+  transition-duration: 800ms;
+}
+.log-form label h2 {
   display: none;
 }
 .log-form img {
@@ -88,12 +95,15 @@ nav a {
   margin: 0;
   border-radius: 10px;
 }
+.log-form input:focus {
+  background-color: rgba(255, 215, 215, 0.3921568627);
+}
 .log-form button {
   height: 3rem;
   width: 70%;
-  margin: auto;
+  margin: 2rem auto;
   padding: 3rem auto;
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: white;
   border-radius: 10px;
 }
@@ -106,6 +116,27 @@ nav a {
   background-color: rgba(78, 81, 102, 0.3058823529);
   color: rgba(78, 81, 102, 0.5607843137);
   cursor: not-allowed;
+}
+.log-form .offscreen {
+  display: none;
+}
+
+.instructions {
+  display: inline-block;
+  font-size: 1.3rem;
+  font-style: italic;
+  margin-top: 0;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  padding-top: 2rem;
+}
+.error-message img {
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
 }
 
 /*# sourceMappingURL=index.css.map */

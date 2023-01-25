@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
+import warning from "../../assets/warning.svg";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 const LOGIN_URL = "/auth";
@@ -71,16 +72,10 @@ const LoginForm = () => {
     return (
         <section className="log-container">
             <h1>Se connecter</h1>
-            <p
-                ref={errRef}
-                className="error-message"
-                hidden={errMsg ? false : true}
-                aria-live="assertive">
-                {errMsg}
-            </p>
+
             <form className="log-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">
-                    <p>Courriel</p>
+                    <h2>Courriel</h2>
                     <img src={logoMail} alt="Entrez votre adresse mail" />
                     <input
                         type="email"
@@ -95,7 +90,7 @@ const LoginForm = () => {
                 </label>
 
                 <label htmlFor="password">
-                    <p>Mot de passe</p>
+                    <h2>Mot de passe</h2>
                     <img src={logoPwd} alt="Entrez votre mot de passe" />
                     <input
                         type="password"
@@ -111,6 +106,18 @@ const LoginForm = () => {
                 <button disabled={!email || !password ? true : false}>
                     Se connecter
                 </button>
+                <p
+                    ref={errRef}
+                    className="error-message"
+                    hidden={errMsg ? false : true}
+                    aria-live="assertive">
+                    <img
+                        src={warning}
+                        alt="Attention ! Erreur réseau"
+                        hidden={errMsg ? false : true}
+                    />
+                    {errMsg}
+                </p>
             </form>
         </section>
     );

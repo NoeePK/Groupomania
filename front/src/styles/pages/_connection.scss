@@ -2,14 +2,14 @@
     background-color: white;
     margin: 5rem auto 2rem auto;
     padding: 1rem 2rem;
-    width: 35%;
+    width: 30%;
     font-size: 1.8rem;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
 
     img {
-        width: 70%;
+        width: 80%;
         margin: auto;
         filter: invert(0.39);
     }
@@ -29,22 +29,30 @@
 }
 
 .log-container {
-    width: 80%;
+    width: 100%;
     margin: auto;
     h1 {
         text-align: center;
         cursor: default;
-        margin-bottom: 4rem;
     }
 }
 
 .log-form {
+    width: 90%;
+    margin: auto;
     label {
         display: flex;
         flex-direction: row;
-        margin-bottom: 3rem;
+        margin-top: 3rem;
+
+        &:hover {
+            img {
+                transform: rotate(360deg);
+                transition-duration: 800ms;
+            }
+        }
     }
-    label p {
+    label h2 {
         display: none;
     }
 
@@ -60,14 +68,18 @@
         font-size: 1.5rem;
         margin: 0;
         border-radius: 10px;
+
+        &:focus {
+            background-color: #ffd7d764;
+        }
     }
 
     button {
         height: 3rem;
         width: 70%;
-        margin: auto;
+        margin: 2rem auto;
         padding: 3rem auto;
-        font-size: 2rem;
+        font-size: 1.5rem;
         color: white;
         border-radius: 10px;
 
@@ -82,5 +94,28 @@
             color: #4e51668f;
             cursor: not-allowed;
         }
+    }
+
+    .offscreen {
+        display: none;
+    }
+}
+
+.instructions {
+    display: inline-block;
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-top: 0;
+}
+
+.error-message {
+    color: red;
+    text-align: center;
+    padding-top: 2rem;
+
+    img {
+        height: 2rem;
+        width: 2rem;
+        margin-right: 1rem;
     }
 }

@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import logoMail from "../../assets/logo-mail.svg";
+import logoPwd from "../../assets/logo-pwd.svg";
+import warning from "../../assets/warning.svg";
 import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 const REGISTER_URL = "/register";
@@ -59,10 +62,9 @@ const RegisterForm = () => {
                 JSON.stringify({ email, password }),
                 {
                     headers: { "Content-Type": "application/json" },
-                    
                 }
             );
-            console.log(JSON.stringify(response.data));
+            console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             // Pour admin etc
             // const roles = response?.data?.roles;
@@ -74,6 +76,8 @@ const RegisterForm = () => {
         } catch (error) {
             if (!error?.response) {
                 setErrMsg("Le serveur ne répond pas");
+            } else if (error.response?.status === 400) {
+                setErrMsg("Veuillez remplir tous les champs ");
             } else {
                 setErrMsg("L'inscription a échouée");
             }
@@ -90,11 +94,17 @@ const RegisterForm = () => {
                 className="error-message"
                 hidden={errMsg ? false : true}
                 aria-live="assertive">
+                <img
+                    src={warning}
+                    alt="Attention !"
+                    hidden={errMsg ? false : true}
+                />
                 {errMsg}
             </p>
             <form className="log-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">
-                    Courriel
+                    <h2>Courriel</h2>
+                    <img src={logoMail} alt="Entrez votre adresse mail" />
                     <input
                         type="email"
                         id="email"
@@ -106,54 +116,57 @@ const RegisterForm = () => {
                         aria-describedby="emailInstructions"
                         onFocus={() => setEmailFocus(true)}
                         onBlur={() => setEmailFocus(false)}
-                        placeholder="example@gmail.com"
+                        placeholder="Entrez votre adresse mail"
                         required
                     />
-                    <p
-                        id="emailInstructions"
-                        className={
-                            emailFocus && email && !validEmail
-                                ? "instructions"
-                                : "offscreen"
-                        }>
-                        Ce champs doit contenir une adresse email contenant un @
-                        et suivant le format de l'entreprise
-                    </p>
                 </label>
+                <p
+                    id="emailInstructions"
+                    className={
+                        emailFocus && email && !validEmail
+                            ? "instructions"
+                            : "offscreen"
+                    }>
+                    Ce champs doit contenir une adresse email contenant un @ et
+                    suivant le format de l'entreprise
+                </p>
                 <label htmlFor="password">
-                    Mot de passe
+                    <h2>Mot de passe</h2>
+                    <img src={logoPwd} alt="Entrez votre mot de passe" />
                     <input
                         type="password"
                         id="password"
-                        name="passeword"
+                        name="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         aria-invalid={validPassword ? "false" : "true"}
                         aria-describedby="passwordInstructions"
                         onFocus={() => setPasswordFocus(true)}
                         onBlur={() => setPasswordFocus(false)}
+                        placeholder="Entrez votre mot de passe"
                         required
                     />
-                    <p
-                        id="passwordInstructions"
-                        className={
-                            passwordFocus && password && !validPassword
-                                ? "instructions"
-                                : "offscreen"
-                        }>
-                        Votre mot de passe doit contenir au minimum : 8
-                        caractères, 1 majuscule, 1 minuscule et 3 chiffres
-                    </p>
                 </label>
+                <p
+                    id="passwordInstructions"
+                    className={
+                        passwordFocus && password && !validPassword
+                            ? "instructions"
+                            : "offscreen"
+                    }>
+                    Votre mot de passe doit contenir au minimum : 8 caractères,
+                    1 majuscule, 1 minuscule et 3 chiffres
+                </p>
 
-                <button disabled={!email || !password ? true : false}>
+                <button
+                    disabled={
+                        !email || !password || !validEmail || !validPassword
+                            ? true
+                            : false
+                    }>
                     S'inscrire
                 </button>
             </form>
-            <p>
-                Dès votre inscription effectuée, vous aurez la possibilité de
-                créer votre profil.
-            </p>
         </section>
     );
 };
