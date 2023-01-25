@@ -83,7 +83,7 @@ const RegisterForm = () => {
     };
 
     return (
-        <section className="register-container">
+        <section className="log-container">
             <h1>Inscription</h1>
             <p
                 ref={errRef}
@@ -92,7 +92,7 @@ const RegisterForm = () => {
                 aria-live="assertive">
                 {errMsg}
             </p>
-            <form className="register-form" onSubmit={handleSubmit}>
+            <form className="log-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">
                     Courriel
                     <input

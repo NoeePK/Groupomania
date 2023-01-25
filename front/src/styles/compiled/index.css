@@ -3,6 +3,11 @@
   font-family: "Lato", sans-serif;
 }
 
+body {
+  background-color: #FFD7D7;
+  color: #4E5166;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -24,6 +29,37 @@ footer {
 nav a {
   color: white;
   display: flex;
+}
+
+.connection-container {
+  background-color: white;
+  margin: 5rem auto 2rem auto;
+  padding: 1rem 2rem;
+  width: 40%;
+  font-size: 1.8rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.connection-container img {
+  width: 70%;
+  margin: auto;
+  filter: invert(0.39);
+}
+
+.connection-link {
+  text-align: center;
+  font-size: 1.5rem;
+}
+.connection-link a {
+  text-decoration: none;
+}
+.connection-link a:hover {
+  text-decoration: underline;
+}
+
+.log-container h1 {
+  text-align: center;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -67,7 +67,7 @@ const LoginForm = () => {
     };
 
     return (
-        <section className="login-container">
+        <section className="log-container">
             <h1>Se connecter</h1>
             <p
                 ref={errRef}
@@ -76,7 +76,7 @@ const LoginForm = () => {
                 aria-live="assertive">
                 {errMsg}
             </p>
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="log-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">
                     Courriel
                     <input
