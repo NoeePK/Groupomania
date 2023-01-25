@@ -1,31 +1,7 @@
-.connection-container {
-    background-color: white;
-    margin: 5rem auto 2rem auto;
-    padding: 1rem 2rem;
-    width: 30%;
-    font-size: 1.8rem;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-
-    img {
-        width: 80%;
-        margin: auto;
-        filter: invert(0.39);
-    }
-}
-
-.connection-link {
-    text-align: center;
-    font-size: 1.5rem;
-
-    a {
-        text-decoration: none;
-
-        &:hover {
-            text-decoration: underline;
-        }
-    }
+.main-logo {
+    width: 80%;
+    margin: auto;
+    filter: invert(0.39);
 }
 
 .log-container {

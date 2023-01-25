@@ -8,12 +8,16 @@ import logo from "../../assets/logo-black.svg";
 const Login = () => {
     return (
         <main>
-            <section className="connection-container">
-                <img src={logo} />
+            <section className="main-container">
+                <img
+                    src={logo}
+                    alt="Logo de Groupomania"
+                    className="main-logo"
+                />
                 <LoginForm />
             </section>
 
-            <div className="connection-link">
+            <div className="link-container">
                 <p>Vous n'avez pas de compte ?</p>
                 <Link to="/register">Venez vous inscrire ici</Link>
             </div>

@@ -1,4 +1,14 @@
 footer {
-    margin-top: 20rem;
+    margin-top: 10rem;
+    padding-top: 2rem;
     background-color: $tertiary;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    width: 20rem;
 }

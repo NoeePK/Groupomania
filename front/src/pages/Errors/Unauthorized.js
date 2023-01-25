@@ -6,15 +6,14 @@ const Unauthorized = () => {
     const goBack = () => navigate(-1);
 
     return (
-        <section className="error-container">
+        <main className="main-container">
             <img src={logo} alt="403" className="error-logo" />
-            <p>
-                La page que vous demandez requiert un accès utilisateur ou
-                administrateur
-            </p>
-            <p onClick={goBack}>Retourner sur la page précédente</p>
-            <Link to="/login">Se connecter</Link>
-        </section>
+            <h1>La page que vous demandez requiert un accès administrateur</h1>
+            <div className="link-container">
+                <p onClick={goBack}>Retourner sur la page précédente</p>
+                <Link to="/login">Se connecter</Link>
+            </div>
+        </main>
     );
 };
 

@@ -18,12 +18,38 @@ form label {
 
 header {
   background-color: #4E5166;
-  margin-bottom: 5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+nav a {
+  font-size: 1.8rem;
+  text-decoration: none;
+  padding: 0 1rem;
+}
+nav a:hover {
+  text-decoration: underline;
 }
 
 footer {
-  margin-top: 20rem;
+  margin-top: 10rem;
+  padding-top: 2rem;
   background-color: #4E5166;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  width: 20rem;
 }
 
 nav a {
@@ -31,7 +57,7 @@ nav a {
   display: flex;
 }
 
-.connection-container {
+.main-container {
   background-color: white;
   margin: 5rem auto 2rem auto;
   padding: 1rem 2rem;
@@ -41,21 +67,22 @@ nav a {
   display: flex;
   flex-direction: column;
 }
-.connection-container img {
-  width: 80%;
-  margin: auto;
-  filter: invert(0.39);
-}
 
-.connection-link {
+.link-container {
   text-align: center;
   font-size: 1.5rem;
 }
-.connection-link a {
+.link-container a {
   text-decoration: none;
 }
-.connection-link a:hover {
+.link-container a:hover {
   text-decoration: underline;
+}
+
+.main-logo {
+  width: 80%;
+  margin: auto;
+  filter: invert(0.39);
 }
 
 .log-container {
@@ -137,6 +164,16 @@ nav a {
   height: 2rem;
   width: 2rem;
   margin-right: 1rem;
+}
+
+.error-logo {
+  height: 9rem;
+  margin: 2rem auto;
+  filter: invert(0.39);
+}
+
+h1 {
+  font-size: 2rem;
 }
 
 /*# sourceMappingURL=index.css.map */

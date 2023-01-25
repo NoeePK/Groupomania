@@ -6,12 +6,16 @@ const NotFound = () => {
     const goBack = () => navigate(-1);
 
     return (
-        <section className="error-container">
+        <main className="main-container">
             <img src={logo} alt="404" className="error-logo" />
-            <p>La page que vous demandez n'existe pas</p>
-            <p onClick={goBack}>Retourner sur la page précédente</p>
-            <Link to="/login">Se connecter</Link>
-        </section>
+            <h1>La page que vous demandez n'existe pas</h1>
+            <div className="link-container">
+                <p onClick={goBack}>Retourner sur la page précédente</p>
+                <Link to="/login">
+                    Se connecter
+                </Link>
+            </div>
+        </main>
     );
 };
 

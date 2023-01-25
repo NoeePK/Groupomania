@@ -8,7 +8,7 @@ const Footer = () => {
                 className="footer-logo"
                 src={image}
                 alt="Logo de Groupomania"></img>
-            <p>© date. All rights reserved.</p>
+            <p>© 2022. All rights reserved.</p>
         </footer>
     );
 };
