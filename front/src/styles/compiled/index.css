@@ -16,6 +16,61 @@ form label {
   margin-bottom: 20px;
 }
 
+.collapse {
+  width: 60%;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.collapse-title {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0%;
+  padding: 0 2rem;
+  cursor: pointer;
+}
+.collapse-title h2 {
+  text-transform: uppercase;
+  font-size: 2rem;
+  color: #4E5166;
+}
+
+.collapse-closed {
+  border-radius: 10px;
+}
+
+.collapse-open {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.arrow_down {
+  transform: rotate(180deg);
+}
+
+.arrow_down,
+.arrow_up {
+  width: 2.5rem;
+  filter: invert(0.39);
+}
+
+.collapse-text {
+  color: #4E5166;
+  background-color: #FFD7D7;
+  font-size: 1.6rem;
+  line-height: 2.5rem;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.text-open,
+.text-closed {
+  padding: 2rem;
+  margin: 0;
+}
+
 header {
   background-color: #4E5166;
   display: flex;
@@ -29,6 +84,8 @@ nav {
   align-items: center;
 }
 nav a {
+  color: white;
+  display: flex;
   font-size: 1.8rem;
   text-decoration: none;
   padding: 0 1rem;
@@ -50,11 +107,6 @@ footer {
 
 .footer-logo {
   width: 20rem;
-}
-
-nav a {
-  color: white;
-  display: flex;
 }
 
 .main-container {
@@ -174,6 +226,34 @@ nav a {
 
 h1 {
   font-size: 2rem;
+}
+
+.about-container {
+  background-color: #4E5166;
+  color: white;
+  margin: 5rem auto 2rem auto;
+  padding: 1rem 2rem;
+  width: 70%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.about-container h1 {
+  font-size: 2.5rem;
+  text-transform: uppercase;
+}
+
+.about-collapse {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background-color: white;
+  color: #4E5166;
+  border-radius: 10px;
 }
 
 /*# sourceMappingURL=index.css.map */
