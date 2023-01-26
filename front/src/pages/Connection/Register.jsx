@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import logo from "../../assets/logo-black.svg";
+import warning from "../../assets/warning.svg"
 
 const REGISTER_URL = "/register";
 
@@ -106,7 +107,10 @@ const Register = () => {
                         />
                         {errMsg}
                     </p>
-                    <form className="log-form" onSubmit={handleSubmit}>
+                    <form
+                        className="log-form"
+                        onSubmit={handleSubmit}
+                        autoComplete="off">
                         <label htmlFor="email">
                             <h2>Courriel</h2>
                             <img
@@ -125,6 +129,7 @@ const Register = () => {
                                 onFocus={() => setEmailFocus(true)}
                                 onBlur={() => setEmailFocus(false)}
                                 placeholder="Entrez votre adresse mail"
+                                autoComplete="off"
                                 required
                             />
                         </label>
@@ -155,6 +160,7 @@ const Register = () => {
                                 onFocus={() => setPasswordFocus(true)}
                                 onBlur={() => setPasswordFocus(false)}
                                 placeholder="Entrez votre mot de passe"
+                                autoComplete="off"
                                 required
                             />
                         </label>

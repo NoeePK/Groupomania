@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const ProfileForm = () => {
+const UpdateProfile = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [bday, setBday] = useState("");
@@ -109,4 +109,4 @@ const ProfileForm = () => {
     );
 };
 
-export default ProfileForm;
+export default UpdateProfile;

@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import getDatas from "../api/datas";
-import ProfileForm from "../components/ProfileForm";
+import UpdateProfile from "./Forms/UpdateProfile";
 import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
+import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
 import NotFound from "./Errors/NotFound";
 const PROFILE_URL = "/profiles";
 
@@ -23,7 +24,7 @@ const Profile = () => {
                 <section className="profile-container" key={profile.id}>
                     <h1>Profil de {profile.name}</h1>
                     <button>
-                        <Link to={<ProfileForm />}>Modifier ce profil"</Link>
+                        <Link to={<UpdateProfile />}>Modifier ce profil"</Link>
                     </button>
                     <div className="profile">
                         <img src={profile.imageUrl} alt=""></img>

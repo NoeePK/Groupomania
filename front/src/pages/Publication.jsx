@@ -2,8 +2,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import getDatas from "../api/datas";
 import NotFound from "./Errors/NotFound";
-import LikingSystem from "./LinkingSystem";
-import Comments from "./Comments";
+import LikingSystem from "../components/LinkingSystem";
+import Comments from "../components/Comments";
 
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
 
