@@ -10,7 +10,7 @@ const Publish = () => {
     const [message, setMessage] = useState("");
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preDefault();
 
         const payload = {
             title: title,
@@ -35,25 +35,25 @@ const Publish = () => {
         <main className="main-container">
             <h1>Publier sur le mur</h1>
             <form className="publish-form" onSubmit={(e) => handleSubmit(e)}>
-                <label>
+                <label htmlFor="title">
                     Titre
                     <input
                         type="text"
                         name="title"
                         value={title}
-                        onChange={(event) => setTitle(event.target.value)}
+                        onChange={(e) => setTitle(e.target.value)}
                         required></input>
                 </label>
-                <label>
+                <label htmlFor="message">
                     Message
                     <textarea
                         name="message"
                         value={message}
-                        onChange={(event) => setMessage(event.target.value)}
+                        onChange={(e) => setMessage(e.target.value)}
                         rows="5"
                         required></textarea>
                 </label>
-                <label className="add-image">
+                <label htmlFor="imageURL" className="add-image">
                     Ajouter une image
                     <input type="text" name="imageURL"></input>
                 </label>
