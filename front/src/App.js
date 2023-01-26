@@ -24,7 +24,8 @@ const App = () => {
 
                 {/* Routes privées */}
                 {/* Accès User */}
-                <Route element={<RequireAuth allowedRoles={[2001]} />}>
+                <Route element={<RequireAuth />}>
+                    {/* allowedRoles={[2001]}  */}
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />

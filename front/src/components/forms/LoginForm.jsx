@@ -1,14 +1,21 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
+
+import axios from "../../api/axios";
+
 import { useNavigate, useLocation } from "react-router-dom";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
-import axios from "../../api/axios";
-import useAuth from "../../hooks/useAuth";
+
+
 const LOGIN_URL = "/auth";
 
 const LoginForm = () => {
     const { setAuth } = useAuth();
+
+const emailRef = useRef();
+    const errRef = useRef();
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -16,8 +23,7 @@ const LoginForm = () => {
     // OU arriver sur la page d'accueil
     const from = location.state?.from?.pathname || "/";
 
-    const emailRef = useRef();
-    const errRef = useRef();
+    
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

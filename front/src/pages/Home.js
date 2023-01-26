@@ -10,10 +10,10 @@ const Home = () => {
             <section className="main-container">
                 <h1>Les dernières publications</h1>
                 <div className="publications-browser">
-                    <PublicationsBrowser />
+                    {/* <PublicationsBrowser /> */}
                 </div>
                 <div className="profiles-browser">
-                    <ProfilesBrowser />
+                    {/* <ProfilesBrowser /> */}
                 </div>
             </section>
         </>

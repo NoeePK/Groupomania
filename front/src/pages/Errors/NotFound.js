@@ -11,9 +11,7 @@ const NotFound = () => {
             <h1>La page que vous demandez n'existe pas</h1>
             <div className="link-container">
                 <p onClick={goBack}>Retourner sur la page précédente</p>
-                <Link to="/login">
-                    Se connecter
-                </Link>
+                <Link to="/login">Se connecter</Link>
             </div>
         </main>
     );

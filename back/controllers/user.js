@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
 const dotenv = require("dotenv");
+const result = dotenv.config();
 
 // Inscription
 exports.register = (req, res, next) => {
@@ -29,9 +30,7 @@ exports.register = (req, res, next) => {
                         .status(201)
                         .json({ message: "Nouvel utilisateur enregistré" })
                 )
-                .catch((error) =>
-                    res.status(500).json({ error: "Erreur serveur" })
-                );
+                .catch((error) => res.status(400).json({ error }));
         })
         .catch((error) => res.status(500).json({ message: "Erreur serveur" }));
 };
@@ -75,7 +74,7 @@ exports.login = (req, res, next) => {
                                     { userId: user._id },
                                     { userRole: roles },
                                     `${process.env.JWT_TOKEN}`,
-                                    
+
                                     { expiresIn: "12h" }
                                 ),
                             });

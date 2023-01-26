@@ -13,19 +13,7 @@ module.exports = (req, res, next) => {
         const token = authHeader.split(" ")[1];
 
         // Vérifier token
-        const decodedToken = jwt.verify(
-            token,
-            process.env.JWT_TOKEN,
-            (err, decoded) => {
-                if (err) {
-                    return res
-                        .status(403)
-                        .json({ err: "Token non-valide" });
-                } else {
-                    next();
-                }
-            }
-        );
+        const decodedToken = jwt.verify(token, `${process.env.JWT_TOKEN}`);
 
         // Récupérer id et rôle
         const userId = decodedToken.userId;
@@ -36,13 +24,13 @@ module.exports = (req, res, next) => {
             throw "L'id de l'utilisateur n'est pas valide";
         } else if (req.body.userRole && req.body.userRole !== userRole) {
             throw "Accès non-autorisé";
-        } 
+        }
         // SINON : ID et role sont valables
         else {
-            req.auth = {
-                userId: userId,
-                userRole: userRole,
-            };
+            // req.auth = {
+            //     userId: userId,
+            //     userRole: userRole,
+            // };
 
             next();
         }
