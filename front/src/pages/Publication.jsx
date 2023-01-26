@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import getDatas from "../api/datas";
+import getDatas from "../api/getDatas";
 import NotFound from "./Errors/NotFound";
 import LikingSystem from "../components/LinkingSystem";
 import Comments from "../components/Comments";

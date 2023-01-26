@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import getDatas from "../../api/datas";
+import getDatas from "../../api/getDatas";
 const PROFILES_URL = "/profiles";
 
 const ProfilesBrowser = () => {

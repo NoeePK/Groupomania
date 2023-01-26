@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
-import getDatas from "../api/datas";
+import getDatas from "../api/getDatas";
 import UpdateProfile from "./Forms/UpdateProfile";
 import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
