@@ -11,6 +11,8 @@ nav {
     align-items: center;
 
     a {
+        color: white;
+        display: flex;
         font-size: 1.8rem;
         text-decoration: none;
         padding: 0 1rem;
@@ -20,3 +22,4 @@ nav {
         }
     }
 }
+

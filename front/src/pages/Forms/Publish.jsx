@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// Modifier et supprimer ses posts pour le proprio
+// Supprimer un post pour l'admin
+// Modération des commentaires?
+
 const Publish = () => {
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
@@ -62,7 +66,3 @@ const Publish = () => {
 };
 
 export default Publish;
-
-// Modifier et supprimer ses posts pour le proprio
-// Supprimer un post pour l'admin
-// Modération des commentaires?
