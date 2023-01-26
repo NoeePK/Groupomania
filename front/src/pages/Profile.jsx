@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import getDatas from "../api/datas";
 import ProfileForm from "../components/ProfileForm";
 import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
-import NotFound from "../pages/Errors/NotFound";
+import NotFound from "./Errors/NotFound";
 const PROFILE_URL = "/profiles";
 
 // Peut-être un carrousel avec un bouton "découvrir d'autres collègues"
@@ -36,6 +36,7 @@ const Profile = () => {
                     </div>
                     <div className="publications-browser">
                         <h2>Publications de {profile.name}</h2>
+                        {/* Passer des props ici pour cibler les posts de cet user */}
                         <PublicationsBrowser />
                     </div>
                 </section>

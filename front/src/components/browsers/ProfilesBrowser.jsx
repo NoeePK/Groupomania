@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import getDatas from "../../api/datas";
 const PROFILES_URL = "/profiles";
 
-const Browser = () => {
+const ProfilesBrowser = () => {
     const profiles = getDatas(PROFILES_URL);
 
     return (
@@ -25,4 +25,4 @@ const Browser = () => {
     );
 };
 
-export default Browser;
+export default ProfilesBrowser;

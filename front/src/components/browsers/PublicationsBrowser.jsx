@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 import getDatas from "../../api/datas";
 const PUBLICATIONS_URL = "/publications";
 
-const Publications = () => {
+const PublicationsBrowser = () => {
     const data = getDatas(PUBLICATIONS_URL);
 
     return (
-        <>
+        <div className="publications-browser">
             {data.map((publication) => (
                 <Link
                     className="to-publication-link"
@@ -17,8 +17,8 @@ const Publications = () => {
                     <h2>{publication.title}</h2>
                 </Link>
             ))}
-        </>
+        </div>
     );
 };
 
-export default Publications;
+export default PublicationsBrowser;

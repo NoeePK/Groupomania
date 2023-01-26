@@ -32,7 +32,7 @@ const Publish = () => {
     };
 
     return (
-        <>
+        <main className="main-container">
             <h1>Publier sur le mur</h1>
             <form className="publish-form" onSubmit={(e) => handleSubmit(e)}>
                 <label>
@@ -61,7 +61,7 @@ const Publish = () => {
                     Publier
                 </button>
             </form>
-        </>
+        </main>
     );
 };
 

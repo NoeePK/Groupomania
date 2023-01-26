@@ -9,7 +9,7 @@ const ProfileForm = () => {
     const [bio, setBio] = useState("");
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        e.preDefault();
 
         const payload = {
             firstName: firstName,
@@ -19,85 +19,93 @@ const ProfileForm = () => {
             bio: bio,
         };
 
-       axios({
-               url: `http://localhost:8080/api/profile`,
-               method: "POST",
-               data: payload,
-           })
-               .then(() => {
-                   console.log("Datas envoyées au serveur");
-                   // resetUserInputs();
-               })
-               .catch(() => {
-                   console.log("Erreur axios");
-               });
-       };
-    
+        axios({
+            url: `http://localhost:8080/api/profile`,
+            method: "POST",
+            data: payload,
+        })
+            .then(() => {
+                console.log("Datas envoyées au serveur");
+                // resetUserInputs();
+            })
+            .catch(() => {
+                console.log("Erreur axios");
+            });
+    };
 
     return (
-        <>
+        <main className="main-container">
             <h1>Modifier mon profil</h1>
             <form className="profile-form" onSubmit={(e) => handleSubmit(e)}>
-                <label>
-                    Modifier mon avatar
+                <label htmlFor="imageURL">
+                    <h2>Modifier mon avatar</h2>
                     <input type="text" id="imageURL" name="imageURL" />
                 </label>
-                <label>
-                    Prénom
+                <label htmlFor="firstName">
+                    <h2>Prénom</h2>
                     <input
                         type="text"
                         id="firstName"
                         name="firstName"
                         value={firstName}
-                        onChange={(event) => setFirstName(event.target.value)}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Prénom"
                         required
                     />
                 </label>
-                <label>
-                    Nom de famille
+                <label htmlFor="lastName">
+                    <h2>Nom de famille</h2>
+
                     <input
                         type="text"
                         id="lastName"
                         name="lastName"
                         value={lastName}
-                        onChange={(event) => setLastName(event.target.value)}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Nom de famille"
                         required
                     />
                 </label>
-                <label>
-                    Date de naissance
+                <label htmlFor="birthday">
+                    <h2>Date de naissance</h2>
+
                     <input
                         type="date"
                         id="birthday"
                         name="birthday"
                         value={bday}
-                        onChange={(event) => setBday(event.target.value)}
+                        onChange={(e) => setBday(e.target.value)}
                     />
                 </label>
-                <label>
-                    Service
-                    <input
-                        type="text"
-                        id="service"
-                        name="service"
-                        value={service}
-                        onChange={(event) => setService(event.target.value)}
-                        required
-                    />
+                <label htmlFor="service">
+                    <h2>Service</h2>
+                    <select id="service" name="service" required>
+                        <option value="">Indiquez votre service</option>
+                        <option value="">Comptabilité et finances</option>
+                        <option value="">Ressources humaines</option>
+                        <option value="">Marketing</option>
+                        <option value="">Ventes</option>
+                        <option value="">Production</option>
+                        <option value="">Recherche et Développement</option>
+                        <option value="">Management</option>
+                        <option value="">Service Client</option>
+                        <option value="">Maintenance</option>
+                    </select>
                 </label>
-                <label>
-                    Présentation
+                <label htmlFor="presentation">
+                    <h2>Présentation</h2>
+
                     <textarea
                         name="presentation"
                         value={bio}
-                        onChange={(event) => setBio(event.target.value)}
+                        onChange={(e) => setBio(e.target.value)}
                         rows="5"></textarea>
                 </label>
                 <button type="submit" value="Submit">
                     Enregistrer
                 </button>
             </form>
-        </>
+        </main>
     );
 };
 
