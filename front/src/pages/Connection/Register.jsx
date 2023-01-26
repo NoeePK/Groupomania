@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import logo from "../../assets/logo-black.svg";
-import warning from "../../assets/warning.svg"
+import warning from "../../assets/warning.svg";
 
 const REGISTER_URL = "/register";
 
@@ -91,8 +91,6 @@ const Register = () => {
     return (
         <main>
             <section className="main-container">
-                <img src={logo} />
-
                 <section className="log-container">
                     <h1>Inscription</h1>
                     <p

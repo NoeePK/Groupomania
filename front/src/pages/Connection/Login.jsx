@@ -77,12 +77,6 @@ const Login = () => {
     return (
         <main>
             <section className="main-container">
-                <img
-                    src={logo}
-                    alt="Logo de Groupomania"
-                    className="main-logo"
-                />
-
                 <section className="log-container">
                     <h1>Se connecter</h1>
 
