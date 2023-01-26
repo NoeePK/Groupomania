@@ -23,3 +23,17 @@ nav {
     }
 }
 
+.logout-button {
+    img {
+        margin-left: 1rem;
+        padding-right: 1rem;
+        width: 2.5rem;
+        filter: invert(1);
+        cursor: pointer;
+
+        &:hover {
+            transform: rotate(360deg);
+            transition-duration: 800ms;
+        }
+    }
+}

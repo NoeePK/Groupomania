@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import getDatas from "../../api/datas";
 
-import image from "../../assets/logo-white.svg";
+import logout from "../../assets/logout.svg";
+import logo from "../../assets/logo-white.svg";
 
 const PROFILES_URL = "/profiles";
 
@@ -11,13 +12,15 @@ const Header = () => {
 
     return (
         <header>
-            <img src={image} alt="Logo de Groupomania"></img>
+            <img src={logo} alt="Logo de Groupomania"></img>
             <nav>
                 <Link to="/">Accueil</Link>
                 <Link to={`/Profile/${profile.id}`}>Profil</Link>
                 <Link to={"/Publish"}>Publier</Link>
                 <Link to={"/About"}>A propos</Link>
-                <button>Se déconnecter</button>
+                <div className="logout-button">
+                    <img src={logout} alt="Se déconnecter" />
+                </div>
             </nav>
         </header>
     );

@@ -33,7 +33,7 @@ form label {
 }
 .collapse-title h2 {
   text-transform: uppercase;
-  font-size: 2rem;
+  font-size: 1.8rem;
   color: #4E5166;
 }
 
@@ -92,6 +92,18 @@ nav a {
 }
 nav a:hover {
   text-decoration: underline;
+}
+
+.logout-button img {
+  margin-left: 1rem;
+  padding-right: 1rem;
+  width: 2.5rem;
+  filter: invert(1);
+  cursor: pointer;
+}
+.logout-button img:hover {
+  transform: rotate(360deg);
+  transition-duration: 800ms;
 }
 
 footer {
