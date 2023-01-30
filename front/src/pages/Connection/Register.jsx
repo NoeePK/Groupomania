@@ -4,17 +4,20 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
+import logoName from "../../assets/id-logo.svg";
+import logoService from "../../assets/logo-service.svg";
 import warning from "../../assets/warning.svg";
 
 const REGISTER_URL = "/register";
 const EMAIL_REGEX =
     /^[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
+const NAME_REGEX = /[a-zA-Z '-,]{1,31}$/i;
 
 const Register = () => {
     const { setAuth } = useAuth();
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     // Arriver sur la page d'accueil
     // const to = "/";
 
@@ -32,6 +35,16 @@ const Register = () => {
     const [match, setMatch] = useState("");
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
+
+    const [firstName, setFirstName] = useState("");
+    const [validFirstName, setValidFirstName] = useState(false);
+    const [firstNameFocus, setFirstNameFocus] = useState(false);
+
+    const [lastName, setLastName] = useState("");
+    const [validLastName, setValidLastName] = useState(false);
+    const [lastNameFocus, setLastNameFocus] = useState(false);
+
+    const [service, setService] = useState("");
 
     const [errMsg, setErrMsg] = useState("");
 
@@ -59,6 +72,22 @@ const Register = () => {
         setValidMatch(matchPwd);
     }, [password, match]);
 
+    // Valider prénom
+    useEffect(() => {
+        const result = NAME_REGEX.test(firstName);
+        console.log(result);
+        console.log(firstName);
+        setValidFirstName(result);
+    }, [firstName]);
+
+    // Valider nom
+    useEffect(() => {
+        const result = NAME_REGEX.test(lastName);
+        console.log(result);
+        console.log(lastName);
+        setValidLastName(result);
+    }, [lastName]);
+
     // Mettre à jour message d'erreur pendant la saisie
     useEffect(() => {
         setErrMsg("");
@@ -70,10 +99,15 @@ const Register = () => {
         try {
             const response = await axios.post(
                 REGISTER_URL,
-                JSON.stringify({ email, password }),
+                JSON.stringify({
+                    email,
+                    password,
+                    firstName,
+                    lastName,
+                    service,
+                }),
                 {
                     headers: { "Content-Type": "application/json" },
-                    
                 }
             );
             console.log(response.data);
@@ -115,6 +149,89 @@ const Register = () => {
                         {errMsg}
                     </p>
                     <form className="log-form" onSubmit={handleSubmit}>
+                        <label htmlFor="firstName">
+                            <img src={logoName} alt="Entrez votre prénom" />
+                            <h2>Prénom</h2>
+                        </label>
+                        <input
+                            type="text"
+                            id="firstName"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            aria-invalid={validFirstName ? "false" : "true"}
+                            aria-describedby="namenote"
+                            onFocus={() => setFirstNameFocus(true)}
+                            onBlur={() => setFirstNameFocus(false)}
+                            placeholder="Prénom"
+                            required
+                        />
+                        <p
+                            id="namenote"
+                            className={
+                                firstNameFocus && firstName && !validFirstName
+                                    ? "instructions"
+                                    : "offscreen"
+                            }>
+                            Votre nom ne peut pas contenir de chiffres.
+                        </p>
+                        <label htmlFor="lastName">
+                            <img
+                                src={logoName}
+                                alt="Entrez votre nom de famille"
+                            />
+                            <h2>Nom de famille</h2>
+                        </label>
+                        <input
+                            type="text"
+                            id="lastName"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            aria-invalid={validLastName ? "false" : "true"}
+                            aria-describedby="namenote"
+                            onFocus={() => setLastNameFocus(true)}
+                            onBlur={() => setLastNameFocus(false)}
+                            placeholder="Nom de famille"
+                            required
+                        />
+                        <p
+                            id="namenote"
+                            className={
+                                lastNameFocus && lastName && !validLastName
+                                    ? "instructions"
+                                    : "offscreen"
+                            }>
+                            Votre nom ne peut pas contenir de chiffres.
+                        </p>
+                        <label htmlFor="service">
+                            <img
+                                src={logoService}
+                                alt="Choisissez votre service"
+                            />
+                            <h2>Service</h2>
+                        </label>
+                        <select
+                            id="service"
+                            onChange={(e) => setService(e.target.value)}
+                            required>
+                            <option value="">Indiquez votre service</option>
+                            <option value="Comptabilité et finances">
+                                Comptabilité et finances
+                            </option>
+                            <option value="Ressources humaines">
+                                Ressources humaines
+                            </option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Ventes">Ventes</option>
+                            <option value="Production">Production</option>
+                            <option value="Recherche et Développement">
+                                Recherche et Développement
+                            </option>
+                            <option value="Management">Management</option>
+                            <option value="Service Client">
+                                Service Client
+                            </option>
+                            <option value="Maintenance">Maintenance</option>
+                        </select>
                         <label htmlFor="email">
                             <img
                                 src={logoMail}
@@ -208,7 +325,12 @@ const Register = () => {
 
                         <button
                             disabled={
-                                !validEmail || !validPassword || !validMatch
+                                !validEmail ||
+                                !validPassword ||
+                                !validMatch ||
+                                !validFirstName ||
+                                !validLastName ||
+                                !service
                                     ? true
                                     : false
                             }>
