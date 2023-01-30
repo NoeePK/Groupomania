@@ -5,7 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 
-
+import logo from "../../assets/logo-black.svg";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
@@ -15,13 +15,14 @@ const LOGIN_URL = "/auth";
 const Login = () => {
     const { setAuth } = useAuth();
 
-const navigate = useNavigate();
-    const location = useLocation();
-    // Emplacement AVANT d'être redirigé vers Login OU arriver sur la page d'accueil
-    const from = location.state?.from?.pathname || "/";
-
     const emailRef = useRef();
     const errRef = useRef();
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    // Emplacement AVANT d'être redirigé vers Login
+    // OU arriver sur la page d'accueil
+    const from = location.state?.from?.pathname || "/";
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -50,8 +51,8 @@ const navigate = useNavigate();
                 }
             );
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.token;
-            // Pour admin etc :
+            const accessToken = response?.data?.accessToken;
+            // Pour admin etc
             // const roles = response?.data?.roles;
             setAuth({ email, password, accessToken });
             // Vider les inputs

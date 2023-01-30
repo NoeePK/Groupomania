@@ -4,14 +4,15 @@ import axios from "../../api/axios";
 import useAuth from "../../hooks/useAuth";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
+import logo from "../../assets/logo-black.svg";
 import warning from "../../assets/warning.svg";
 
+const REGISTER_URL = "/register";
 
 const EMAIL_REGEX =
     /^[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%?]).{8,50}$/;
-
-const REGISTER_URL = "/register";
+const PWD_REGEX =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,24}$/;
 
 const Register = () => {
     const { setAuth } = useAuth();
@@ -31,12 +32,7 @@ const Register = () => {
     const [validPassword, setValidPassword] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
 
-    const [match, setMatch] = useState("");
-    const [validMatch, setValidMatch] = useState(false);
-    const [matchFocus, setMatchFocus] = useState(false);
-
     const [errMsg, setErrMsg] = useState("");
-    const [success, setSuccess] = useState(false);
 
     // Focaliser sur input "email"
     useEffect(() => {
@@ -46,39 +42,31 @@ const Register = () => {
     // Valider email
     useEffect(() => {
         const result = EMAIL_REGEX.test(email);
-        console.log(result);
-        console.log(email);
         setValidEmail(result);
     }, [email]);
 
     // Valider mot de passe
     useEffect(() => {
         const result = PWD_REGEX.test(password);
-        console.log(result);
-        console.log(password);
         setValidPassword(result);
-        const matchPwd = password === match;
-        setValidMatch(matchPwd);
-    }, [password, match]);
+    }, [password]);
 
     // Mettre à jour message d'erreur pendant la saisie
     useEffect(() => {
         setErrMsg("");
-    }, [email, password, match]);
+    }, [email, password]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post(
                 REGISTER_URL,
                 JSON.stringify({ email, password }),
                 {
                     headers: { "Content-Type": "application/json" },
-                    withCredentials: true
                 }
             );
-            
+            console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             // Pour admin etc
             // const roles = response?.data?.roles;
@@ -86,6 +74,7 @@ const Register = () => {
             // Vider les inputs
             setEmail("");
             setPassword("");
+            navigate(to, { replace: true });
         } catch (error) {
             if (!error?.response) {
                 setErrMsg("Le serveur ne répond pas");
@@ -116,101 +105,80 @@ const Register = () => {
                         />
                         {errMsg}
                     </p>
-                    <form className="log-form" onSubmit={handleSubmit}>
+                    <form
+                        className="log-form"
+                        onSubmit={handleSubmit}
+                        autoComplete="off">
                         <label htmlFor="email">
                             <h2>Courriel</h2>
                             <img
                                 src={logoMail}
                                 alt="Entrez votre adresse mail"
                             />
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                ref={emailRef}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                aria-invalid={validEmail ? "false" : "true"}
+                                aria-describedby="emailInstructions"
+                                onFocus={() => setEmailFocus(true)}
+                                onBlur={() => setEmailFocus(false)}
+                                placeholder="Entrez votre adresse mail"
+                                autoComplete="off"
+                                required
+                            />
                         </label>
-                        <input
-                            type="email"
-                            id="email"
-                            ref={emailRef}
-                            autoComplete="off"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            aria-invalid={validEmail ? "false" : "true"}
-                            aria-describedby="mailnote"
-                            onFocus={() => setEmailFocus(true)}
-                            onBlur={() => setEmailFocus(false)}
-                            placeholder="Entrez votre adresse mail"
-                            required
-                        />
                         <p
-                            id="mailnote"
+                            id="emailInstructions"
                             className={
                                 emailFocus && email && !validEmail
                                     ? "instructions"
                                     : "offscreen"
                             }>
                             Ce champs doit contenir une adresse email contenant
-                            un @.
+                            un @ et suivant le format de l'entreprise
                         </p>
-
                         <label htmlFor="password">
                             <h2>Mot de passe</h2>
                             <img
                                 src={logoPwd}
                                 alt="Entrez votre mot de passe"
                             />
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                aria-invalid={validPassword ? "false" : "true"}
+                                aria-describedby="passwordInstructions"
+                                onFocus={() => setPasswordFocus(true)}
+                                onBlur={() => setPasswordFocus(false)}
+                                placeholder="Entrez votre mot de passe"
+                                autoComplete="off"
+                                required
+                            />
                         </label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            aria-invalid={validPassword ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPasswordFocus(true)}
-                            onBlur={() => setPasswordFocus(false)}
-                            placeholder="Entrez votre mot de passe"
-                            required
-                        />
                         <p
-                            id="pwdnote"
+                            id="passwordInstructions"
                             className={
                                 passwordFocus && password && !validPassword
                                     ? "instructions"
                                     : "offscreen"
                             }>
                             Votre mot de passe doit contenir au minimum : 8
-                            caractères, 1 majuscule, 1 minuscule et 3 chiffres.
-                        </p>
-
-                        <label htmlFor="confirmPwd">
-                            <h2>Confirmez le mot de passe</h2>
-                            <img
-                                src={logoPwd}
-                                alt="Confirmez votre mot de passe"
-                            />
-                        </label>
-                        <input
-                            type="password"
-                            id="confirmPwd"
-                            value={match}
-                            onChange={(e) => setMatch(e.target.value)}
-                            aria-invalid={validMatch ? "false" : "true"}
-                            aria-describedby="matchnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                            placeholder="Entrez votre mot de passe"
-                            required
-                        />
-                        <p
-                            id="matchnote"
-                            className={
-                                matchFocus && !validMatch
-                                    ? "instructions"
-                                    : "offscreen"
-                            }>
-                            Les mots de passe doivent être identiques.
+                            caractères, 1 majuscule, 1 minuscule et 3 chiffres
                         </p>
 
                         <button
                             disabled={
-                                !validEmail || !validPassword || !validMatch
+                                !email ||
+                                !password ||
+                                !validEmail ||
+                                !validPassword
                                     ? true
                                     : false
                             }>
