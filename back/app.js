@@ -24,6 +24,5 @@ app.use(cors(corsOptions));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", require("./routes/user"));
 app.use("/api/publications", require("./routes/publication"));
-app.use("/api/profiles", require("./routes/profile"));
 
 module.exports = app;

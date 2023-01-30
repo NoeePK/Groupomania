@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const publicationCtrl = require("../controllers/publication");
-const auth = require("../middleware/auth");
+const auth = require("../middlewares/auth");
 const ROLES_LIST = require("../config/roles_list");
-const verifyRoles = require("../middleware/verifyRoles");
-const multer = require("../middleware/multer-config");
-const slowDown = require("../middleware/speedLimiter");
+const verifyRoles = require("../middlewares/verifyRoles");
+const multer = require("../middlewares/multer-config");
 
 // Récupérer les publication
 router.get(
@@ -28,7 +27,7 @@ router.post(
     "/publish",
     auth,
     verifyRoles(ROLES_LIST.User),
-    slowDown,
+
     multer,
     publicationCtrl.publish
 );

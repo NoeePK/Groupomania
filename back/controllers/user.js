@@ -2,9 +2,7 @@ const bcrypt = require("bcrypt");
 const cryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-
-const dotenv = require("dotenv");
-const result = dotenv.config();
+require("dotenv").config();
 
 // Inscription
 exports.register = (req, res, next) => {
@@ -21,7 +19,9 @@ exports.register = (req, res, next) => {
             const user = new User({
                 email: emailCryptoJS,
                 password: hash,
-                // role: { User: 2001 },
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                service: req.body.service,
             });
             // Enregistrer user dans BDD
             user.save()
@@ -79,8 +79,102 @@ exports.login = (req, res, next) => {
                                 ),
                             });
                         }
-                    });
+                    })
+                    .catch((error) =>
+                        res.status(500).json({ message: "Erreur serveur" })
+                    );
             }
         })
         .catch((error) => res.status(500).json({ message: "Erreur serveur" }));
 };
+
+// Récupérer tous les profils
+exports.getAllProfiles = (req, res, next) => {
+    User.find()
+        .then((user) => res.status(200).json(user))
+        .catch((error) => res.status(400).json({ error }));
+};
+
+// Récupérer un profil
+exports.getOneProfile = (req, res, next) => {
+    User.findById(req.params.id)
+        .then((user) => {
+            res.status(200).json({ user });
+        })
+
+        .catch((error) => res.status(404).json({ error }));
+};
+
+// Récupérer son profil
+exports.myself = (req, res, next) => {
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, process.env.JWT_TOKEN);
+        const userId = decodedToken.userId;
+
+        if (!decodedToken) {
+            return res
+                .status(401)
+                .json({ error: "Invalid token", message: "Token invalide" });
+        }
+        User.findOne({ _id: userId })
+            .then((user) => {
+                res.status(200).json({ user });
+            })
+            .catch((error) => res.status(400).json({ error }));
+    } catch (error) {
+        res.status(402).json({ error });
+    }
+};
+
+// Modifier son profil
+exports.updateMyself = (req, res, next) => {
+    const userObject = req.file
+        ? {
+              ...JSON.parse(req.body.user),
+              imageUrl: `${req.protocol}://${req.get("host")}/images/${
+                  req.file.filename
+              }`,
+          }
+        : { ...req.body };
+   User.updateOne(
+        { _id: req.params.id },
+        { ...userObject, _id: req.params.id }
+    )
+        .then(() =>
+            res.status(200).json({
+                message: "Modifications du profil enregistrées",
+            })
+        )
+        .catch((error) =>
+            res.status(401).json({
+                message:
+                    "Vous n'avez pas l'autorisation nécessaire pour modifier ce profil",
+            })
+        );
+};
+
+// // Supprimer un profil (uniquement par un admin)
+// exports.deleteProfile = (req, res, next) => {
+//     Profile.findOne({ _id: req.params.id })
+//         .then((profile) => {
+//             const filename = profile.imageUrl.split("/images/")[1];
+//             // Supprimer image
+//             fs.unlink(`images/${filename}`, () => {
+//                 // Supprimer profil
+//                 Profile.deleteOne({ _id: req.params.id })
+//                     .then(() =>
+//                         res.status(200).json({
+//                             message: "Profil supprimé",
+//                         })
+//                     )
+//                     .catch((error) =>
+//                         res.status(401).json({
+//                             message:
+//                                 "Vous n'avez pas l'autorisation nécessaire pour supprimer ce profil",
+//                         })
+//                     );
+//             });
+//         })
+//         .catch((error) => res.status(500).json({ error }));
+// };

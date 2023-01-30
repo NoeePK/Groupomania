@@ -1,15 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const userCtrl = require("../controllers/user");
-
-const strongPassword = require("../middleware/password");
-const maxLoginAttempts = require("../middleware/rateLimiter");
-const slowDown = require("../middleware/speedLimiter");
+const auth = require("../middlewares/auth");
+const multer = require("../middlewares/multer-config");
+const strongPassword = require("../middlewares/password");
 
 // Créer un nouvel utilisateur
-router.post("/register", strongPassword, slowDown, userCtrl.register);
+router.post("/register", strongPassword, userCtrl.register);
 // Connecter un utilisateur
-router.post("/login", maxLoginAttempts, userCtrl.login);
+router.post("/login", userCtrl.login);
 // Connecter un admin
+
+// Récupérer tous les profils
+router.get("/profile", auth, userCtrl.getAllProfiles);
+// Récupérer un profil
+router.get("/profile/:id", userCtrl.getOneProfile);
+// Récupérer son profil
+router.get("/myself", auth, multer, userCtrl.myself);
+// Modifier son profil
+router.put("/myself", auth, multer, userCtrl.updateMyself);
+
+// Supprimer un profil (uniquement par un admin)
 
 module.exports = router;
