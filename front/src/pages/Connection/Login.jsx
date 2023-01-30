@@ -5,7 +5,6 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "../../api/axios";
 
-import logo from "../../assets/logo-black.svg";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
@@ -15,14 +14,13 @@ const LOGIN_URL = "/auth";
 const Login = () => {
     const { setAuth } = useAuth();
 
-    const emailRef = useRef();
-    const errRef = useRef();
-
     const navigate = useNavigate();
     const location = useLocation();
-    // Emplacement AVANT d'être redirigé vers Login
-    // OU arriver sur la page d'accueil
+    // Emplacement AVANT d'être redirigé vers Login OU arriver sur la page d'accueil
     const from = location.state?.from?.pathname || "/";
+
+    const emailRef = useRef();
+    const errRef = useRef();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -51,8 +49,8 @@ const Login = () => {
                 }
             );
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            // Pour admin etc
+            const accessToken = response?.data?.token;
+            // Pour admin etc :
             // const roles = response?.data?.roles;
             setAuth({ email, password, accessToken });
             // Vider les inputs
@@ -82,40 +80,39 @@ const Login = () => {
 
                     <form className="log-form" onSubmit={handleSubmit}>
                         <label htmlFor="email">
-                            <h2>Courriel</h2>
                             <img
                                 src={logoMail}
                                 alt="Entrez votre adresse mail"
                             />
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                ref={emailRef}
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Entrez votre adresse mail"
-                                required
-                            />
+                            <h2>Courriel</h2>
                         </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            ref={emailRef}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Entrez votre adresse mail"
+                            required
+                        />
 
                         <label htmlFor="password">
-                            <h2>Mot de passe</h2>
                             <img
                                 src={logoPwd}
                                 alt="Entrez votre mot de passe"
                             />
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                placeholder="Entrez votre mot de passe"
-                                required
-                            />
+                            <h2>Mot de passe</h2>
                         </label>
-
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Entrez votre mot de passe"
+                            required
+                        />
                         <button disabled={!email || !password ? true : false}>
                             Se connecter
                         </button>
