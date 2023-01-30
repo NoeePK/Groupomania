@@ -17,7 +17,7 @@ const normalizePort = (val) => {
     return false;
 };
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT);
 app.set("port", port);
 
 // Gérer les erreurs
@@ -54,5 +54,16 @@ server.on("listening", () => {
 });
 
 server.listen(port, () =>
-    console.log(`Application Node démarrée sur : http://localhost:${port}`)
+    console.log(`Serveur démarré sur : http://localhost:${port}`)
 );
+
+// Connexion à la base de données
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+mongoose
+    .connect(process.env.DB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => console.log("Connexion à MongoDB : OK"))
+    .catch(() => console.log("Connexion à MongoDB : FAIL"));

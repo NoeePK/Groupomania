@@ -73,7 +73,7 @@ const Register = () => {
                 JSON.stringify({ email, password }),
                 {
                     headers: { "Content-Type": "application/json" },
-                    withCredentials: true,
+                    
                 }
             );
             console.log(response.data);
