@@ -5,8 +5,8 @@ import useAuth from "../../hooks/useAuth";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
-const REGISTER_URL = "/register";
 
+const REGISTER_URL = "/register";
 const EMAIL_REGEX =
     /^[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
