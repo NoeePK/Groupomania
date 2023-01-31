@@ -5,7 +5,7 @@ import UpdateProfile from "./Forms/UpdateProfile";
 import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
 import NotFound from "./Errors/NotFound";
-const PROFILE_URL = "/profiles";
+const PROFILE_URL = "/profile";
 
 // Peut-être un carrousel avec un bouton "découvrir d'autres collègues"
 // SI admin ou si profile t'appartient, Afficher le bouton modifier

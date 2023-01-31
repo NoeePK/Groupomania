@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../../api/axios";
+import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import logoName from "../../assets/id-logo.svg";
 import logoService from "../../assets/logo-service.svg";
 import warning from "../../assets/warning.svg";
+import { REGEX } from "../../components/config/regex";
+import { API_ROUTES } from "../../api/api_routes";
 
-const REGISTER_URL = "/register";
-const EMAIL_REGEX =
-    /^[a-zA-Z0-9æœ.!#$%&’*+/=?^_`{|}~"(),:;<>@[\]-]+@([\w-]+\.)+[\w-]{2,3}$/;
-const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/;
-const NAME_REGEX = /[a-zA-Z '-,]{1,31}$/i;
-
+console.log(API_ROUTES.register);
 const Register = () => {
     const { setAuth } = useAuth();
 
@@ -55,7 +52,7 @@ const Register = () => {
 
     // Valider email
     useEffect(() => {
-        const result = EMAIL_REGEX.test(email);
+        const result = REGEX.email.test(email);
         console.log(result);
         console.log(email);
         setValidEmail(result);
@@ -63,7 +60,7 @@ const Register = () => {
 
     // Valider mot de passe
     useEffect(() => {
-        const result = PWD_REGEX.test(password);
+        const result = REGEX.pwd.test(password);
         console.log(result);
         console.log(password);
         console.log(match);
@@ -74,7 +71,7 @@ const Register = () => {
 
     // Valider prénom
     useEffect(() => {
-        const result = NAME_REGEX.test(firstName);
+        const result = REGEX.name.test(firstName);
         console.log(result);
         console.log(firstName);
         setValidFirstName(result);
@@ -82,7 +79,7 @@ const Register = () => {
 
     // Valider nom
     useEffect(() => {
-        const result = NAME_REGEX.test(lastName);
+        const result = REGEX.name.test(lastName);
         console.log(result);
         console.log(lastName);
         setValidLastName(result);
@@ -95,40 +92,48 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const registerData = {
+            email: email,
+            password: password,
+            firstName: firstName,
+            lastName: lastName,
+            service: service,
+        };
+        axios
+            .post(API_ROUTES.register, null, {
+                params: registerData,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "http://localhost:8080" ,
+                },
+            })
+            .then((res) => {
+                console.log("RESPONSE RECEIVED : ", res);
+            })
+            .catch((err) => {
+                console.log("AXIOS ERROR", err);
+            });
 
-        try {
-            const response = await axios.post(
-                REGISTER_URL,
-                JSON.stringify({
-                    email,
-                    password,
-                    firstName,
-                    lastName,
-                    service,
-                }),
-                {
-                    headers: { "Content-Type": "application/json" },
-                }
-            );
-            console.log(response.data);
-            const accessToken = response?.data?.accessToken;
-            // Pour admin etc
-            // const roles = response?.data?.roles;
-            setAuth({ email, password, accessToken });
-            // Vider les inputs
-            setEmail("");
-            setPassword("");
-        } catch (error) {
-            if (!error?.response) {
-                setErrMsg("Le serveur ne répond pas");
-            } else if (error.response?.status === 400) {
-                setErrMsg("Veuillez remplir tous les champs ");
-            } else {
-                setErrMsg("L'inscription a échouée");
-            }
-            // Pour les lecteurs d'écran :
-            errRef.current.focus();
-        }
+        // console.log(response.data);
+        // const accessToken = response?.data?.accessToken;
+        // Pour admin etc
+        // const roles = response?.data?.roles;
+        setAuth({ email, password });
+        // Vider les inputs
+        setEmail("");
+        setPassword("");
+        navigate("/");
+        // } catch (error) {
+        //     if (!error?.response) {
+        //         setErrMsg("Le serveur ne répond pas");
+        //     } else if (error.response?.status === 400) {
+        //         setErrMsg("Veuillez remplir tous les champs ");
+        //     } else {
+        //         setErrMsg("L'inscription a échouée");
+        //     }
+        //     // Pour les lecteurs d'écran :
+        //     errRef.current.focus();
+        // }
     };
 
     return (

@@ -2,7 +2,8 @@ const bcrypt = require("bcrypt");
 const cryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const result = dotenv.config();
 
 // Inscription
 exports.register = (req, res, next) => {
