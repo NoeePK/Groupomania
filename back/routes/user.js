@@ -12,9 +12,9 @@ router.post("/login", userCtrl.login);
 // Connecter un admin
 
 // Récupérer tous les profils
-router.get("/profile", auth, userCtrl.getAllProfiles);
+router.get("/", auth, userCtrl.getAllProfiles);
 // Récupérer un profil
-router.get("/profile/:id", auth, userCtrl.getOneProfile);
+router.get("/:id", auth, userCtrl.getOneProfile);
 // Récupérer son profil
 router.get("/myself", auth, userCtrl.myself);
 // Modifier son profil

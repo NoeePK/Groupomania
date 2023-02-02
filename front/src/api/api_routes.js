@@ -1,8 +1,8 @@
 export const API_ROUTES = {
     login: `http://localhost:8080/api/auth/login`,
     register: `http://localhost:8080/api/auth/register`,
-    getAllProfiles: `http://localhost:8080/api/auth/profile`,
-    getOneProfile: `http://localhost:8080/api/auth/profile/`,
+    getAllProfiles: `http://localhost:8080/api/auth/`,
+    getOneProfile: `http://localhost:8080/api/auth/`,
     myself: `http://localhost:8080/api/auth/myself`,
     updateMyself: `http://localhost:8080/api/auth/myself`,
     getAllPublications: `http://localhost:8080/api/auth/publication/`,
