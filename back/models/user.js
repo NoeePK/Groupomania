@@ -22,9 +22,9 @@ const userSchema = mongoose.Schema({
         maxLength: 20,
         required: true,
     },
-    isAdmin: {
-        type: Boolean,
-        default: false,
+    role: {
+        type: Number,
+        default: 2001,
     },
 });
 
