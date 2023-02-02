@@ -7,12 +7,12 @@ require("dotenv").config();
 const helmet = require("helmet");
 app.use(helmet());
 app.use(express.json());
-const cors = require("cors")
+const cors = require("cors");
 app.use(cors());
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api/auth", require("./routes/user"));
+app.use("/api", require("./routes/user"));
 app.use("/api/publication", require("./routes/publication"));
 
 module.exports = app;

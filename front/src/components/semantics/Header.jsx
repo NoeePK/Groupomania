@@ -1,14 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import getDatas from "../../api/getDatas";
-
+import {fetchDatas} from "../../api/handleData";
+import { API_ROUTES } from "../../api/api_routes";
 import logout from "../../assets/logout.svg";
 import logo from "../../assets/logo-white.svg";
 
-const PROFILES_URL = "/profiles";
-
 const Header = () => {
-    const profile = getDatas(PROFILES_URL);
+    const MYPROFILE_URL = API_ROUTES.myself;
+    const profile = fetchDatas(MYPROFILE_URL);
 
     return (
         <header>

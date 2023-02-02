@@ -8,7 +8,7 @@ const strongPassword = require("../middlewares/password");
 // Créer un nouvel utilisateur
 router.post("/register", strongPassword, userCtrl.register);
 // Connecter un utilisateur
-router.post("/login", userCtrl.login);
+router.post("/login", auth, userCtrl.login);
 // Connecter un admin
 
 // Récupérer tous les profils
