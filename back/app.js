@@ -6,22 +6,13 @@ require("dotenv").config();
 // Sécurité
 const helmet = require("helmet");
 app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-
 app.use(express.json());
-
-// Contourner CORS
-const cors = require("cors");
-// const corsOptions = {
-//     origin: "http://localhost:3000",
-//     credentials: true,
-//     optionSuccessStatus: 200,
-// };
-
+const cors = require("cors")
 app.use(cors());
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", require("./routes/user"));
+app.use("/api/publication", require("./routes/publication"));
 
 module.exports = app;

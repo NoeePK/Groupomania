@@ -1,4 +1,4 @@
-const Publication = require("../models/publication");
+const Publication = require("../models/Publication");
 const fs = require("fs");
 
 // Récupérer toutes les publications

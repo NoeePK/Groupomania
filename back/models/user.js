@@ -5,11 +5,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 // role: { type: String, default: roles.User },
 
 const userSchema = mongoose.Schema({
-    userId: {
-        type: String,
-        required: true,
-    },
-    firstName: { type: String, minLength: 2, required: true },
+    firstName: { type: String, minLength: 2, maxLength:30, required: true },
     lastName: { type: String, minLength: 2, required: true },
     birthday: { type: Date },
     service: { type: String, required: true },
@@ -27,8 +23,8 @@ const userSchema = mongoose.Schema({
         required: true,
     },
     isAdmin: {
-        type: Number,
-        default: 2001,
+        type: Boolean,
+        default: false,
     },
 });
 

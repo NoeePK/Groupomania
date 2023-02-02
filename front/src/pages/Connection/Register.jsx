@@ -17,7 +17,7 @@ const Register = () => {
     const { setAuth } = useAuth();
     const navigate = useNavigate();
 
-    const emailRef = useRef();
+    const nameRef = useRef();
     const errRef = useRef();
 
     const [email, setEmail] = useState("");
@@ -46,7 +46,7 @@ const Register = () => {
 
     // Focaliser sur input "email"
     useEffect(() => {
-        emailRef.current.focus();
+        nameRef.current.focus();
     }, []);
 
     // Valider les inputs
@@ -90,32 +90,19 @@ const Register = () => {
             service: service,
         };
         
-            axios({
+            await axios({
                 url: API_ROUTES.register,
                 method: "POST",
                 data: payload,
             })
             .then(() => {
+               
                 console.log("Datas envoyées au serveur")
             }).catch((error) => {
                 console.log("erreur serveur", error);
             })
-                // .post(API_ROUTES.register, null, {
-                //     params: registerData,
-                //     headers: {
-                //         "Content-Type": "application/json",
-                //     },
-                // })
-                // .then((res) => {
-                //     console.log("RESPONSE RECEIVED : ", res);
-                // })
-                // .catch((err) => {
-                //     console.log("AXIOS ERROR", err);
-                // });
-
-            setAuth({ email, password, firstName, lastName, service });
-            
-            console.log(payload);
+               
+            setAuth({ email, password });
             setEmail("");
             setPassword("");
             setFirstName("");
@@ -160,6 +147,7 @@ const Register = () => {
                         <input
                             type="text"
                             id="firstName"
+                            ref={nameRef}
                             value={firstName}
                             onChange={(e) => setFirstName(e.target.value)}
                             aria-invalid={validFirstName ? "false" : "true"}
@@ -234,7 +222,6 @@ const Register = () => {
                         <input
                             type="email"
                             id="email"
-                            ref={emailRef}
                             autoComplete="off"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
@@ -316,6 +303,7 @@ const Register = () => {
                         </p>
 
                         <button
+                            onClick={handleSubmit}
                             disabled={
                                 !validEmail ||
                                 !validPassword ||

@@ -1,25 +1,14 @@
 const passwordValidator = require("password-validator");
 const passwordSchema = new passwordValidator();
 
-// Exigences du mot de passe
 passwordSchema
-    .is()
-    .min(8)
-    .is()
-    .max(20)
-    .has()
-    .uppercase()
-    .has()
-    .lowercase()
-    .has()
-    .digits(3)
-    .has()
-    .not()
-    .spaces()
-    // Blacklist :
-    .is()
-    .not()
-    .oneOf(["Passw0rd", "Password123"]);
+    .is().min(8)
+    .is().max(20)
+    .has().uppercase()
+    .has().lowercase()
+    .has().digits(3)
+    .has().not().spaces()
+    .is().not().oneOf(["Passw0rd", "Password123"]);
 
 module.exports = (req, res, next) => {
     // SI : mdp est assez fort
@@ -28,7 +17,7 @@ module.exports = (req, res, next) => {
     }
     // SINON : mdp n'est pas assez fort
     else {
-        return res.status(400).json({
+        return res.status(401).json({
             error: "Votre mot de passe doit contenir au minimum : 8 caractères, 1 majuscule, 1 minuscule et 3 chiffres",
         });
     }

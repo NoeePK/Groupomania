@@ -16,7 +16,7 @@ router.get("/profile", auth, userCtrl.getAllProfiles);
 // Récupérer un profil
 router.get("/profile/:id", auth, userCtrl.getOneProfile);
 // Récupérer son profil
-router.get("/myself", auth, multer, userCtrl.myself);
+router.get("/myself", auth, userCtrl.myself);
 // Modifier son profil
 router.put("/myself", auth, multer, userCtrl.updateMyself);
 

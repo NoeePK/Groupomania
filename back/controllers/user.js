@@ -1,27 +1,12 @@
 const bcrypt = require("bcrypt");
 const cryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
-const dotenv = require("dotenv");
-const result = dotenv.config();
+const fs = require("fs");
+const User = require("../models/User");
+require("dotenv").config();
 
 // Inscription
 exports.register = (req, res, next) => {
-    if (
-        !req.body.email ||
-        !req.body.password ||
-        !req.body.firstName ||
-        !req.body.lastName ||
-        !req.body.service
-    ) {
-        return res.status(400).json({ message: "Remplir tous les champs" });
-    }
-
-    // Crypter email
-    const emailCryptoJS = cryptoJS
-        .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
-        .toString();
-
     // Hasher mdp
     bcrypt
         .hash(req.body.password, 10)
@@ -29,13 +14,12 @@ exports.register = (req, res, next) => {
         .then((hash) => {
             // Passer data cryptées
             const user = new User({
-                email: emailCryptoJS,
+                email: req.body.email,
                 password: hash,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 service: req.body.service,
             });
-            console.log(emailCryptoJS);
             // Enregistrer user dans BDD
             user.save()
                 .then(() =>
@@ -50,55 +34,46 @@ exports.register = (req, res, next) => {
 
 // Connexion
 exports.login = (req, res, next) => {
-    // Chiffrer email
-    const emailCryptoJS = cryptoJS
-        .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
-        .toString();
-
     // Récupérer user correspondant à email
-    User.findOne({ email: emailCryptoJS })
+    User.findOne({ email: req.body.email })
         // SI : email n'existe pas
         .then((user) => {
             if (!user) {
                 return res
                     .status(401)
-                    .json({ error: "Email ou mot de passe incorrect" });
+                    .json({
+                        error: "refusé",
+                        message: "Email ou mot de passe incorrect",
+                    });
             }
             // SINON : email existe
-            else {
-                // Comparer mdp et hash dans BDD
-                bcrypt
-                    .compare(req.body.password, user.password)
-                    .then((validPassword) => {
-                        // SI : Mot de passe est incorrect
-                        if (!validPassword) {
-                            return res.status(401).json({
-                                message: "Email ou mot de passe incorrect",
-                            });
-                        }
-                        // SINON : Mot de passe est correct
-                        else {
-                            // const roles = Object.values(user.role);
-                            // ALORS : autoriser accès et attribuer token
-                            res.status(200).json({
-                                // message: "Utilisateur connecté",
-                                userId: user._id,
-                                token: jwt.sign(
-                                    { userId: user._id },
-                                    { userRole: user.isAdmin },
-                                    `${process.env.JWT_TOKEN}`,
+            bcrypt
+                .compare(req.body.password, user.password)
+                .then((validPassword) => {
+                    // SI : Mot de passe est incorrect
+                    if (!validPassword) {
+                        return res.status(401).json({
+                            error: "refusé",
+                            message: "Email ou mot de passe incorrect",
+                        });
+                    }
+                    // SINON : Mot de passe est correct
 
-                                    { expiresIn: "24h" }
-                                ),
-                            });
-                        }
-                    })
-                    .catch((error) =>
-                        res.status(500).json({ message: "Erreur serveur" })
-                    );
-            }
+                    // ALORS : autoriser accès et attribuer token
+                    res.status(200).json({
+                        userId: user._id,
+                        token: jwt.sign(
+                            { userId: user._id },
+
+                            process.env.JWT_TOKEN,
+
+                            { expiresIn: "24h" }
+                        ),
+                    });
+                })
+                .catch((error) => res.status(500).json({ error }));
         })
-        .catch((error) => res.status(500).json({ message: "Erreur serveur" }));
+        .catch((error) => res.status(500).json({ error }));
 };
 
 // Récupérer tous les profils
