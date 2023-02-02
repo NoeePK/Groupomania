@@ -1,0 +1,45 @@
+[
+    {
+        "id": "",
+        "name": "Choisissez votre service"
+    },
+
+    {
+        "id": "500",
+        "name": "Comptabilité et finances"
+    },
+
+    {
+        "id": "510",
+        "name": "Ressources humaines"
+    },
+
+    {
+        "id": "520",
+        "name": "Marketing"
+    },
+    {
+        "id": "530",
+        "name": "Ventes"
+    },
+    {
+        "id": "540",
+        "name": "Production"
+    },
+    {
+        "id": "550",
+        "name": "Recherche et Développement"
+    },
+    {
+        "id": "560",
+        "name": "Management"
+    },
+    {
+        "id": "570",
+        "name": "Service Client"
+    },
+    {
+        "id": "580",
+        "name": "Maintenance"
+    }
+]

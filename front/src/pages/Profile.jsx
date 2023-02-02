@@ -1,17 +1,18 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import { API_ROUTES } from "../api/api_routes";
 import getDatas from "../api/getDatas";
 import UpdateProfile from "./Forms/UpdateProfile";
 import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
 import NotFound from "./Errors/NotFound";
-const PROFILE_URL = "/profile";
+
 
 // Peut-être un carrousel avec un bouton "découvrir d'autres collègues"
 // SI admin ou si profile t'appartient, Afficher le bouton modifier
 const Profile = () => {
     const params = useParams();
-    const profiles = getDatas(PROFILE_URL);
+    const profiles = getDatas(API_ROUTES.getAllProfiles);
     const profile = profiles.find((p) => p.id === params.id);
 
     // SI : current user id === post id, ALORS afficher les boutons modifier et supprimer

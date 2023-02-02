@@ -4,7 +4,7 @@ const getDatas = async (url) => {
     try {
         const data = await axios.get(url, JSON.stringify({}), {
             headers: { "Content-Type": "application/json" },
-            credentials: "include",
+            credentials: true,
         });
         return data;
     } catch (error) {

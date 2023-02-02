@@ -22,18 +22,18 @@ const App = () => {
                 {/* Routes publiques */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="*" element={<NotFound />} />
-                <Route path="/unauthorized" element={<Unauthorized />} />
                 <Route path="/About" element={<About />} />
+                
                 {/* Routes privées */}
                 {/* Accès User */}
                 <Route element={<RequireAuth allowedRoles={[2001]}/>}>
                     <Route path="/" element={<Home />} />
-                    
                     <Route path="/publication/:id" element={<Publication />} />
                     <Route path="profile/:id" element={<Profile />} />
                     <Route path="publish" element={<Publish />} />
                     <Route path="updateProfile" element={<UpdateProfile />} />
+                    <Route path="*" element={<NotFound />} />
+                    <Route path="/unauthorized" element={<Unauthorized />} />
                 </Route>
 
                 {/* Accès Admin */}

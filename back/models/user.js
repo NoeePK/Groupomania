@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
     firstName: { type: String, minLength: 2, required: true },
     lastName: { type: String, minLength: 2, required: true },
     birthday: { type: Date },
-    service: { type: String, required: true },
+    service: { type: Number, required: true },
     description: { type: String },
     imageUrl: { type: String },
     email: {
@@ -27,8 +27,8 @@ const userSchema = mongoose.Schema({
         required: true,
     },
     isAdmin: {
-        type: Boolean,
-        default: false,
+        type: Number,
+        default: 2001,
     },
 });
 

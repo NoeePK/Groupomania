@@ -4,12 +4,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-
+import { API_ROUTES } from "../../api/api_routes";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
-
-const LOGIN_URL = "/auth";
 
 const Login = () => {
     const { setAuth } = useAuth();
@@ -41,10 +39,13 @@ const Login = () => {
 
         try {
             const response = await axios.post(
-                LOGIN_URL,
+                API_ROUTES.login,
                 JSON.stringify({ email, password }),
                 {
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Origin": "http://localhost:3000",
+                    },
                     withCredentials: true,
                 }
             );

@@ -9,14 +9,12 @@ import logoService from "../../assets/logo-service.svg";
 import warning from "../../assets/warning.svg";
 import { REGEX } from "../../components/config/regex";
 import { API_ROUTES } from "../../api/api_routes";
+import serviceList from "../../api/service_list.json";
 
 console.log(API_ROUTES.register);
 const Register = () => {
     const { setAuth } = useAuth();
-
     const navigate = useNavigate();
-    // Arriver sur la page d'accueil
-    // const to = "/";
 
     const emailRef = useRef();
     const errRef = useRef();
@@ -88,7 +86,7 @@ const Register = () => {
     // Mettre à jour message d'erreur pendant la saisie
     useEffect(() => {
         setErrMsg("");
-    }, [email, password, match]);
+    }, [email, password, match, firstName, lastName]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -99,41 +97,40 @@ const Register = () => {
             lastName: lastName,
             service: service,
         };
-        axios
-            .post(API_ROUTES.register, null, {
-                params: registerData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "http://localhost:8080" ,
-                },
-            })
-            .then((res) => {
-                console.log("RESPONSE RECEIVED : ", res);
-            })
-            .catch((err) => {
-                console.log("AXIOS ERROR", err);
-            });
+        try {
+            axios
+                .post(API_ROUTES.register, null, {
+                    params: registerData,
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((res) => {
+                    console.log("RESPONSE RECEIVED : ", res);
+                })
+                .catch((err) => {
+                    console.log("AXIOS ERROR", err);
+                });
 
-        // console.log(response.data);
-        // const accessToken = response?.data?.accessToken;
-        // Pour admin etc
-        // const roles = response?.data?.roles;
-        setAuth({ email, password });
-        // Vider les inputs
-        setEmail("");
-        setPassword("");
-        navigate("/");
-        // } catch (error) {
-        //     if (!error?.response) {
-        //         setErrMsg("Le serveur ne répond pas");
-        //     } else if (error.response?.status === 400) {
-        //         setErrMsg("Veuillez remplir tous les champs ");
-        //     } else {
-        //         setErrMsg("L'inscription a échouée");
-        //     }
-        //     // Pour les lecteurs d'écran :
-        //     errRef.current.focus();
-        // }
+            setAuth({ email, password, firstName, lastName, service });
+            // Vider les inputs
+            setEmail("");
+            setPassword("");
+            setFirstName("");
+            setLastName("");
+            setService("");
+            navigate("/");
+        } catch (error) {
+            if (!error?.response) {
+                setErrMsg("Le serveur ne répond pas");
+            } else if (error.response?.status === 400) {
+                setErrMsg("Veuillez remplir tous les champs ");
+            } else {
+                setErrMsg("L'inscription a échouée");
+            }
+            // Pour les lecteurs d'écran :
+            errRef.current.focus();
+        }
     };
 
     return (
@@ -214,28 +211,16 @@ const Register = () => {
                             />
                             <h2>Service</h2>
                         </label>
+
                         <select
                             id="service"
                             onChange={(e) => setService(e.target.value)}
                             required>
-                            <option value="">Indiquez votre service</option>
-                            <option value="Comptabilité et finances">
-                                Comptabilité et finances
-                            </option>
-                            <option value="Ressources humaines">
-                                Ressources humaines
-                            </option>
-                            <option value="Marketing">Marketing</option>
-                            <option value="Ventes">Ventes</option>
-                            <option value="Production">Production</option>
-                            <option value="Recherche et Développement">
-                                Recherche et Développement
-                            </option>
-                            <option value="Management">Management</option>
-                            <option value="Service Client">
-                                Service Client
-                            </option>
-                            <option value="Maintenance">Maintenance</option>
+                            {serviceList.map((item) => (
+                                <option value={item.id} key={item.id}>
+                                    {item.name}
+                                </option>
+                            ))}
                         </select>
                         <label htmlFor="email">
                             <img

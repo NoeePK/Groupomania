@@ -5,7 +5,7 @@ export const API_ROUTES = {
     getOneProfile: `http://localhost:8080/api/auth/profile/`,
     myself: `http://localhost:8080/api/auth/myself`,
     updateMyself: `http://localhost:8080/api/auth/myself`,
-    publication: `http://localhost:8080/api/publication/`,
+    getAllPublications: `http://localhost:8080/api/auth/publication/`,
     // userPosts: `http://localhost:8080/api/post/userPosts`,
     // likedPosts: `http://localhost:8080/api/post/likedPosts`,
     // like: `http://localhost:8080/api/post/like`,

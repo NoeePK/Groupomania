@@ -7,10 +7,21 @@ const result = dotenv.config();
 
 // Inscription
 exports.register = (req, res, next) => {
+    if (
+        !req.body.email ||
+        !req.body.password ||
+        !req.body.firstName ||
+        !req.body.lastName ||
+        !req.body.service
+    ) {
+        return res.status(400).json({ message: "Remplir tous les champs" });
+    }
+
     // Crypter email
     const emailCryptoJS = cryptoJS
         .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
         .toString();
+
     // Hasher mdp
     bcrypt
         .hash(req.body.password, 10)
@@ -24,6 +35,7 @@ exports.register = (req, res, next) => {
                 lastName: req.body.lastName,
                 service: req.body.service,
             });
+            console.log(emailCryptoJS);
             // Enregistrer user dans BDD
             user.save()
                 .then(() =>
@@ -73,7 +85,7 @@ exports.login = (req, res, next) => {
                                 userId: user._id,
                                 token: jwt.sign(
                                     { userId: user._id },
-                                    // { userRole: roles },
+                                    { userRole: user.isAdmin },
                                     `${process.env.JWT_TOKEN}`,
 
                                     { expiresIn: "24h" }
@@ -138,7 +150,7 @@ exports.updateMyself = (req, res, next) => {
               }`,
           }
         : { ...req.body };
-   User.updateOne(
+    User.updateOne(
         { _id: req.params.id },
         { ...userObject, _id: req.params.id }
     )
