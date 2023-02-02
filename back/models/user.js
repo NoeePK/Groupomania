@@ -12,7 +12,7 @@ const userSchema = mongoose.Schema({
     firstName: { type: String, minLength: 2, required: true },
     lastName: { type: String, minLength: 2, required: true },
     birthday: { type: Date },
-    service: { type: Number, required: true },
+    service: { type: String, required: true },
     description: { type: String },
     imageUrl: { type: String },
     email: {

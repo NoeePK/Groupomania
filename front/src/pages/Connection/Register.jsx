@@ -2,16 +2,17 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import { REGEX } from "../../components/config/regex";
+import { API_ROUTES } from "../../api/api_routes";
+import serviceList from "../../api/service_list.json";
+
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import logoName from "../../assets/id-logo.svg";
 import logoService from "../../assets/logo-service.svg";
 import warning from "../../assets/warning.svg";
-import { REGEX } from "../../components/config/regex";
-import { API_ROUTES } from "../../api/api_routes";
-import serviceList from "../../api/service_list.json";
 
-console.log(API_ROUTES.register);
+
 const Register = () => {
     const { setAuth } = useAuth();
     const navigate = useNavigate();
@@ -48,18 +49,15 @@ const Register = () => {
         emailRef.current.focus();
     }, []);
 
-    // Valider email
+    // Valider les inputs
+
     useEffect(() => {
         const result = REGEX.email.test(email);
-        console.log(result);
-        console.log(email);
         setValidEmail(result);
     }, [email]);
 
-    // Valider mot de passe
     useEffect(() => {
         const result = REGEX.pwd.test(password);
-        console.log(result);
         console.log(password);
         console.log(match);
         setValidPassword(result);
@@ -67,19 +65,13 @@ const Register = () => {
         setValidMatch(matchPwd);
     }, [password, match]);
 
-    // Valider prénom
     useEffect(() => {
         const result = REGEX.name.test(firstName);
-        console.log(result);
-        console.log(firstName);
         setValidFirstName(result);
     }, [firstName]);
 
-    // Valider nom
     useEffect(() => {
         const result = REGEX.name.test(lastName);
-        console.log(result);
-        console.log(lastName);
         setValidLastName(result);
     }, [lastName]);
 
@@ -90,47 +82,57 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const registerData = {
+        const payload = {
             email: email,
             password: password,
             firstName: firstName,
             lastName: lastName,
             service: service,
         };
-        try {
-            axios
-                .post(API_ROUTES.register, null, {
-                    params: registerData,
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((res) => {
-                    console.log("RESPONSE RECEIVED : ", res);
-                })
-                .catch((err) => {
-                    console.log("AXIOS ERROR", err);
-                });
+        
+            axios({
+                url: API_ROUTES.register,
+                method: "POST",
+                data: payload,
+            })
+            .then(() => {
+                console.log("Datas envoyées au serveur")
+            }).catch((error) => {
+                console.log("erreur serveur", error);
+            })
+                // .post(API_ROUTES.register, null, {
+                //     params: registerData,
+                //     headers: {
+                //         "Content-Type": "application/json",
+                //     },
+                // })
+                // .then((res) => {
+                //     console.log("RESPONSE RECEIVED : ", res);
+                // })
+                // .catch((err) => {
+                //     console.log("AXIOS ERROR", err);
+                // });
 
             setAuth({ email, password, firstName, lastName, service });
-            // Vider les inputs
+            
+            console.log(payload);
             setEmail("");
             setPassword("");
             setFirstName("");
             setLastName("");
             setService("");
             navigate("/");
-        } catch (error) {
-            if (!error?.response) {
-                setErrMsg("Le serveur ne répond pas");
-            } else if (error.response?.status === 400) {
-                setErrMsg("Veuillez remplir tous les champs ");
-            } else {
-                setErrMsg("L'inscription a échouée");
-            }
-            // Pour les lecteurs d'écran :
-            errRef.current.focus();
-        }
+        // } catch (error) {
+        //     if (!error?.response) {
+        //         setErrMsg("Le serveur ne répond pas");
+        //     } else if (error.response?.status === 400) {
+        //         setErrMsg("Veuillez remplir tous les champs ");
+        //     } else {
+        //         setErrMsg("L'inscription a échouée");
+        //     }
+        //     // Pour les lecteurs d'écran :
+        //     errRef.current.focus();
+        // }
     };
 
     return (

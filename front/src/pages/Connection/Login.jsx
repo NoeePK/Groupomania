@@ -1,17 +1,15 @@
-// Se déconnecter
-// Session s'arrête quand user se déconnecte
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 import { API_ROUTES } from "../../api/api_routes";
+
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
 
 const Login = () => {
     const { setAuth } = useAuth();
-
     const navigate = useNavigate();
     const location = useLocation();
     // Emplacement AVANT d'être redirigé vers Login OU arriver sur la page d'accueil
@@ -37,40 +35,41 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await axios.post(
-                API_ROUTES.login,
-                JSON.stringify({ email, password }),
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Access-Control-Allow-Origin": "http://localhost:3000",
-                    },
-                    withCredentials: true,
-                }
-            );
-            console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.token;
-            // Pour admin etc :
-            // const roles = response?.data?.roles;
-            setAuth({ email, password, accessToken });
-            // Vider les inputs
-            setEmail("");
-            setPassword("");
-            navigate(from, { replace: true });
-        } catch (error) {
-            if (!error?.response) {
-                setErrMsg("Le serveur ne répond pas");
-            } else if (error.response?.status === 400) {
-                setErrMsg("Veuillez remplir tous les champs ");
-            } else if (error.response?.status === 401) {
-                setErrMsg("Accès non-autorisé");
-            } else {
-                setErrMsg("La connexion a échouée");
-            }
-            // Pour les lecteurs d'écran :
-            errRef.current.focus();
-        }
+        const payload = {
+            email: email,
+            password: password,
+        };
+
+        axios({
+            url: API_ROUTES.login,
+            method: "POST",
+            data: payload,
+        })
+            .then(() => {
+                console.log("Datas envoyées au serveur");
+                setAuth({ email, password });
+                // Vider les inputs
+                setEmail("");
+                setPassword("");
+                navigate(from, { replace: true });
+            })
+            .catch((error) => {
+                console.log("erreur serveur", error);
+            });
+
+        // } catch (error) {
+        //     if (!error?.res) {
+        //         setErrMsg("Le serveur ne répond pas");
+        //     } else if (error.res?.status === 400) {
+        //         setErrMsg("Veuillez remplir tous les champs ");
+        //     } else if (error.res?.status === 401) {
+        //         setErrMsg("Accès non-autorisé");
+        //     } else {
+        //         setErrMsg("La connexion a échouée");
+        //     }
+        //     // Pour les lecteurs d'écran :
+        //     errRef.current.focus();
+        // }
     };
 
     return (
