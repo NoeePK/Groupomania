@@ -12,13 +12,13 @@ app.use(express.json());
 
 // Contourner CORS
 const cors = require("cors");
-const corsOptions = {
-    origin: "http://localhost:3000",
-    credentials: true,
-    optionSuccessStatus: 200,
-};
+// const corsOptions = {
+//     origin: "http://localhost:3000",
+//     credentials: true,
+//     optionSuccessStatus: 200,
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
