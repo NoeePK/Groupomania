@@ -12,7 +12,7 @@ app.use(cors());
 
 // Routes
 app.use("/images", express.static(path.join(__dirname, "images")));
-app.use("/api", require("./routes/user"));
+app.use("/api/user", require("./routes/user"));
 app.use("/api/publication", require("./routes/publication"));
 
 module.exports = app;

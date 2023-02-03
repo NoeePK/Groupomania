@@ -68,8 +68,10 @@ exports.login = (req, res, next) => {
                             process.env.JWT_TOKEN,
 
                             { expiresIn: "24h" }
-                        ),
+                        ),  
                     });
+                    
+                    
                 })
                 .catch((error) => res.status(500).json({ error }));
         })

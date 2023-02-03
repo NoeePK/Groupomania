@@ -5,10 +5,12 @@ const User = require("../models/User");
 module.exports = async (req, res, next) => {
     try {
         const token = req.headers.authorization.split(" ")[1];
-
         const decodedToken = jwt.verify(token, `${process.env.JWT_TOKEN}`);
-
         const userId = decodedToken.userId;
+
+        console.log("token :", token);
+        console.log("decodedToken :", decodedToken);
+        console.log("userId :", userId);
 
         let user = await User.findById(userId)
             .then((user) => user)
