@@ -1,20 +1,21 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { API_ROUTES } from "../api/api_routes";
-import {fetchDatas} from "../api/handleData";
+import getDatas from "../api/getDatas";
 import NotFound from "./Errors/NotFound";
 import LikingSystem from "../components/LinkingSystem";
 import Comments from "../components/Comments";
+
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
-const PUBLICATION = API_ROUTES.getOnePublication;
-const PROFILE = API_ROUTES.getOneProfile;
+
 // SI admin ou si publication t'appartient, Afficher le bouton modifier
 const Publication = () => {
     const params = useParams();
-    const publications = fetchDatas(PUBLICATION);
-    const publication = publications.find((pu) => pu.id === params.id);
-    const profiles = fetchDatas(PROFILE);
-    const profile = profiles.find((pr) => pr.id === publication.userId);
+    const publications = getDatas(API_ROUTES.getAllPublications);
+    const publication = publications.find((p) => p.id === params.id);
+    const profile = publication.id;
+    // const profile = profile.find((pr) => pr.id === params.id);
+    // user._id === profile
 
     // SI : current user id === profile id, ALORS afficher les boutons modifier et supprimer
     {

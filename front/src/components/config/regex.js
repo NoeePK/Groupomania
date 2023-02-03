@@ -3,5 +3,3 @@ export const REGEX = {
     pwd: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/,
     name: /[a-zA-Z '-,]{1,31}$/i,
 };
-
-

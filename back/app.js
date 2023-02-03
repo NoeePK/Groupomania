@@ -7,7 +7,7 @@ require("dotenv").config();
 const helmet = require("helmet");
 app.use(helmet());
 app.use(express.json());
-const cors = require("cors");
+const cors = require("cors")
 app.use(cors());
 
 // Routes

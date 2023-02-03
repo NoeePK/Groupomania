@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {fetchDatas} from "../../api/handleData";
-import { API_ROUTES } from "../../api/api_routes";
-const PROFILES_URL = API_ROUTES.getAllProfiles;
+import getDatas from "../../api/getDatas";
+const PROFILES_URL = "/profiles";
 
 const ProfilesBrowser = () => {
-    const data = fetchDatas(PROFILES_URL);
+    const profiles = getDatas(PROFILES_URL);
+
     return (
         <div className="profiles-browser">
-            {data.map((profile) => (
+            {profiles.map((profile) => (
                 <Link
                     className="to-collegue-link"
                     key={profile.id}

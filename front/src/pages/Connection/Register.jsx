@@ -4,14 +4,13 @@ import useAuth from "../../context/AuthProvider";
 import { REGEX } from "../../components/config/regex";
 import { API_ROUTES } from "../../api/api_routes";
 import serviceList from "../../api/service_list.json";
+
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import logoName from "../../assets/id-logo.svg";
 import logoService from "../../assets/logo-service.svg";
 import warning from "../../assets/warning.svg";
-import {postData} from "../../api/handleData";
-const REGISTER = API_ROUTES.register;
-const LOGIN = API_ROUTES.login;
+
 
 const Register = () => {
     const { setAuth } = useAuth();
@@ -88,44 +87,38 @@ const Register = () => {
             firstName: firstName,
             lastName: lastName,
             service: service,
-            userRole: 2001,
         };
-
-        const loginPayload = {
-            email: email,
-            password: password,
-        };
-
-        await postData(REGISTER, payload)
-            .then(() => {
-                postData(LOGIN, loginPayload)
-                    .then(async (response) => {
-                        let token = response;
-                        setAuth({ email, password, token });
-                        setEmail("");
-                        setPassword("");
-                        setFirstName("");
-                        setLastName("");
-                        setService("");
-                        navigate("/");
-                    })
-                    .catch((err) => {
-                        console.log(
-                            err,
-                            "L'authentification n'a pas fonctionné"
-                        );
-                    });
+        
+            await axios({
+                url: API_ROUTES.register,
+                method: "POST",
+                data: payload,
             })
-            .catch((error) => {
-                if (!error?.response) {
-                    setErrMsg("Le serveur ne répond pas");
-                } else {
-                    setErrMsg("L'inscription a échouée");
-                }
+            .then(() => {
+               
+                console.log("Datas envoyées au serveur")
+            }).catch((error) => {
                 console.log("erreur serveur", error);
-                // Pour les lecteurs d'écran :
-                errRef.current.focus();
-            });
+            })
+               
+            setAuth({ email, password });
+            setEmail("");
+            setPassword("");
+            setFirstName("");
+            setLastName("");
+            setService("");
+            navigate("/");
+        // } catch (error) {
+        //     if (!error?.response) {
+        //         setErrMsg("Le serveur ne répond pas");
+        //     } else if (error.response?.status === 400) {
+        //         setErrMsg("Veuillez remplir tous les champs ");
+        //     } else {
+        //         setErrMsg("L'inscription a échouée");
+        //     }
+        //     // Pour les lecteurs d'écran :
+        //     errRef.current.focus();
+        // }
     };
 
     return (

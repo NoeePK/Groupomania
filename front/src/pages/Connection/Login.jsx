@@ -3,11 +3,10 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { postData } from "../../api/handleData";
 import useAuth from "../../context/AuthProvider";
 import { API_ROUTES } from "../../api/api_routes";
+
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
-
-const LOGIN = API_ROUTES.login;
 
 const Login = () => {
     const { setAuth } = useAuth();
@@ -41,31 +40,35 @@ const Login = () => {
             password: password,
         };
 
-        await postData(LOGIN, payload)
-            .then((response) => {
-                let token = response;
-                setAuth({ email, password, token });
+        axios({
+            url: API_ROUTES.login,
+            method: "POST",
+            data: payload,
+        })
+            .then(() => {
+                console.log("Datas envoyées au serveur");
+                setAuth({ email, password });
+                // Vider les inputs
                 setEmail("");
                 setPassword("");
                 navigate(from, { replace: true });
             })
             .catch((error) => {
-                console.log(error, "L'authentification n'a pas fonctionné");
-                if (!error?.res) {
-                    setErrMsg("Le serveur ne répond pas");
-                } else if (error.res?.status === 400) {
-                    setErrMsg("Veuillez remplir tous les champs ");
-                } else if (error.res?.status === 401) {
-                    setErrMsg("Accès non-autorisé");
-                } else {
-                    setErrMsg("La connexion a échouée");
-                }
-                // Pour les lecteurs d'écran :
-                errRef.current.focus();
+                console.log("erreur serveur", error);
             });
 
         // } catch (error) {
-        //
+        //     if (!error?.res) {
+        //         setErrMsg("Le serveur ne répond pas");
+        //     } else if (error.res?.status === 400) {
+        //         setErrMsg("Veuillez remplir tous les champs ");
+        //     } else if (error.res?.status === 401) {
+        //         setErrMsg("Accès non-autorisé");
+        //     } else {
+        //         setErrMsg("La connexion a échouée");
+        //     }
+        //     // Pour les lecteurs d'écran :
+        //     errRef.current.focus();
         // }
     };
 
