@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { postData } from "../../api/handleData";
-import useAuth from "../../context/AuthProvider";
+// import { postData } from "../../api/handleData";
+import useAuth from "../../hooks/useAuth";
 import { API_ROUTES } from "../../api/api_routes";
 import axios from "axios";
 import logoMail from "../../assets/logo-mail.svg";

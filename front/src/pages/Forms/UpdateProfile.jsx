@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import serviceList from "../../api/service_list.json"
 
 const UpdateProfile = () => {
     const [firstName, setFirstName] = useState("");
@@ -79,17 +80,15 @@ const UpdateProfile = () => {
                 </label>
                 <label htmlFor="service">
                     <h2>Service</h2>
-                    <select id="service" name="service" required>
-                        <option value="">Indiquez votre service</option>
-                        <option value="">Comptabilité et finances</option>
-                        <option value="">Ressources humaines</option>
-                        <option value="">Marketing</option>
-                        <option value="">Ventes</option>
-                        <option value="">Production</option>
-                        <option value="">Recherche et Développement</option>
-                        <option value="">Management</option>
-                        <option value="">Service Client</option>
-                        <option value="">Maintenance</option>
+                    <select
+                        id="service"
+                        onChange={(e) => setService(e.target.value)}
+                        required>
+                        {serviceList.map((item) => (
+                            <option value={item.id} key={item.id}>
+                                {item.name}
+                            </option>
+                        ))}
                     </select>
                 </label>
                 <label htmlFor="presentation">

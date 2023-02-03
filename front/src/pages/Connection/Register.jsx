@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 import { REGEX } from "../../components/config/regex";
 import { API_ROUTES } from "../../api/api_routes";
 import serviceList from "../../api/service_list.json";
