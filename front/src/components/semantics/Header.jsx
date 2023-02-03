@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import getDatas from "../../api/getDatas";
+import { fetchData } from "../../api/handleData";
 
 import logout from "../../assets/logout.svg";
 import logo from "../../assets/logo-white.svg";
@@ -8,7 +8,7 @@ import logo from "../../assets/logo-white.svg";
 const PROFILES_URL = "/profiles";
 
 const Header = () => {
-    const profile = getDatas(PROFILES_URL);
+    const profile = fetchData(PROFILES_URL);
 
     return (
         <header>

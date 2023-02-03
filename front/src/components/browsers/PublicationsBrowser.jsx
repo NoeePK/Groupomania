@@ -1,11 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import getDatas from "../../api/getDatas";
+import { fetchData } from "../../api/handleData";
 const PUBLICATIONS_URL = "/publications";
 
 const PublicationsBrowser = () => {
-    const data = getDatas(PUBLICATIONS_URL);
+    const data = fetchData(PUBLICATIONS_URL);
 
     return (
         <div className="publications-browser">

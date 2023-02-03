@@ -4,7 +4,7 @@ import useAuth from "../../context/AuthProvider";
 import { REGEX } from "../../components/config/regex";
 import { API_ROUTES } from "../../api/api_routes";
 import serviceList from "../../api/service_list.json";
-
+import axios from "axios"
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import logoName from "../../assets/id-logo.svg";

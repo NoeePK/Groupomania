@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { API_ROUTES } from "../api/api_routes";
-import getDatas from "../api/getDatas";
+import { fetchData } from "../api/handleData";
 import NotFound from "./Errors/NotFound";
 import LikingSystem from "../components/LinkingSystem";
 import Comments from "../components/Comments";
@@ -11,7 +11,7 @@ import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
 // SI admin ou si publication t'appartient, Afficher le bouton modifier
 const Publication = () => {
     const params = useParams();
-    const publications = getDatas(API_ROUTES.getAllPublications);
+    const publications = fetchData(API_ROUTES.getAllPublications);
     const publication = publications.find((p) => p.id === params.id);
     const profile = publication.id;
     // const profile = profile.find((pr) => pr.id === params.id);

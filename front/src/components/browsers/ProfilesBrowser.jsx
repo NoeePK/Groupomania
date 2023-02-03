@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import getDatas from "../../api/getDatas";
+import {fetchData} from "../../api/handleData";
 const PROFILES_URL = "/profiles";
 
 const ProfilesBrowser = () => {
-    const profiles = getDatas(PROFILES_URL);
+    const profiles = fetchData(PROFILES_URL);
 
     return (
         <div className="profiles-browser">

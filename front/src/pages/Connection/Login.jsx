@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { postData } from "../../api/handleData";
 import useAuth from "../../context/AuthProvider";
 import { API_ROUTES } from "../../api/api_routes";
-
+import axios from "axios";
 import logoMail from "../../assets/logo-mail.svg";
 import logoPwd from "../../assets/logo-pwd.svg";
 import warning from "../../assets/warning.svg";
