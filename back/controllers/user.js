@@ -7,6 +7,10 @@ require("dotenv").config();
 
 // Inscription
 exports.register = (req, res, next) => {
+    // Chiffrer l'email
+    const emailCryptoJS = cryptoJS
+        .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
+        .toString();
     // Hasher mdp
     bcrypt
         .hash(req.body.password, 10)
@@ -14,11 +18,12 @@ exports.register = (req, res, next) => {
         .then((hash) => {
             // Passer data cryptées
             const user = new User({
-                email: req.body.email,
+                email: emailCryptoJS,
                 password: hash,
                 firstName: req.body.firstName,
                 lastName: req.body.lastName,
                 service: req.body.service,
+                role: 2001,
             });
             // Enregistrer user dans BDD
             user.save()
@@ -34,17 +39,20 @@ exports.register = (req, res, next) => {
 
 // Connexion
 exports.login = (req, res, next) => {
+    // Chiffrer l'email
+    const emailCryptoJS = cryptoJS
+        .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
+        .toString();
+
     // Récupérer user correspondant à email
-    User.findOne({ email: req.body.email })
+    User.findOne({ email: emailCryptoJS })
         // SI : email n'existe pas
         .then((user) => {
             if (!user) {
-                return res
-                    .status(401)
-                    .json({
-                        error: "refusé",
-                        message: "Email ou mot de passe incorrect",
-                    });
+                return res.status(401).json({
+                    error: "refusé",
+                    message: "Email ou mot de passe incorrect",
+                });
             }
             // SINON : email existe
             bcrypt
@@ -53,25 +61,24 @@ exports.login = (req, res, next) => {
                     // SI : Mot de passe est incorrect
                     if (!validPassword) {
                         return res.status(401).json({
-                            error: "refusé",
                             message: "Email ou mot de passe incorrect",
                         });
                     }
                     // SINON : Mot de passe est correct
+                    else {
+                        // ALORS : autoriser accès et attribuer token
+                        res.status(200).json({
+                            userId: user._id,
+                            token: jwt.sign(
+                                { userId: user._id },
+                                {userRole: user.role},
 
-                    // ALORS : autoriser accès et attribuer token
-                    res.status(200).json({
-                        userId: user._id,
-                        token: jwt.sign(
-                            { userId: user._id },
+                                `${process.env.JWT_TOKEN}`,
 
-                            process.env.JWT_TOKEN,
-
-                            { expiresIn: "24h" }
-                        ),  
-                    });
-                    
-                    
+                                { expiresIn: "24h" }
+                            ),
+                        });
+                    }
                 })
                 .catch((error) => res.status(500).json({ error }));
         })
