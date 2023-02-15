@@ -1,26 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const postCtrl = require("../controllers/post");
-const auth = require("../middlewares/auth");
+const auth = require("../middlewares/verifyToken");
 const ROLES_LIST = require("../config/roles_list");
 const verifyRoles = require("../middlewares/verifyRoles");
 const multer = require("../middlewares/multer-config");
 
 // Récupérer les post
-router.get(
-    "/",
-    auth,
-    verifyRoles(ROLES_LIST.User),
-    postCtrl.getAllPosts
-);
+router.get("/", auth, verifyRoles(ROLES_LIST.User), postCtrl.getAllPosts);
 
 // Récupérer une post
-router.get(
-    "/:id",
-    auth,
-    verifyRoles(ROLES_LIST.User),
-    postCtrl.getOnePost
-);
+router.get("/:id", auth, verifyRoles(ROLES_LIST.User), postCtrl.getOnePost);
 
 // Créer une post
 router.post(
