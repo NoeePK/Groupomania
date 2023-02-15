@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const publicationSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
     userId: { type: String, required: true },
     title: { type: String, required: true },
     message: { type: String, required: true },
@@ -17,4 +17,4 @@ const publicationSchema = mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("Publication", publicationSchema);
+module.exports = mongoose.model("Publication", postSchema);

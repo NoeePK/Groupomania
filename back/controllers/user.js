@@ -69,12 +69,11 @@ exports.login = (req, res, next) => {
                         // ALORS : autoriser accès et attribuer token
                         res.status(200).json({
                             userId: user._id,
+                            userRole: user.role,
                             token: jwt.sign(
                                 { userId: user._id },
                                 {userRole: user.role},
-
-                                `${process.env.JWT_TOKEN}`,
-
+                                process.env.JWT_TOKEN,
                                 { expiresIn: "24h" }
                             ),
                         });

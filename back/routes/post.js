@@ -1,52 +1,52 @@
 const express = require("express");
 const router = express.Router();
-const publicationCtrl = require("../controllers/publication");
+const postCtrl = require("../controllers/post");
 const auth = require("../middlewares/auth");
 const ROLES_LIST = require("../config/roles_list");
 const verifyRoles = require("../middlewares/verifyRoles");
 const multer = require("../middlewares/multer-config");
 
-// Récupérer les publication
+// Récupérer les post
 router.get(
     "/",
     auth,
     verifyRoles(ROLES_LIST.User),
-    publicationCtrl.getAllPublications
+    postCtrl.getAllPosts
 );
 
-// Récupérer une publication
+// Récupérer une post
 router.get(
     "/:id",
     auth,
     verifyRoles(ROLES_LIST.User),
-    publicationCtrl.getOnePublication
+    postCtrl.getOnePost
 );
 
-// Créer une publication
+// Créer une post
 router.post(
     "/publish",
     auth,
     verifyRoles(ROLES_LIST.User),
 
     multer,
-    publicationCtrl.publish
+    postCtrl.createPost
 );
 
-// Modifier une publication
+// Modifier une post
 router.put(
-    "/:id/updatePublication",
+    "/:id/updatePost",
     auth,
     verifyRoles(ROLES_LIST.User),
     multer,
-    publicationCtrl.updatePublication
+    postCtrl.updatePost
 );
 
-// Supprimer une publication
+// Supprimer une post
 router.delete(
-    "/:id/deletePublication",
+    "/:id/deletePost",
     auth,
     verifyRoles(ROLES_LIST.User),
-    publicationCtrl.deletePublication
+    postCtrl.deletePost
 );
 
 // Système de likes/dislikes
@@ -54,7 +54,7 @@ router.post(
     "/:id/like",
     auth,
     verifyRoles(ROLES_LIST.User),
-    publicationCtrl.voteForPublication
+    postCtrl.voteForPost
 );
 
 module.exports = router;

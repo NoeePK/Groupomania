@@ -1,58 +1,58 @@
-const Publication = require("../models/Publication");
+const Post = require("../models/Post");
 const fs = require("fs");
 
-// Récupérer toutes les publications
-exports.getAllPublications = (req, res, next) => {
-    Publication.find()
-        .then((publications) => res.status(200).json(publications))
+// Récupérer toutes les posts
+exports.getAllPosts = (req, res, next) => {
+    Post.find()
+        .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json({ error }));
 };
 
-// Récupérer une publication
-exports.getOnePublication = (req, res, next) => {
-    Publication.findOne({ _id: req.params.id })
-        .then((publication) => res.status(200).json(publication))
+// Récupérer une post
+exports.getOnePost = (req, res, next) => {
+    Post.findOne({ _id: req.params.id })
+        .then((post) => res.status(200).json(post))
         .catch((error) => res.status(404).json({ error }));
 };
 
-// Créer une publication
-exports.publish = (req, res, next) => {
+// Créer une post
+exports.createPost = (req, res, next) => {
     // Récupérer données du front
-    const publicationObject = JSON.parse(req.body.publication);
+    const postObject = JSON.parse(req.body.post);
     // Supprimer id en surplus
-    delete publicationObject._id;
-    // Créer publication
-    const publication = new Publication({
-        ...publicationObject,
+    delete postObject._id;
+    // Créer post
+    const post = new Post({
+        ...postObject,
         // Générer une URL pour l'image
         imageUrl: `${req.protocol}://${req.get("host")}/images/${
             req.file.filename
         }`,
     });
-    // Sauvegarder publication
-    publication
+    // Sauvegarder post
+    post
         .save()
         .then(() => {
             res.status(201).json({
-                message: "Publication ajoutée",
+                message: "Post ajoutée",
             });
         })
         .catch((error) => res.status(400).json({ error }));
 };
 
-// Modifier publication
-exports.updatePublication = (req, res, next) => {
-    const publicationObject = req.file
+// Modifier post
+exports.updatePost = (req, res, next) => {
+    const postObject = req.file
         ? {
-              ...JSON.parse(req.body.publication),
+              ...JSON.parse(req.body.post),
               imageUrl: `${req.protocol}://${req.get("host")}/images/${
                   req.file.filename
               }`,
           }
         : { ...req.body };
-    Publication.updateOne(
+    Post.updateOne(
         { _id: req.params.id },
-        { ...publicationObject, _id: req.params.id }
+        { ...postObject, _id: req.params.id }
     )
         .then(() =>
             res.status(200).json({
@@ -62,29 +62,29 @@ exports.updatePublication = (req, res, next) => {
         .catch((error) =>
             res.status(401).json({
                 message:
-                    "Vous n'avez pas l'autorisation nécessaire pour modifier cette publication",
+                    "Vous n'avez pas l'autorisation nécessaire pour modifier cette post",
             })
         );
 };
 
-// Supprimer publication
-exports.deletePublication = (req, res, next) => {
-    Publication.findOne({ _id: req.params.id })
-        .then((publication) => {
-            const filename = publication.imageUrl.split("/images/")[1];
+// Supprimer post
+exports.deletePost = (req, res, next) => {
+    Post.findOne({ _id: req.params.id })
+        .then((post) => {
+            const filename = post.imageUrl.split("/images/")[1];
             // Supprimer image
             fs.unlink(`images/${filename}`, () => {
-                // Supprimer publication
-                Publication.deleteOne({ _id: req.params.id })
+                // Supprimer post
+                Post.deleteOne({ _id: req.params.id })
                     .then(() =>
                         res.status(200).json({
-                            message: "Publication supprimée",
+                            message: "Post supprimée",
                         })
                     )
                     .catch((error) =>
                         res.status(401).json({
                             message:
-                                "Vous n'avez pas l'autorisation nécessaire pour supprimer cette publication",
+                                "Vous n'avez pas l'autorisation nécessaire pour supprimer cette post",
                         })
                     );
             });
@@ -93,56 +93,56 @@ exports.deletePublication = (req, res, next) => {
 };
 
 // Likes/dislikes
-exports.voteForPublication = (req, res, next) => {
-    // SI : User aime publication
+exports.voteForPost = (req, res, next) => {
+    // SI : User aime post
     if (req.body.like === 1) {
         // ALORS : + 1 dans array usersLiked
-        Publication.updateOne(
+        Post.updateOne(
             { _id: req.params.id },
             {
                 $inc: { likes: +1 },
                 $push: { usersLiked: req.body.userId },
             }
         )
-            .then((publication) =>
+            .then((post) =>
                 res
                     .status(200)
-                    .json({ message: "Vous avez liké cette publication" })
+                    .json({ message: "Vous avez liké cette post" })
             )
             .catch((error) => res.status(400).json({ error }));
     }
-    // SINON SI : User n'aime pas publication
+    // SINON SI : User n'aime pas post
     else if (req.body.like === -1) {
         // ALORS : + 1 dans array usersDisliked
-        Publication.updateOne(
+        Post.updateOne(
             { _id: req.params.id },
             {
                 $inc: { dislikes: +1 },
                 $push: { usersDisliked: req.body.userId },
             }
         )
-            .then((publication) =>
+            .then((post) =>
                 res
                     .status(200)
-                    .json({ message: "Vous avez disliké cette publication" })
+                    .json({ message: "Vous avez disliké cette post" })
             )
             .catch((error) => res.status(400).json({ error }));
     }
-    // SINON : User a déjà voté pour publication
+    // SINON : User a déjà voté pour post
     else {
-        Publication.findOne({ _id: req.params.id })
-            .then((publication) => {
+        Post.findOne({ _id: req.params.id })
+            .then((post) => {
                 // SI : userId présent dans userLiked
-                if (publication.usersLiked.includes(req.body.userId)) {
+                if (post.usersLiked.includes(req.body.userId)) {
                     // ALORS : - 1 dans usersLiked
-                    Publication.updateOne(
+                    Post.updateOne(
                         { _id: req.params.id },
                         {
                             $pull: { usersLiked: req.body.userId },
                             $inc: { likes: -1 },
                         }
                     )
-                        .then((publication) => {
+                        .then((post) => {
                             res.status(200).json({
                                 message: "Like supprimé",
                             });
@@ -150,16 +150,16 @@ exports.voteForPublication = (req, res, next) => {
                         .catch((error) => res.status(400).json({ error }));
                 }
                 // SINON SI : userId présent dans usersDisliked
-                else if (publication.usersDisliked.includes(req.body.userId)) {
+                else if (post.usersDisliked.includes(req.body.userId)) {
                     // ALORS : - 1 dans usersDisliked
-                    Publication.updateOne(
+                    Post.updateOne(
                         { _id: req.params.id },
                         {
                             $pull: { usersDisliked: req.body.userId },
                             $inc: { dislikes: -1 },
                         }
                     )
-                        .then((publication) => {
+                        .then((post) => {
                             res.status(200).json({
                                 message: "Dislike supprimé",
                             });

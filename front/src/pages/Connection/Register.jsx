@@ -1,22 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-import { REGEX } from "../../components/config/regex";
-import { API_ROUTES } from "../../api/api_routes";
-import serviceList from "../../api/service_list.json";
-import axios from "axios"
-import logoMail from "../../assets/logo-mail.svg";
-import logoPwd from "../../assets/logo-pwd.svg";
-import logoName from "../../assets/id-logo.svg";
-import logoService from "../../assets/logo-service.svg";
 import warning from "../../assets/warning.svg";
-
+import { REGEX } from "../../components/config/regex";
+const emailReg = REGEX.email;
+const pwdReg = REGEX.pwd;
 
 const Register = () => {
-    const { setAuth } = useAuth();
-    const navigate = useNavigate();
-
-    const nameRef = useRef();
+    const userRef = useRef();
     const errRef = useRef();
 
     const [email, setEmail] = useState("");
@@ -27,302 +18,162 @@ const Register = () => {
     const [validPassword, setValidPassword] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
 
-    const [match, setMatch] = useState("");
+    const [matchPwd, setMatch] = useState("");
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
-    const [firstName, setFirstName] = useState("");
-    const [validFirstName, setValidFirstName] = useState(false);
-    const [firstNameFocus, setFirstNameFocus] = useState(false);
-
-    const [lastName, setLastName] = useState("");
-    const [validLastName, setValidLastName] = useState(false);
-    const [lastNameFocus, setLastNameFocus] = useState(false);
-
-    const [service, setService] = useState("");
-
     const [errMsg, setErrMsg] = useState("");
 
-    // Focaliser sur input "email"
+    const [success, setSuccess] = useState(false);
+
     useEffect(() => {
-        nameRef.current.focus();
+        userRef.current.focus();
     }, []);
 
-    // Valider les inputs
-
     useEffect(() => {
-        const result = REGEX.email.test(email);
+        const result = emailReg.test(email);
         setValidEmail(result);
     }, [email]);
 
     useEffect(() => {
-        const result = REGEX.pwd.test(password);
+        const result = pwdReg.test(password);
+        console.log(result);
         console.log(password);
-        console.log(match);
+        console.log(matchPwd);
         setValidPassword(result);
-        const matchPwd = password === match;
-        setValidMatch(matchPwd);
-    }, [password, match]);
-
-    useEffect(() => {
-        const result = REGEX.name.test(firstName);
-        setValidFirstName(result);
-    }, [firstName]);
-
-    useEffect(() => {
-        const result = REGEX.name.test(lastName);
-        setValidLastName(result);
-    }, [lastName]);
+        const match = password === matchPwd;
+        setValidMatch(match);
+    }, [password, matchPwd]);
 
     // Mettre à jour message d'erreur pendant la saisie
     useEffect(() => {
         setErrMsg("");
-    }, [email, password, match, firstName, lastName]);
+    }, [email, password, matchPwd]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const payload = {
-            email: email,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            service: service,
-        };
-        
-            await axios({
-                url: API_ROUTES.register,
-                method: "POST",
-                data: payload,
-            })
-            .then(() => {
-               
-                console.log("Datas envoyées au serveur")
-            }).catch((error) => {
-                console.log("erreur serveur", error);
-            })
-               
-            setAuth({ email, password });
-            setEmail("");
-            setPassword("");
-            setFirstName("");
-            setLastName("");
-            setService("");
-            navigate("/");
-        // } catch (error) {
-        //     if (!error?.response) {
-        //         setErrMsg("Le serveur ne répond pas");
-        //     } else if (error.response?.status === 400) {
-        //         setErrMsg("Veuillez remplir tous les champs ");
-        //     } else {
-        //         setErrMsg("L'inscription a échouée");
-        //     }
-        //     // Pour les lecteurs d'écran :
-        //     errRef.current.focus();
-        // }
-    };
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+console.log(email, password);
+setSuccess(true)
+
+
+}
+
 
     return (
+
+        <>
+        {success ? (
+            <section>
+                <h1>success !</h1>
+            </section>
+        ) : (
         <main>
-            <section className="main-container">
-                <section className="log-container">
-                    <h1>Inscription</h1>
-                    <p
-                        ref={errRef}
-                        className="error-message"
+            <section className="log-container">
+                <p
+                    ref={errRef}
+                    className="error-message"
+                    hidden={errMsg ? false : true}
+                    aria-live="assertive">
+                    <img
+                        src={warning}
+                        alt="Attention !"
                         hidden={errMsg ? false : true}
-                        aria-live="assertive">
-                        <img
-                            src={warning}
-                            alt="Attention !"
-                            hidden={errMsg ? false : true}
-                        />
-                        {errMsg}
+                    />
+                    {errMsg}
+                </p>
+
+                <h1>Register</h1>
+                <form className="log-form" onSubmit={handleSubmit}>
+                    <label htmlFor="email">Email :</label>
+                    <input
+                        type="email"
+                        id="email"
+                        ref={userRef}
+                        autoComplete="off"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                        aria-invalid={validEmail ? "false" : "true"}
+                        aria-describedby="mailnote"
+                        placeholder="Entrez votre adresse mail"
+                        onFocus={() => setEmailFocus(true)}
+                        onBlur={() => setEmailFocus(false)}
+                    />
+                    <p
+                        id="mailnote"
+                        className={
+                            email && !validEmail ? "instructions" : "offscreen"
+                        }>
+                        Ce champs doit contenir une adresse email contenant un
+                        @.
                     </p>
-                    <form className="log-form" onSubmit={handleSubmit}>
-                        <label htmlFor="firstName">
-                            <img src={logoName} alt="Entrez votre prénom" />
-                            <h2>Prénom</h2>
-                        </label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            ref={nameRef}
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            aria-invalid={validFirstName ? "false" : "true"}
-                            aria-describedby="namenote"
-                            onFocus={() => setFirstNameFocus(true)}
-                            onBlur={() => setFirstNameFocus(false)}
-                            placeholder="Prénom"
-                            required
-                        />
-                        <p
-                            id="namenote"
-                            className={
-                                firstNameFocus && firstName && !validFirstName
-                                    ? "instructions"
-                                    : "offscreen"
-                            }>
-                            Votre nom ne peut pas contenir de chiffres.
-                        </p>
-                        <label htmlFor="lastName">
-                            <img
-                                src={logoName}
-                                alt="Entrez votre nom de famille"
-                            />
-                            <h2>Nom de famille</h2>
-                        </label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            aria-invalid={validLastName ? "false" : "true"}
-                            aria-describedby="namenote"
-                            onFocus={() => setLastNameFocus(true)}
-                            onBlur={() => setLastNameFocus(false)}
-                            placeholder="Nom de famille"
-                            required
-                        />
-                        <p
-                            id="namenote"
-                            className={
-                                lastNameFocus && lastName && !validLastName
-                                    ? "instructions"
-                                    : "offscreen"
-                            }>
-                            Votre nom ne peut pas contenir de chiffres.
-                        </p>
-                        <label htmlFor="service">
-                            <img
-                                src={logoService}
-                                alt="Choisissez votre service"
-                            />
-                            <h2>Service</h2>
-                        </label>
 
-                        <select
-                            id="service"
-                            onChange={(e) => setService(e.target.value)}
-                            required>
-                            {serviceList.map((item) => (
-                                <option value={item.id} key={item.id}>
-                                    {item.name}
-                                </option>
-                            ))}
-                        </select>
-                        <label htmlFor="email">
-                            <img
-                                src={logoMail}
-                                alt="Entrez votre adresse mail"
-                            />
-                            <h2>Courriel</h2>
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            autoComplete="off"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            aria-invalid={validEmail ? "false" : "true"}
-                            aria-describedby="mailnote"
-                            onFocus={() => setEmailFocus(true)}
-                            onBlur={() => setEmailFocus(false)}
-                            placeholder="Entrez votre adresse mail"
-                            required
-                        />
-                        <p
-                            id="mailnote"
-                            className={
-                                emailFocus && email && !validEmail
-                                    ? "instructions"
-                                    : "offscreen"
-                            }>
-                            Ce champs doit contenir une adresse email contenant
-                            un @.
-                        </p>
+                    <label htmlFor="password">Mot de passe :</label>
+                    <input
+                        type="password"
+                        id="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        aria-invalid={validPassword ? "false" : "true"}
+                        aria-describedby="pwdnote"
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
+                        placeholder="Entrez votre mot de passe"
+                    />
+                    <p
+                        id="pwdnote"
+                        className={
+                            password && !validPassword
+                                ? "instructions"
+                                : "offscreen"
+                        }>
+                        Votre mot de passe doit contenir au minimum : 8
+                        caractères, 1 majuscule, 1 minuscule et 3 chiffres.
+                    </p>
 
-                        <label htmlFor="password">
-                            <img
-                                src={logoPwd}
-                                alt="Entrez votre mot de passe"
-                            />
-                            <h2>Mot de passe</h2>
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            aria-invalid={validPassword ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPasswordFocus(true)}
-                            onBlur={() => setPasswordFocus(false)}
-                            placeholder="Entrez votre mot de passe"
-                            required
-                        />
-                        <p
-                            id="pwdnote"
-                            className={
-                                passwordFocus && password && !validPassword
-                                    ? "instructions"
-                                    : "offscreen"
-                            }>
-                            Votre mot de passe doit contenir au minimum : 8
-                            caractères, 1 majuscule, 1 minuscule et 3 chiffres.
-                        </p>
+                    <label htmlFor="confirmPwd">
+                        Confirmez le mot de passe :
+                    </label>
+                    <input
+                        type="password"
+                        id="confirmPwd"
+                        value={matchPwd}
+                        onChange={(e) => setMatch(e.target.value)}
+                        required
+                        aria-invalid={validMatch ? "false" : "true"}
+                        aria-describedby="matchnote"
+                        onFocus={() => setMatchFocus(true)}
+                        onBlur={() => setMatchFocus(false)}
+                        placeholder="Entrez votre mot de passe"
+                    />
+                    <p
+                        id="matchnote"
+                        className={
+                            matchPwd && !validMatch
+                                ? "instructions"
+                                : "offscreen"
+                        }>
+                        Les mots de passe doivent être identiques.
+                    </p>
 
-                        <label htmlFor="confirmPwd">
-                            <img
-                                src={logoPwd}
-                                alt="Confirmez votre mot de passe"
-                            />
-                            <h2>Confirmez le mot de passe</h2>
-                        </label>
-                        <input
-                            type="password"
-                            id="confirmPwd"
-                            value={match}
-                            onChange={(e) => setMatch(e.target.value)}
-                            aria-invalid={validMatch ? "false" : "true"}
-                            aria-describedby="matchnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                            placeholder="Entrez votre mot de passe"
-                            required
-                        />
-                        <p
-                            id="matchnote"
-                            className={
-                                matchFocus && !validMatch
-                                    ? "instructions"
-                                    : "offscreen"
-                            }>
-                            Les mots de passe doivent être identiques.
-                        </p>
-
-                        <button
-                            onClick={handleSubmit}
-                            disabled={
-                                !validEmail ||
-                                !validPassword ||
-                                !validMatch ||
-                                !validFirstName ||
-                                !validLastName ||
-                                !service
-                                    ? true
-                                    : false
-                            }>
-                            S'inscrire
-                        </button>
-                    </form>
-                </section>
+                    <button
+                        disabled={
+                            !validEmail || !validPassword || !validMatch
+                                ? true
+                                : false
+                        }>
+                        S'inscrire
+                    </button>
+                </form>
+                
             </section>
             <div className="link-container">
-                <p>Déjà inscrit.e ?</p>
-                <Link to="/login"> Se connecter</Link>
-            </div>
-        </main>
+                    <p>Déjà inscrit.e ?</p>
+                    <Link to="/login"> Se connecter</Link>
+                </div>
+        </main>)}</>
     );
 };
 

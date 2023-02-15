@@ -8,17 +8,6 @@ body {
   color: #4E5166;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-}
-form label {
-  margin-bottom: 20px;
-}
-form label h2 {
-  color: #4E5166;
-}
-
 .collapse {
   width: 60%;
   margin-bottom: 3rem;
@@ -125,10 +114,9 @@ footer {
 }
 
 .main-container {
-  background-color: white;
   margin: 3rem auto 2rem auto;
   padding: 1rem 2rem;
-  width: 30%;
+  width: 50%;
   font-size: 1.8rem;
   border-radius: 10px;
   display: flex;
@@ -148,10 +136,18 @@ footer {
 
 .log-container {
   width: 100%;
-  margin: auto;
+  margin: 4rem auto;
+  background-color: white;
+  margin: 3rem auto 2rem auto;
+  padding: 1rem 2rem;
+  width: 50%;
+  font-size: 1.8rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
 }
 .log-container h1 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   text-align: center;
   cursor: default;
   margin: 0%;
@@ -160,18 +156,15 @@ footer {
 .log-form {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-around;
 }
 .log-form label {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 2rem;
-  margin-bottom: 0;
+  margin: 2rem 0;
   text-align: left;
-}
-.log-form label h2 {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 .log-form label:hover img {
   transform: rotate(360deg);
@@ -217,9 +210,9 @@ footer {
 
 .instructions {
   display: inline-block;
-  font-size: 1.3rem;
+  width: 90%;
+  font-size: 1.5rem;
   font-style: italic;
-  margin-top: 0;
 }
 
 .error-message {

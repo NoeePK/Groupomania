@@ -1,8 +1,6 @@
 const http = require("http");
 const app = require("./app");
-
-const dotenv = require("dotenv");
-const result = dotenv.config();
+require("dotenv").config();
 
 // Port valide :
 const normalizePort = (val) => {
@@ -17,7 +15,7 @@ const normalizePort = (val) => {
     return false;
 };
 
-const port = normalizePort(process.env.PORT);
+const port = normalizePort(process.env.PORT || "8080");
 app.set("port", port);
 
 // Gérer les erreurs
@@ -50,20 +48,8 @@ server.on("listening", () => {
     const address = server.address();
     const bind =
         typeof address === "string" ? "pipe " + address : "port " + port;
-    console.log("Listening on " + bind);
+    console.log("Serveur démarré sur le " + bind);
+    console.log(`Ouvrir dans le navigateur : http://localhost:${port}`);
 });
 
-server.listen(port, () =>
-    console.log(`Serveur démarré sur : http://localhost:${port}`)
-);
-
-// Connexion à la base de données
-const mongoose = require("mongoose");
-mongoose.set("strictQuery", false);
-mongoose
-    .connect(process.env.DB_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    .then(() => console.log("Connexion à MongoDB : OK"))
-    .catch(() => console.log("Connexion à MongoDB : FAIL"));
+server.listen(port);

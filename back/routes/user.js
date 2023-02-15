@@ -1,9 +1,14 @@
 const express = require("express");
 const router = express.Router();
-const userCtrl = require("../controllers/user");
+
+// Middlewares
 const auth = require("../middlewares/auth");
 const multer = require("../middlewares/multer-config");
 const strongPassword = require("../middlewares/password");
+
+// Controllers
+const userCtrl = require("../controllers/user");
+
 
 // Créer un nouvel utilisateur
 router.post("/register", strongPassword, userCtrl.register);
