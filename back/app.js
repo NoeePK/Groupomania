@@ -9,8 +9,6 @@ const verifyCredentials = require("./middlewares/verifyCredentials");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db-config")
-require("dotenv").config();
-const PORT = process.env.PORT;
 
 // Connexion à la BDD
 connectDB();
@@ -35,10 +33,6 @@ app.use("/profiles", require("./routes/profile"))
 app.use("/posts", require("./routes/post") )
 
 mongoose.set("strictQuery", false)
-mongoose.connection.once("open", () => {
-    app.listen(PORT, () => console.log("Connexion à MongoDB : OK"));
-});
-
 
 
 module.exports = app;

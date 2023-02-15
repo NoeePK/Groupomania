@@ -4,24 +4,24 @@ const defaultRole = require("../config/roles_list");
 
 const userSchema = mongoose.Schema({
     email: {
-        String,
-        require: true,
+        type: String,
+        required: true,
         unique: true,
     },
     password: {
-        String,
+        type: String,
         minLength: 8,
         maxLength: 20,
         required: true,
     },
     roles: {
         User: {
-            Number,
+            type: Number,
             default: defaultRole.User,
         },
-        Admin: Number,
+        Admin: {type :Number},
     },
-    refreshToken: String,
+    refreshToken: {type :String},
 });
 
 userSchema.plugin(uniqueValidator);

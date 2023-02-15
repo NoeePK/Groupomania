@@ -15,7 +15,7 @@ router.post("/createProfile", profileCtrl.createProfile);
 
 // WIP: mettre contrôle pour empêcher modif par autre que proprio du profil ?
 // Modifier un profil
-router.put("/updateProfile", multer, profileCtrl.updateProfile);
+router.put("/updateProfile", profileCtrl.updateProfile);
 
 // Supprimer un profil (uniquement par un admin)
 router.delete(
