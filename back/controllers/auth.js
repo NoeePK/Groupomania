@@ -22,6 +22,7 @@ const register = async (req, res) => {
         // Enregistrer le nouvel utilisateur
         const result = await User.create({
             email: cryptedEmail,
+            roles: {"User": 2001 },
             password: hashedPwd,
         });
 
@@ -68,7 +69,7 @@ const login = async (req, res) => {
         );
         const refreshToken = jwt.sign(
             { email: matchedUser.email },
-            process.env.JWT_TOKEN,
+            process.env.REFRESH_TOKEN,
             { expiresIn: "12h" }
         );
         // Saving refreshToken with current user

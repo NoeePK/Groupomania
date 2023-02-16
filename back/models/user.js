@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
-const defaultRole = require("../config/roles_list");
+const defaultRole = process.env.USER;
 
 const userSchema = mongoose.Schema({
     email: {
@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
     roles: {
         User: {
             type: Number,
-            default: defaultRole.User,
+            default: defaultRole,
         },
         Admin: {type :Number},
     },

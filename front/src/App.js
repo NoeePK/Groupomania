@@ -15,6 +15,9 @@ import Publish from "./pages/Forms/Publish";
 import Profile from "./pages/Profile";
 import UpdateProfile from "./pages/Forms/UpdateProfile";
 
+const defaultUser = process.env.USER;
+const Admin = process.env.ADMIN;
+
 const App = () => {
     return (
         <Routes>
@@ -22,23 +25,22 @@ const App = () => {
                 {/* Routes publiques */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
-                <Route path="/About" element={<About />} />
-                
-             
-                {/* Routes privées */}
+                <Route path="/about" element={<About />} />
+
                 {/* Accès User */}
-                <Route element={<RequireAuth allowedRoles={2001}/>}>
+                <Route element={<RequireAuth allowedRoles={defaultUser} />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/publication/:id" element={<Publication />} />
-                    <Route path="profile/:id" element={<Profile />} />
-                    <Route path="publish" element={<Publish />} />
-                    <Route path="updateProfile" element={<UpdateProfile />} />
-                    <Route path="*" element={<NotFound />} />
+                    <Route path="/profile/:id" element={<Profile />} />
+                    <Route path="/publish" element={<Publish />} />
+                    <Route path="/updateProfile" element={<UpdateProfile />} />
                     <Route path="/unauthorized" element={<Unauthorized />} />
                 </Route>
 
                 {/* Accès Admin */}
-                <Route element={<RequireAuth allowedRoles={[5150]} />}></Route>
+                <Route element={<RequireAuth allowedRoles={Admin} />}></Route>
+
+                <Route path="*" element={<NotFound />} />
             </Route>
         </Routes>
     );

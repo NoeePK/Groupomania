@@ -1,26 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { fetchData } from "../../api/handleData";
-
-import logout from "../../assets/logout.svg";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../../context/AuthProvider";
 import logo from "../../assets/logo-white.svg";
 
-const PROFILES_URL = "/profiles";
-
 const Header = () => {
-    const profile = fetchData(PROFILES_URL);
+    const { setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const logout = async () => {
+        setAuth({});
+        navigate("/login");
+    };
 
     return (
         <header>
             <img src={logo} alt="Logo de Groupomania"></img>
             <nav>
                 <Link to="/">Accueil</Link>
-                <Link to={`/Profile/${profile.id}`}>Profil</Link>
-                <Link to={"/Publish"}>Publier</Link>
-                <Link to={"/About"}>A propos</Link>
-                <div className="logout-button">
-                    <img src={logout} alt="Se déconnecter" />
-                </div>
+                <Link to={"/updateProfile"}>Mon profil</Link>
+                <Link to={"/publish"}>Publier</Link>
+                <button onClick={logout}>Déconnexion</button>
             </nav>
         </header>
     );

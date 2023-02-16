@@ -18,7 +18,7 @@ const Publish = () => {
         };
 
         axios({
-            url: `http://localhost:8080/api/publications`,
+            url: `http://localhost:3500/api/publications`,
             method: "POST",
             data: payload,
         })

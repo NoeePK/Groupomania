@@ -21,7 +21,7 @@ const UpdateProfile = () => {
         };
 
         axios({
-            url: `http://localhost:8080/api/profile`,
+            url: `http://localhost:3500/api/profile`,
             method: "POST",
             data: payload,
         })

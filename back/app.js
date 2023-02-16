@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const verifyCredentials = require("./middlewares/verifyCredentials");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
-const connectDB = require("./config/db-config")
+const connectDB = require("./config/db-config");
 
 // Connexion à la BDD
 connectDB();
@@ -21,18 +21,18 @@ app.use(cookieParser());
 
 app.use("/images", express.static(path.join(__dirname, "images")));
 
+
 // Routes pour l'authentification
-app.use("/register", require("./routes/auth"))
-app.use("/login", require("./routes/auth"));
-app.use("/logout", require("./routes/auth"));
+app.use("/register", require("./routes/register"));
+app.use("/login", require("./routes/login"));
+app.use("/logout", require("./routes/logout"));
 app.use("/refresh", require("./routes/refreshToken"));
 
 // Routes où authentification est obligatoire
 app.use(verifyToken);
-app.use("/profiles", require("./routes/profile"))
-app.use("/posts", require("./routes/post") )
+app.use("/profiles", require("./routes/profile"));
+app.use("/posts", require("./routes/post"));
 
-mongoose.set("strictQuery", false)
-
+mongoose.set("strictQuery", false);
 
 module.exports = app;

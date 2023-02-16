@@ -1,4 +1,3 @@
-
 const jwt = require("jsonwebtoken");
 
 const refreshToken = async (req, res) => {
@@ -9,7 +8,7 @@ const refreshToken = async (req, res) => {
     const matchedUser = await User.findOne({ refreshToken }).exec();
     if (!matchedUser) return res.sendStatus(403); //Forbidden
     // Vérifier token
-    jwt.verify(refreshToken, process.env.JWT_TOKEN, (err, decoded) => {
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN, (err, decoded) => {
         if (err || matchedUser.username !== decoded.username)
             return res.sendStatus(403);
         const roles = Object.values(matchedUser.roles);

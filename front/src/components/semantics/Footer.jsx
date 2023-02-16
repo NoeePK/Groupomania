@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import image from "../../assets/logo-white.svg";
 
 const Footer = () => {
@@ -8,6 +9,7 @@ const Footer = () => {
                 className="footer-logo"
                 src={image}
                 alt="Logo de Groupomania"></img>
+            <Link to={"/about"}>Pour en savoir plus sur nous</Link>
             <p>© 2022. All rights reserved.</p>
         </footer>
     );

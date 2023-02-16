@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const profileCtrl = require("../controllers/profiles");
-const ROLES_LIST = require("../config/roles_list");
+const defaultUser = process.env.USER;
+const ADMIN = process.env.ADMIN;
 const verifyRoles = require("../middlewares/verifyRoles");
+
 
 // Récupérer tous les profils
 router.get("/", profileCtrl.getAllProfiles);
@@ -20,7 +22,7 @@ router.put("/updateProfile", profileCtrl.updateProfile);
 // Supprimer un profil (uniquement par un admin)
 router.delete(
     "/deleteProfile",
-    verifyRoles(ROLES_LIST.Admin),
+    verifyRoles(ADMIN),
     profileCtrl.deleteProfile
 );
 
