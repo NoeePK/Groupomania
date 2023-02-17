@@ -14,7 +14,7 @@ const register = async (req, res) => {
 
     try {
         const cryptedEmail = await cryptoJS
-            .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
+            .HmacSHA256(email, process.env.CRYPTO_EMAIL)
             .toString();
 
         const hashedPwd = await bcrypt.hash(password, 10);
@@ -22,7 +22,7 @@ const register = async (req, res) => {
         // Enregistrer le nouvel utilisateur
         const result = await User.create({
             email: cryptedEmail,
-            roles: {"User": 2001 },
+            roles: { User: 2001 },
             password: hashedPwd,
         });
 
@@ -46,17 +46,19 @@ const login = async (req, res) => {
         });
 
     const cryptedEmail = await cryptoJS
-        .HmacSHA256(req.body.email, `${process.env.CRYPTO_EMAIL}`)
+        .HmacSHA256(email, process.env.CRYPTO_EMAIL)
         .toString();
 
     const matchedUser = await User.findOne({ email: cryptedEmail }).exec();
-    if (!matchedUser) return res.sendStatus(401); //Unauthorized
+    // SI : email non-trouvé
+    if (!matchedUser) return res.sendStatus(401);
 
-    // evaluate password
     const matchPwd = await bcrypt.compare(password, matchedUser.password);
+
+    // SI : correspondance trouvée
     if (matchPwd) {
         const roles = Object.values(matchedUser.roles).filter(Boolean);
-        // Attribuer token
+        // Créer token
         const accessToken = jwt.sign(
             {
                 authInfo: {
@@ -72,13 +74,13 @@ const login = async (req, res) => {
             process.env.REFRESH_TOKEN,
             { expiresIn: "12h" }
         );
-        // Saving refreshToken with current user
+        // Attribuer refreshToken à l'utilisateur
         matchedUser.refreshToken = refreshToken;
         const result = await matchedUser.save();
         console.log(result);
         console.log(roles);
 
-        // Creates Secure Cookie with refresh token
+        //  Créer un cookie avec ce token
         res.cookie("jwt", refreshToken, {
             httpOnly: true,
             secure: true,
@@ -88,37 +90,18 @@ const login = async (req, res) => {
 
         // Send authorization roles and access token to user
         res.json({ roles, accessToken });
-    } else {
+    }
+    // SINON : Mot de passe ne correspond pas
+    else {
         res.sendStatus(401);
     }
 };
 
 // Déconnexion
 const logout = async (req, res) => {
-    // On client, also delete the accessToken
-
     const cookies = req.cookies;
-    if (!cookies?.jwt) return res.sendStatus(204); //No content
-    const refreshToken = cookies.jwt;
-
-    // Is refreshToken in db?
-    const matchedUser = await User.findOne({ refreshToken }).exec();
-    if (!matchedUser) {
-        res.clearCookie("jwt", {
-            httpOnly: true,
-            sameSite: "None",
-            secure: true,
-        });
-        return res.sendStatus(204);
-    }
-
-    // Delete refreshToken in db
-    matchedUser.refreshToken = "";
-    const result = await matchedUser.save();
-    console.log(result);
-
-    res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true });
-    res.sendStatus(204);
+    // Supprimer les cookies
+    if (!cookies?.jwt) return res.sendStatus(204);
 };
 
 module.exports = { register, login, logout };

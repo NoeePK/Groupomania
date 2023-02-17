@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "../../api/axios";
-import { REGEX } from "../../components/config/regex";
+import axios from "../api/axios";
+import { REGEX } from "../components/config/regex";
 const REGISTER_URL = "/register";
 
 const Register = () => {

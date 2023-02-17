@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { REGEX } from "../../components/config/regex";
-import { API_ROUTES } from "../../api/api_routes";
 import serviceList from "../../api/service_list.json";
-import axios from "../../api/axios";
-
-import logoName from "../../assets/id-logo.svg";
-import logoService from "../../assets/logo-service.svg";
-import warning from "../../assets/warning.svg";
 
 const Signup = () => {
     const { setAuth } = useAuth();

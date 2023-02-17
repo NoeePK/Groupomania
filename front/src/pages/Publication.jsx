@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { API_ROUTES } from "../api/api_routes";
 import { fetchData } from "../api/handleData";
-import NotFound from "./Errors/NotFound";
+import NotFound from "./NotFound";
 import LikingSystem from "../components/LinkingSystem";
 import Comments from "../components/Comments";
 

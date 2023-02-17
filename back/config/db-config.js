@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const { MongoClient, ServerApiVersion } = require("mongodb");
+const URI = process.env.DB_URI;
 
 // Connexion à la base de données
 

@@ -2,11 +2,10 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { API_ROUTES } from "../api/api_routes";
 import { fetchData } from "../api/handleData";
-import UpdateProfile from "./Forms/UpdateProfile";
+import UpdateProfile from "./UpdateProfile";
 import ProfilesBrowser from "../components/browsers/ProfilesBrowser";
 import PublicationsBrowser from "../components/browsers/PublicationsBrowser";
-import NotFound from "./Errors/NotFound";
-
+import NotFound from "./NotFound";
 
 // Peut-être un carrousel avec un bouton "découvrir d'autres collègues"
 // SI admin ou si profile t'appartient, Afficher le bouton modifier

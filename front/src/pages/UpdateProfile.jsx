@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import serviceList from "../../api/service_list.json"
+import serviceList from "../api/service_list.json"
 
 const UpdateProfile = () => {
     const [firstName, setFirstName] = useState("");
@@ -21,7 +21,7 @@ const UpdateProfile = () => {
         };
 
         axios({
-            url: `http://localhost:3500/api/profile`,
+            url: `http://localhost:8080/api/profile`,
             method: "POST",
             data: payload,
         })

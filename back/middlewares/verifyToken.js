@@ -6,9 +6,10 @@ const verifyToken = (req, res, next) => {
     const token = authHeader.split(" ")[1];
     console.log(token);
     jwt.verify(token, process.env.JWT_TOKEN, (err, decoded) => {
-        if (err) return res.sendStatus(403); //invalid token
-        req.user = decoded.UserInfo.userId;
-        req.roles = decoded.UserInfo.userRole;
+// 403 = Forbidden (token invalide)
+        if (err) return res.sendStatus(403);
+        req.email = decoded.authInfo.email;
+        req.roles = decoded.authInfo.roles;
         next();
     });
 };

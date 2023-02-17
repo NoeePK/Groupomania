@@ -5,7 +5,7 @@ const app = require("./app");
 const normalizePort = require("./middlewares/verifyPort");
 const errorHandler = require("./middlewares/errorHandler");
 
-const port = normalizePort(process.env.PORT || 3500);
+const port = normalizePort(process.env.PORT || 8080);
 app.set("port", port);
 
 const server = http.createServer(app);

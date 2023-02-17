@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/unauthorized.svg";
+import logo from "../assets/unauthorized.svg";
 
 const Unauthorized = () => {
     const navigate = useNavigate();
