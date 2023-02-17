@@ -25,13 +25,13 @@ app.use(cookieParser());
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Routes pour l'authentification
-app.use("/auth", require("./routes/auth"));
-app.use("/refresh", require("./routes/refreshToken"));
+app.use("/api/auth", require("./routes/auth"));
+app.use("/api/refresh", require("./routes/refreshToken"));
 
 // Routes où authentification est obligatoire
 app.use(verifyToken);
-app.use("/profiles", require("./routes/profile"));
-app.use("/posts", require("./routes/post"));
+app.use("/api/profiles", require("./routes/profile"));
+app.use("/api/posts", require("./routes/post"));
 
 
 
